@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from "./routes/users.js";
+import funcionariosRota from "./routes/funcionarios.js";
+import produtosRota from "./routes/produtos.js";
 
 const app = express();
 const PORT = 8080;
@@ -8,7 +9,8 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.json());
 
-app.use("/", userRoutes);
+app.use("/", funcionariosRota);
+app.use("/", produtosRota);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

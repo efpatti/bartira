@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 
-export const getUsers = (_, res) => {
+export const pegarFuncionarios = (_, res) => {
   const q = "SELECT * FROM funcionarios";
 
   db.query(q, (err, data) => {
@@ -9,7 +9,7 @@ export const getUsers = (_, res) => {
   });
 };
 
-export const addUser = (req, res) => {
+export const adicionarFuncionarios = (req, res) => {
   const q =
     "INSERT INTO funcionarios (`nome`, `email`, `cargo`, `cpf`, `endereco`, `senha`) VALUES(?)";
 
@@ -24,11 +24,11 @@ export const addUser = (req, res) => {
 
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
-    return res.status(200).json("Usuário adicionado com sucesso!");
+    return res.status(200).json("Funcionário adicionado com sucesso!");
   });
 };
 
-export const updateUser = (req, res) => {
+export const atualizarFuncionario = (req, res) => {
   const q =
     "UPDATE funcionarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `endereco` = ?, `senha` = ? WHERE `idCadastro` = ?";
 
@@ -43,15 +43,15 @@ export const updateUser = (req, res) => {
 
   db.query(q, [...values, req.params.idCadastro], (err) => {
     if (err) return res.json(err);
-    return res.status(200).json("Usuário atualizado com sucesso!");
+    return res.status(200).json("Funcionário atualizado com sucesso!");
   });
 };
 
-export const deleteUser = (req, res) => {
+export const deletarFuncionario = (req, res) => {
   const q = "DELETE FROM funcionarios WHERE `idCadastro` = ?";
 
   db.query(q, [req.params.idCadastro], (err) => {
     if (err) return res.json(err);
-    return res.status(200).json("Usuário deletado com sucesso!");
+    return res.status(200).json("Funcionário deletado com sucesso!");
   });
 };
