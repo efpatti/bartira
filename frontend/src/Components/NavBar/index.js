@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
-import { Avatar, Stack, Input, Flex } from '@chakra-ui/react'
+import { Avatar, Stack, Input, Text } from '@chakra-ui/react'
 
 
 const NavBar = () => {
@@ -12,7 +12,7 @@ const NavBar = () => {
 
           <Input borderRadius={20} bg='white' m={35} w={500} justify="center" align="center" placeholder='O que você está buscando?' />
 
-          <Avatar mt={30} src='https://bit.ly/broken-link' />
+          <Avatar mt={30} src='https://bit.ly/broken-link' /><Text mt={10} color="white">Produtos</Text> 
           <Avatar mt={30} src='https://bit.ly/broken-link' />
           <Avatar mt={30} src='https://bit.ly/broken-link' />
 
