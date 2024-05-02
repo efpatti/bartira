@@ -9,7 +9,7 @@ export const pegarFuncionarios = (_, res) => {
   });
 };
 
-export const adicionarFuncionarios = (req, res) => {
+export const adicionarFuncionario = (req, res) => {
   const q =
     "INSERT INTO funcionarios (`nome`, `email`, `cargo`, `cpf`, `endereco`, `senha`) VALUES(?)";
 

@@ -14,7 +14,7 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridProdutos = ({ produtos, setProdutos, setAoEditar }) => {
+const Grid = ({ produtos, setProdutos, setAoEditar }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -23,7 +23,7 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditar }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:8080/produtos" + id);
+      await axios.delete("http://localhost:8080" + id);
       const newArray = produtos.filter((user) => user.id !== id);
       setProdutos(newArray);
       toast({
@@ -90,10 +90,10 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditar }) => {
 };
 
 // Definindo PropTypes para validar as props
-GridProdutos.propTypes = {
+Grid.propTypes = {
   produtos: PropTypes.array.isRequired,
   setProdutos: PropTypes.func.isRequired,
   setAoEditar: PropTypes.func.isRequired,
 };
 
-export default GridProdutos;
+export default Grid;

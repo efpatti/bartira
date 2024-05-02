@@ -1,7 +1,7 @@
 import { db } from "../db.js";
 
-export const pegarFuncionarios = (_, res) => {
-  const q = "SELECT * FROM funcionarios";
+export const pegarProdutos = (_, res) => {
+  const q = "SELECT * FROM produtos";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);
@@ -9,9 +9,9 @@ export const pegarFuncionarios = (_, res) => {
   });
 };
 
-export const adicionarFuncionario = (req, res) => {
+export const adicionarProduto = (req, res) => {
   const q =
-    "INSERT INTO funcionarios (`nome`, `descricao`, `preco`, `quantidade`, `categoria`) VALUES(?)";
+    "INSERT INTO produtos (`nome`, `descricao`, `preco`, `quantidade`, `categoria`) VALUES(?)";
 
   const values = [
     req.body.nome,
@@ -27,9 +27,9 @@ export const adicionarFuncionario = (req, res) => {
   });
 };
 
-export const atualizarFuncionarios = (req, res) => {
+export const atualizarProduto = (req, res) => {
   const q =
-    "UPDATE funcionarios SET `nome` = ?, `descricao` = ?, `preco` = ?, `quantidade` = ?, `categoria` = ? WHERE `idProduto` = ?";
+    "UPDATE produtos SET `nome` = ?, `descricao` = ?, `preco` = ?, `quantidade` = ?, `categoria` = ? WHERE `idProduto` = ?";
 
   const values = [
     req.body.nome,
@@ -45,7 +45,7 @@ export const atualizarFuncionarios = (req, res) => {
   });
 };
 
-export const deletarFuncionario = (req, res) => {
+export const deletarProduto = (req, res) => {
   const q = "DELETE FROM funcionarios WHERE `idProduto` = ?";
 
   db.query(q, [req.params.idProduto], (err) => {

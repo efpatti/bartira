@@ -13,8 +13,8 @@ const Form = ({ pegarProdutos, aoEditar, setAoEditar }) => {
       produto.nome.value = aoEditar.nome;
       produto.descricao.value = aoEditar.descricao;
       produto.preco.value = aoEditar.preco;
-      produto.quantidade.value = aoEditar.preco;
-      produto.categoria.value = aoEditar.preco;
+      produto.quantidade.value = aoEditar.quantidade;
+      produto.categoria.value = aoEditar.categoria;
     }
   }, [aoEditar]);
 
@@ -37,7 +37,7 @@ const Form = ({ pegarProdutos, aoEditar, setAoEditar }) => {
     if (aoEditar) {
       console.log("Editando produto:", produto);
       await axios
-        .put(`http://localhost:8080/produtos${aoEditar.idCadastro}`, {
+        .put(`http://localhost:8080/${aoEditar.idProduto}`, {
           nome: produto.nome.value,
           descricao: produto.descricao.value,
           preco: produto.preco.value,

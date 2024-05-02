@@ -12,7 +12,7 @@ import Estoque from "./Estoque";
 
 function DashBoard() {
   return (
-    <Center h="100vh">
+    <Center minH="100vh">
       <Box w="50%" borderRadius="13px" border="1px">
         <Tabs isFitted variant="enclosed" colorScheme="green">
           <TabList mb="1em">

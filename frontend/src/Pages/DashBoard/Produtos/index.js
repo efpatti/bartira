@@ -34,8 +34,8 @@ const DashBoardProdutos = () => {
         />
         <Grid
           funcionarios={funcionarios}
+          setFuncionarios={setFuncionarios}
           setAoEditar={setAoEditar}
-          setOnEdit={setAoEditar}
         />
       </Container>
       <ToastContainer autoClose={3000} position="bottom-left" />
