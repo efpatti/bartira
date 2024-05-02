@@ -42,14 +42,14 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
     }
   };
 
-  // Função para formatar a data de nascimento para o formato brasileiro
-  const formatarDataBrasileira = (data) => {
-    const dataObj = new Date(data);
-    const dia = dataObj.getDate().toString().padStart(2, "0");
-    const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataObj.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-  };
+  // // Função para formatar a data de nascimento para o formato brasileiro
+  // const formatarDataBrasileira = (data) => {
+  //   const dataObj = new Date(data);
+  //   const dia = dataObj.getDate().toString().padStart(2, "0");
+  //   const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
+  //   const ano = dataObj.getFullYear();
+  //   return `${dia}/${mes}/${ano}`;
+  // };
 
   return (
     <Container maxW="700px">
@@ -58,10 +58,10 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
           <Thead>
             <Tr>
               <Th>Nome</Th>
-              <Th>Email</Th>
-              <Th>Telefone</Th>
-              <Th>Data de Nascimento</Th>
-              <Th>Endereço</Th>
+              <Th>Descrição</Th>
+              <Th>Preço</Th>
+              <Th>Categoria</Th>
+              <Th>Quantidade</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -69,11 +69,11 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
           <Tbody>
             {produtos.map((item, i) => (
               <Tr key={i}>
-                <Td>{item.name}</Td>
-                <Td>{item.email}</Td>
-                <Td>{item.cpf}</Td>
-                <Td>{formatarDataBrasileira(item.birth_day)}</Td>
-                <Td>{item.address}</Td>
+                <Td>{item.nome_produto}</Td>
+                <Td>{item.descricao_produto}</Td>
+                <Td>{item.preco_produto}</Td>
+                <Td>{item.categoria_produto}</Td>
+                <Td>{item.quantidade_produto}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>

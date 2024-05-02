@@ -62,6 +62,7 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
               <Th>Telefone</Th>
               <Th>Data de Nascimento</Th>
               <Th>Endereço</Th>
+              <Th>Senha</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -69,11 +70,12 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
           <Tbody>
             {funcionarios.map((item, i) => (
               <Tr key={i}>
-                <Td>{item.name}</Td>
-                <Td>{item.email}</Td>
-                <Td>{item.cpf}</Td>
-                <Td>{formatarDataBrasileira(item.birth_day)}</Td>
-                <Td>{item.address}</Td>
+                <Td>{item.nome_funcionario}</Td>
+                <Td>{item.email_funcionario}</Td>
+                <Td>{item.cpf_funcionario}</Td>
+                <Td>{formatarDataBrasileira(item.cargo_funcionario)}</Td>
+                <Td>{item.endereco_funcionario}</Td>
+                <Td>{item.senha_funcionario}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>

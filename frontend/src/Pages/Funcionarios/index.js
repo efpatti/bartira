@@ -7,6 +7,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DashboardFuncionarios = () => {
+  useEffect(() => {
+    document.title = "Bartira | Funcionários";
+  }, []);
+
   const [funcionarios, setFuncionarios] = useState([]);
   const [aoEditar, setAoEditar] = useState(null);
 

@@ -9,8 +9,13 @@ import {
 } from "@chakra-ui/react";
 import CadClientes from "./CadClientes";
 import CadFornecedores from "./CadFornecedores";
+import { useEffect } from "react";
 
 function Uteis() {
+  useEffect(() => {
+    document.title = "Bartira | Utilidades";
+  }, []);
+
   return (
     <Center h="100vh">
       <Box w="50%" h="60%" borderRadius="13px" border="1px">

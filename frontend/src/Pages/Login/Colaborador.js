@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Components/Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,9 +19,6 @@ import {
 const Colaborador = () => {
   const { colorMode } = useColorMode();
 
-  useEffect(() => {
-    document.title = "Centro | Entrar";
-  }, []);
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
 

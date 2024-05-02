@@ -9,8 +9,12 @@ import {
 } from "@chakra-ui/react";
 import Cliente from "./Cliente";
 import Colaborador from "./Colaborador";
+import { useEffect } from "react";
 
 function Login() {
+  useEffect(() => {
+    document.title = "Bartira | Login";
+  }, []);
   return (
     <Center h="110vh">
       <Box w="40%" minH="50%" borderRadius="13px" border="1px">

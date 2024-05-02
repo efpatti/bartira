@@ -10,12 +10,12 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
   useEffect(() => {
     if (aoEditar) {
       const funcionario = ref.current;
-      funcionario.nome.value = aoEditar.nome;
-      funcionario.email.value = aoEditar.email;
-      funcionario.cargo.value = aoEditar.cargo;
-      funcionario.cpf.value = aoEditar.cpf;
-      funcionario.endereco.value = aoEditar.endereco;
-      funcionario.senha.value = aoEditar.senha;
+      funcionario.nome_funcionario.value = aoEditar.nome;
+      funcionario.email_funcionario.value = aoEditar.email;
+      funcionario.cargo_funcionario.value = aoEditar.cargo;
+      funcionario.cpf_funcionario.value = aoEditar.cpf;
+      funcionario.endereco_funcionario.value = aoEditar.endereco;
+      funcionario.senha_funcionario.value = aoEditar.senha;
     }
   }, [aoEditar]);
 
@@ -27,25 +27,25 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     const funcionario = ref.current;
 
     if (
-      !funcionario.nome.value ||
-      !funcionario.email.value ||
-      !funcionario.cargo.value ||
-      !funcionario.cpf.value ||
-      !funcionario.endereco.value ||
-      !funcionario.senha.value
+      !funcionario.nome_funcionario.value ||
+      !funcionario.email_funcionario.value ||
+      !funcionario.cargo_funcionario.value ||
+      !funcionario.cpf_funcionario.value ||
+      !funcionario.endereco_funcionario.value ||
+      !funcionario.senha_funcionario.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
     if (aoEditar) {
       console.log("Editando funcionário:", funcionario);
       await axios
-        .put(`http://localhost:8080/funcionarios${aoEditar.idFuncionario}`, {
-          nome: funcionario.nome.value,
-          email: funcionario.email.value,
-          cargo: funcionario.cargo.value,
-          cpf: funcionario.cpf.value,
-          endereco: funcionario.endereco.value,
-          senha: funcionario.senha.value,
+        .put(`http://localhost:8080/funcionarios/${aoEditar.idFuncionario}`, {
+          nome: funcionario.nome_funcionario.value,
+          email: funcionario.email_funcionario.value,
+          cargo: funcionario.cargo_funcionario.value,
+          cpf: funcionario.cpf_funcionario.value,
+          endereco: funcionario.endereco_funcionario.value,
+          senha: funcionario.senha_funcionario.value,
         })
         .then(({ data }) => {
           console.log("Edit response:", data);
@@ -59,12 +59,12 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
       console.log("Adicionando novo funcionário:", funcionario);
       await axios
         .post("http://localhost:8080/funcionarios", {
-          nome: funcionario.nome.value,
-          email: funcionario.email.value,
-          cargo: funcionario.cargo.value,
-          cpf: funcionario.cpf.value,
-          endereco: funcionario.endereco.value,
-          senha: funcionario.senha.value,
+          nome_funcionario: funcionario.nome_funcionario.value,
+          email_funcionario: funcionario.email_funcionario.value,
+          cargo_funcionario: funcionario.cargo_funcionario.value,
+          cpf_funcionario: funcionario.cpf_funcionario.value,
+          endereco_funcionario: funcionario.endereco_funcionario.value,
+          senha_funcionario: funcionario.senha_funcionario.value,
         })
         .then(({ data }) => {
           console.log("Add response:", data);
@@ -75,12 +75,12 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
           toast.error(data);
         });
     }
-    funcionario.nome.value = "";
-    funcionario.email.value = "";
-    funcionario.cargo.value = "";
-    funcionario.cpf.value = "";
-    funcionario.endereco.value = "";
-    funcionario.senha.value = "";
+    funcionario.nome_funcionario.value = "";
+    funcionario.email_funcionario.value = "";
+    funcionario.cargo_funcionario.value = "";
+    funcionario.cpf_funcionario.value = "";
+    funcionario.endereco_funcionario.value = "";
+    funcionario.senha_funcionario.value = "";
     setAoEditar(null);
     pegarFuncionarios();
   };
@@ -89,27 +89,27 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     <form ref={ref} onSubmit={handleSubmit}>
       <FormControl>
         <FormLabel>Nome</FormLabel>
-        <Input name="nome" />
+        <Input name="nome_funcionario" />
       </FormControl>
       <FormControl>
         <FormLabel>Email</FormLabel>
-        <Input name="email" type="email" />
+        <Input name="email_funcionario" type="email" />
       </FormControl>
       <FormControl>
         <FormLabel>Cargo</FormLabel>
-        <Input name="cargo" type="text" />
+        <Input name="cargo_funcionario" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>CPF</FormLabel>
-        <Input name="cpf" />
+        <Input name="cpf_funcionario" />
       </FormControl>
       <FormControl>
         <FormLabel>Endereço</FormLabel>
-        <Input name="endereco" type="text" />
+        <Input name="endereco_funcionario" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Senha</FormLabel>
-        <Input name="senha" type="password" />
+        <Input name="senha_funcionario" type="password" />
       </FormControl>
       <Button type="submit" variant="ghost">
         Salvar
