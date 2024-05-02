@@ -23,7 +23,7 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:8080/contas" + id);
+      await axios.delete("http://localhost:8080" + id);
       const newArray = contas.filter((user) => user.id !== id);
       setContas(newArray);
       toast({
@@ -69,11 +69,11 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
           <Tbody>
             {contas.map((item, i) => (
               <Tr key={i}>
-                <Td>{item.nome}</Td>
-                <Td>{item.descricao}</Td>
-                <Td>{item.categoria}</Td>
-                <Td>{item.preco}</Td>
-                <Td>{item.status}</Td>
+                <Td>{item.nome_conta}</Td>
+                <Td>{item.descricao_conta}</Td>
+                <Td>{item.categoria_conta}</Td>
+                <Td>{item.preco_conta}</Td>
+                <Td>{item.status_conta}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>

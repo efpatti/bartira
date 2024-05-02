@@ -11,14 +11,14 @@ export const pegarContas = (_, res) => {
 
 export const adicionarConta = (req, res) => {
   const q =
-    "INSERT INTO contas (`nome`, `email`, `cargo`, `cpf`, `categoria`) VALUES(?)";
+    "INSERT INTO contas (`nome_conta`, `descricao_conta`, `preco_conta`, `quantidade_conta`, `categoria_conta`) VALUES(?)";
 
   const values = [
-    req.body.nome,
-    req.body.descricao,
-    req.body.preco,
-    req.body.quantidade,
-    req.body.categoria,
+    req.body.nome_conta,
+    req.body.descricao_conta,
+    req.body.preco_conta,
+    req.body.quantidade_conta,
+    req.body.categoria_conta,
   ];
 
   db.query(q, [values], (err) => {
@@ -29,14 +29,14 @@ export const adicionarConta = (req, res) => {
 
 export const atualizarConta = (req, res) => {
   const q =
-    "UPDATE contas SET `nome` = ?, `descricao` = ?, `preco` = ?, `quantidade` = ?, `categoria` = ? WHERE `idConta` = ?";
+    "UPDATE contas SET `nome_conta` = ?, `descricao_conta` = ?, `preco_conta` = ?, `quantidade_conta` = ?, `categoria_conta` = ? WHERE `idConta` = ?";
 
   const values = [
-    req.body.nome,
-    req.body.descricao,
-    req.body.preco,
-    req.body.quantidade,
-    req.body.categoria,
+    req.body.nome_conta,
+    req.body.descricao_conta,
+    req.body.preco_conta,
+    req.body.quantidade_conta,
+    req.body.categoria_conta,
   ];
 
   db.query(q, [...values, req.params.idConta], (err) => {
@@ -50,6 +50,6 @@ export const deletarConta = (req, res) => {
 
   db.query(q, [req.params.idConta], (err) => {
     if (err) return res.json(err);
-    return res.status(200).json("Conta deletado com sucesso!");
+    return res.status(200).json("Conta deletada com sucesso!");
   });
 };

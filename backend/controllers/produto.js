@@ -11,13 +11,13 @@ export const pegarProdutos = (_, res) => {
 
 export const adicionarProduto = (req, res) => {
   const q =
-    "INSERT INTO produtos (`nome`, `descricao`, `preco`, `quantidade`, `categoria`) VALUES(?)";
+    "INSERT INTO produtos (`nome_produto`, `descricao_produto`, `preco_produto`, `quantidade_produto`, `categoria`) VALUES(?)";
 
   const values = [
-    req.body.nome,
-    req.body.descricao,
-    req.body.preco,
-    req.body.quantidade,
+    req.body.nome_produto,
+    req.body.descricao_produto,
+    req.body.preco_produto,
+    req.body.quantidade_produto,
     req.body.categoria,
   ];
 
@@ -29,13 +29,13 @@ export const adicionarProduto = (req, res) => {
 
 export const atualizarProduto = (req, res) => {
   const q =
-    "UPDATE produtos SET `nome` = ?, `descricao` = ?, `preco` = ?, `quantidade` = ?, `categoria` = ? WHERE `idProduto` = ?";
+    "UPDATE produtos SET `nome_produto` = ?, `descricao_produto` = ?, `preco_produto` = ?, `quantidade_produto` = ?, `categoria` = ? WHERE `idProduto` = ?";
 
   const values = [
-    req.body.nome,
-    req.body.descricao,
-    req.body.preco,
-    req.body.quantidade,
+    req.body.nome_produto,
+    req.body.descricao_produto,
+    req.body.preco_produto,
+    req.body.quantidade_produto,
     req.body.categoria,
   ];
 

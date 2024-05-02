@@ -11,15 +11,15 @@ export const pegarFuncionarios = (_, res) => {
 
 export const adicionarFuncionario = (req, res) => {
   const q =
-    "INSERT INTO funcionarios (`nome`, `email`, `cargo`, `cpf`, `endereco`, `senha`) VALUES(?)";
+    "INSERT INTO funcionarios (`nome_funcionario`, `email_funcionario`, `cargo_funcionario`, `cpf_funcionario`, `endereco_funcionario`, `senha_funcionario`) VALUES(?)";
 
   const values = [
-    req.body.nome,
-    req.body.email,
-    req.body.cargo,
-    req.body.cpf,
-    req.body.endereco,
-    req.body.senha,
+    req.body.nome_funcionario,
+    req.body.email_funcionario,
+    req.body.cargo_funcionario,
+    req.body.cpf_funcionario_funcionario,
+    req.body.endereco_funcionario,
+    req.body.senha_funcionario,
   ];
 
   db.query(q, [values], (err) => {
@@ -30,15 +30,15 @@ export const adicionarFuncionario = (req, res) => {
 
 export const atualizarFuncionario = (req, res) => {
   const q =
-    "UPDATE funcionarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `endereco` = ?, `senha` = ? WHERE `idFuncionario` = ?";
+    "UPDATE funcionarios SET `nome_funcionario` = ?, `email_funcionario` = ?, `cargo_funcionario` = ?, `cpf_funcionario` = ?, `endereco_funcionario` = ?, `senha_funcionario` = ? WHERE `idFuncionario` = ?";
 
   const values = [
-    req.body.nome,
-    req.body.email,
-    req.body.cargo,
-    req.body.cpf,
-    req.body.endereco,
-    req.body.senha,
+    req.body.nome_funcionario,
+    req.body.email_funcionario,
+    req.body.cargo_funcionario,
+    req.body.cpf_funcionario,
+    req.body.endereco_funcionario,
+    req.body.senha_funcionario,
   ];
 
   db.query(q, [...values, req.params.idFuncionario], (err) => {

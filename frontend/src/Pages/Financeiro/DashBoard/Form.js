@@ -10,11 +10,11 @@ const Form = ({ pegarContas, aoEditar, setAoEditar }) => {
   useEffect(() => {
     if (aoEditar) {
       const conta = ref.current;
-      conta.nome.value = aoEditar.nome;
-      conta.descricao.value = aoEditar.descricao;
-      conta.preco.value = aoEditar.preco;
-      conta.quantidade.value = aoEditar.preco;
-      conta.categoria.value = aoEditar.preco;
+      conta.nome_conta.value = aoEditar.nome_conta;
+      conta.descricao_conta.value = aoEditar.descricao_conta;
+      conta.preco_conta.value = aoEditar.preco_conta;
+      conta.quantidade_conta.value = aoEditar.preco_conta;
+      conta.categoria_conta.value = aoEditar.preco_conta;
     }
   }, [aoEditar]);
 
@@ -26,23 +26,23 @@ const Form = ({ pegarContas, aoEditar, setAoEditar }) => {
     const conta = ref.current;
 
     if (
-      !conta.nome.value ||
-      !conta.descricao.value ||
-      !conta.quantidade.value ||
-      !conta.categoria.value ||
-      !conta.preco.value
+      !conta.nome_conta.value ||
+      !conta.descricao_conta.value ||
+      !conta.quantidade_conta.value ||
+      !conta.categoria_conta.value ||
+      !conta.preco_conta.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
     if (aoEditar) {
       console.log("Editando conta:", conta);
       await axios
-        .put(`http://localhost:8080/contas${aoEditar.idConta}`, {
-          nome: conta.nome.value,
-          descricao: conta.descricao.value,
-          preco: conta.preco.value,
-          quantidade: conta.quantidade.value,
-          categoria: conta.categoria.value,
+        .put(`http://localhost:8080/${aoEditar.idConta}`, {
+          nome_conta: conta.nome_conta.value,
+          descricao_conta: conta.descricao_conta.value,
+          preco_conta: conta.preco_conta.value,
+          quantidade_conta: conta.quantidade_conta.value,
+          categoria_conta: conta.categoria_conta.value,
         })
         .then(({ data }) => {
           console.log("Edit response:", data);
@@ -55,12 +55,12 @@ const Form = ({ pegarContas, aoEditar, setAoEditar }) => {
     } else {
       console.log("Adicionando nova conta:", conta);
       await axios
-        .post("http://localhost:8080/contas", {
-          nome: conta.nome.value,
-          descricao: conta.descricao.value,
-          preco: conta.preco.value,
-          quantidade: conta.quantidade.value,
-          categoria: conta.categoria.value,
+        .post("http://localhost:8080/", {
+          nome_conta: conta.nome_conta.value,
+          descricao_conta: conta.descricao_conta.value,
+          preco_conta: conta.preco_conta.value,
+          quantidade_conta: conta.quantidade_conta.value,
+          categoria_conta: conta.categoria_conta.value,
         })
         .then(({ data }) => {
           console.log("Add response:", data);
@@ -71,36 +71,36 @@ const Form = ({ pegarContas, aoEditar, setAoEditar }) => {
           toast.error(data);
         });
     }
-    conta.nome.value = "";
-    conta.descricao.value = "";
-    conta.preco.value = "";
-    conta.quantidade.value = "";
-    conta.categoria.value = "";
+    conta.nome_conta.value = "";
+    conta.descricao_conta.value = "";
+    conta.preco_conta.value = "";
+    conta.quantidade_conta.value = "";
+    conta.categoria_conta.value = "";
     setAoEditar(null);
     pegarContas();
   };
   return (
     <form ref={ref} onSubmit={handleSubmit}>
       <FormControl>
-        <FormLabel>Nome</FormLabel>
-        <Input name="nome_financa" />
+        <FormLabel>nome_conta</FormLabel>
+        <Input name="nome_conta" />
       </FormControl>
       <FormControl>
         <FormLabel>Descrição</FormLabel>
-        <Input name="descricao" type="descricao" />
+        <Input name="descricao_conta" type="descricao" />
       </FormControl>
 
       <FormControl>
         <FormLabel>Categoria</FormLabel>
-        <Input name="categoria" type="text" />
+        <Input name="categoria_conta" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Preço</FormLabel>
-        <Input name="preco" type="text" />
+        <Input name="preco_conta" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Status</FormLabel>
-        <Input name="quantidade" type="text" />
+        <Input name="status_conta" type="text" />
       </FormControl>
       <Button type="submit" variant="ghost">
         Salvar
