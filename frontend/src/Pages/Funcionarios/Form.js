@@ -39,7 +39,7 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     if (aoEditar) {
       console.log("Editando funcionário:", funcionario);
       await axios
-        .put(`http://localhost:8080/${aoEditar.idFuncionario}`, {
+        .put(`http://localhost:8080/funcionarios${aoEditar.idFuncionario}`, {
           nome: funcionario.nome.value,
           email: funcionario.email.value,
           cargo: funcionario.cargo.value,
@@ -58,7 +58,7 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     } else {
       console.log("Adicionando novo funcionário:", funcionario);
       await axios
-        .post("http://localhost:8080", {
+        .post("http://localhost:8080/funcionarios", {
           nome: funcionario.nome.value,
           email: funcionario.email.value,
           cargo: funcionario.cargo.value,

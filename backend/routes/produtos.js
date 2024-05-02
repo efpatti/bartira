@@ -8,12 +8,12 @@ import {
 
 const router = express.Router();
 
-router.get("/", pegarProdutos);
+router.get("/produtos", pegarProdutos);
 
-router.post("/", adicionarProduto);
+router.post("/produtos", adicionarProduto);
 
-router.put("/:idProduto", atualizarProduto);
+router.put("/produtos:idProduto", atualizarProduto);
 
-router.delete("/:idProduto", deletarProduto);
+router.delete("/produtos:idProduto", deletarProduto);
 
 export default router;

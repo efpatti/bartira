@@ -23,7 +23,7 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:8080/" + id);
+      await axios.delete("http://localhost:8080/funcionarios" + id);
       const newArray = funcionarios.filter((user) => user.id !== id);
       setFuncionarios(newArray);
       toast({

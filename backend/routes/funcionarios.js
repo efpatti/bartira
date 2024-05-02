@@ -8,12 +8,12 @@ import {
 
 const router = express.Router();
 
-router.get("/", pegarFuncionarios);
+router.get("/funcionarios", pegarFuncionarios);
 
-router.post("/", adicionarFuncionario);
+router.post("/funcionarios", adicionarFuncionario);
 
-router.put("/:idFuncionario", atualizarFuncionario);
+router.put("/funcionarios:idFuncionario", atualizarFuncionario);
 
-router.delete("/:idFuncionario", deletarFuncionario);
+router.delete("/funcionarios:idFuncionario", deletarFuncionario);
 
 export default router;

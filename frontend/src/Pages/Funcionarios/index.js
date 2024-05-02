@@ -12,7 +12,7 @@ const DashboardFuncionarios = () => {
 
   const pegarFuncionarios = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/");
+      const res = await axios.get("http://localhost:8080/funcionarios");
       setFuncionarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)));
     } catch (error) {
       toast.error(error);

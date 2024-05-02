@@ -23,7 +23,7 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditar }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:8080/" + id);
+      await axios.delete("http://localhost:8080/produtos" + id);
       const newArray = produtos.filter((user) => user.id !== id);
       setProdutos(newArray);
       toast({
