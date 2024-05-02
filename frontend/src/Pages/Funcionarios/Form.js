@@ -4,48 +4,48 @@ import axios from "axios";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const Form = ({ getUsers, onEdit, setOnEdit }) => {
+const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
   const ref = useRef();
 
   useEffect(() => {
-    if (onEdit) {
-      const user = ref.current;
-      user.nome.value = onEdit.nome;
-      user.email.value = onEdit.email;
-      user.cargo.value = onEdit.cargo;
-      user.cpf.value = onEdit.cpf;
-      user.endereco.value = onEdit.endereco;
-      user.senha.value = onEdit.senha;
+    if (aoEditar) {
+      const funcionario = ref.current;
+      funcionario.nome.value = aoEditar.nome;
+      funcionario.email.value = aoEditar.email;
+      funcionario.cargo.value = aoEditar.cargo;
+      funcionario.cpf.value = aoEditar.cpf;
+      funcionario.endereco.value = aoEditar.endereco;
+      funcionario.senha.value = aoEditar.senha;
     }
-  }, [onEdit]);
+  }, [aoEditar]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log("Submit form");
 
-    const user = ref.current;
+    const funcionario = ref.current;
 
     if (
-      !user.nome.value ||
-      !user.email.value ||
-      !user.cargo.value ||
-      !user.cpf.value ||
-      !user.endereco.value ||
-      !user.senha.value
+      !funcionario.nome.value ||
+      !funcionario.email.value ||
+      !funcionario.cargo.value ||
+      !funcionario.cpf.value ||
+      !funcionario.endereco.value ||
+      !funcionario.senha.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
-    if (onEdit) {
-      console.log("Editando usuário:", user);
+    if (aoEditar) {
+      console.log("Editando funcionário:", funcionario);
       await axios
-        .put(`http://localhost:8080/${onEdit.idCadastro}`, {
-          nome: user.nome.value,
-          email: user.email.value,
-          cargo: user.cargo.value,
-          cpf: user.cpf.value,
-          endereco: user.endereco.value,
-          senha: user.senha.value,
+        .put(`http://localhost:8080/${aoEditar.idFuncionario}`, {
+          nome: funcionario.nome.value,
+          email: funcionario.email.value,
+          cargo: funcionario.cargo.value,
+          cpf: funcionario.cpf.value,
+          endereco: funcionario.endereco.value,
+          senha: funcionario.senha.value,
         })
         .then(({ data }) => {
           console.log("Edit response:", data);
@@ -56,15 +56,15 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
           toast.error(data);
         });
     } else {
-      console.log("Adicionando novo usuário:", user);
+      console.log("Adicionando novo funcionário:", funcionario);
       await axios
         .post("http://localhost:8080", {
-          nome: user.nome.value,
-          email: user.email.value,
-          cargo: user.cargo.value,
-          cpf: user.cpf.value,
-          endereco: user.endereco.value,
-          senha: user.senha.value,
+          nome: funcionario.nome.value,
+          email: funcionario.email.value,
+          cargo: funcionario.cargo.value,
+          cpf: funcionario.cpf.value,
+          endereco: funcionario.endereco.value,
+          senha: funcionario.senha.value,
         })
         .then(({ data }) => {
           console.log("Add response:", data);
@@ -75,14 +75,14 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
           toast.error(data);
         });
     }
-    user.nome.value = "";
-    user.email.value = "";
-    user.cargo.value = "";
-    user.cpf.value = "";
-    user.endereco.value = "";
-    user.senha.value = "";
-    setOnEdit(null);
-    getUsers();
+    funcionario.nome.value = "";
+    funcionario.email.value = "";
+    funcionario.cargo.value = "";
+    funcionario.cpf.value = "";
+    funcionario.endereco.value = "";
+    funcionario.senha.value = "";
+    setAoEditar(null);
+    pegarFuncionarios();
   };
 
   return (
@@ -119,10 +119,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 };
 
 // Definindo PropTypes para validar as props
-Form.propTypes = {
-  getUsers: PropTypes.func.isRequired,
-  onEdit: PropTypes.object,
-  setOnEdit: PropTypes.func.isRequired,
+FormFuncionarios.propTypes = {
+  pegarFuncionarios: PropTypes.func.isRequired,
+  aoEditar: PropTypes.object,
+  setAoEditar: PropTypes.func.isRequired,
 };
 
-export default Form;
+export default FormFuncionarios;

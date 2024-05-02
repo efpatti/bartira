@@ -12,8 +12,8 @@ router.get("/", pegarFuncionarios);
 
 router.post("/", adicionarFuncionario);
 
-router.put("/:idCadastro", atualizarFuncionario);
+router.put("/:idFuncionario", atualizarFuncionario);
 
-router.delete("/:idCadastro", deletarFuncionario);
+router.delete("/:idFuncionario", deletarFuncionario);
 
 export default router;

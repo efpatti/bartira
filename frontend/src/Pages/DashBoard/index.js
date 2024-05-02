@@ -7,7 +7,7 @@ import {
   Box,
   Center,
 } from "@chakra-ui/react";
-import Produtos from "./Produtos";
+import Produtos from "./Produtos/Form";
 import Estoque from "./Estoque";
 
 function DashBoard() {

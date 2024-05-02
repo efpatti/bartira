@@ -1,8 +1,40 @@
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Box,
+  Center,
+} from "@chakra-ui/react";
+import DashBoardFinanceiro from "./DashBoard/Form";
+import Lucros from "./Lucros";
+import Despesas from "./Despesas";
+
 function Financeiro() {
   return (
-    <>
-      <h1>Financeiro</h1>
-    </>
+    <Center h="100vh">
+      <Box w="50%" borderRadius="13px" border="1px">
+        <Tabs isFitted variant="enclosed" colorScheme="green">
+          <TabList mb="1em">
+            <Tab>Dashboard</Tab>
+            <Tab>Despesas</Tab>
+            <Tab>Lucros</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <DashBoardFinanceiro />
+            </TabPanel>
+            <TabPanel>
+              <Despesas />
+            </TabPanel>
+            <TabPanel>
+              <Lucros />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
+    </Center>
   );
 }
 

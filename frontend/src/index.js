@@ -10,7 +10,7 @@ import Vendas from "./Pages/Vendas";
 import Funcionarios from "./Pages/Funcionarios";
 import Login from "./Pages/Login";
 import AuthProvider from "./Components/Provider/AuthProvider";
-import PrivateRoute from "./Route/PrivateRoute";
+// import PrivateRoute from "./Route/PrivateRoute";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
 import "./index.css";
@@ -30,51 +30,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/vendas",
-        element: (
-          <PrivateRoute>
-            <Vendas></Vendas>
-          </PrivateRoute>
-        ),
+        element: <Vendas></Vendas>,
       },
       {
         path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <DashBoard></DashBoard>
-          </PrivateRoute>
-        ),
+        element: <DashBoard></DashBoard>,
       },
       {
         path: "/financeiro",
-        element: (
-          <PrivateRoute>
-            <Financeiro></Financeiro>
-          </PrivateRoute>
-        ),
+        element: <Financeiro></Financeiro>,
       },
       {
         path: "/funcionarios",
-        element: (
-          <PrivateRoute>
-            <Funcionarios></Funcionarios>
-          </PrivateRoute>
-        ),
+        element: <Funcionarios></Funcionarios>,
       },
       {
         path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <DashBoard></DashBoard>
-          </PrivateRoute>
-        ),
+        element: <DashBoard></DashBoard>,
       },
       {
         path: "/uteis",
-        element: (
-          <PrivateRoute>
-            <Uteis></Uteis>
-          </PrivateRoute>
-        ),
+        element: <Uteis></Uteis>,
       },
     ],
   },

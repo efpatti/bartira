@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Heading } from "@chakra-ui/react";
-import FormFuncionarios from "./Form";
-import GridFuncionarios from "./Grid";
+import Form from "./Form";
+import Grid from "./Grid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DashboardFuncionarios = () => {
+const DashBoardFinanceiro = () => {
   const [funcionarios, setFuncionarios] = useState([]);
   const [aoEditar, setAoEditar] = useState(null);
 
@@ -26,13 +26,13 @@ const DashboardFuncionarios = () => {
   return (
     <>
       <Container maxW="800px" mt="20px" textAlign="center">
-        <Heading as="h2">Funcionários</Heading>
-        <FormFuncionarios
+        <Heading as="h2">Contas</Heading>
+        <Form
           aoEditar={aoEditar}
           setAoEditar={setAoEditar}
           pegarFuncionarios={pegarFuncionarios}
         />
-        <GridFuncionarios
+        <Grid
           funcionarios={funcionarios}
           setAoEditar={setAoEditar}
           setOnEdit={setAoEditar}
@@ -43,4 +43,4 @@ const DashboardFuncionarios = () => {
   );
 };
 
-export default DashboardFuncionarios;
+export default DashBoardFinanceiro;

@@ -14,7 +14,7 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
+const GridContas = ({ contas, setContas, setAoEditar }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -24,17 +24,17 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
   const handleDelete = async (id) => {
     try {
       await axios.delete("http://localhost:8080/" + id);
-      const newArray = funcionarios.filter((user) => user.id !== id);
-      setFuncionarios(newArray);
+      const newArray = contas.filter((user) => user.id !== id);
+      setContas(newArray);
       toast({
-        title: "Usuário excluído com sucesso!",
+        title: "Conta excluída com sucesso!",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
       toast({
-        title: "Erro ao deletar usuário!",
+        title: "Erro ao deletar conta!",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -58,22 +58,22 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
           <Thead>
             <Tr>
               <Th>Nome</Th>
-              <Th>Email</Th>
-              <Th>Telefone</Th>
-              <Th>Data de Nascimento</Th>
-              <Th>Endereço</Th>
+              <Th>Descrição</Th>
+              <Th>Categoria</Th>
+              <Th>Preço</Th>
+              <Th>Status</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {funcionarios.map((item, i) => (
+            {contas.map((item, i) => (
               <Tr key={i}>
-                <Td>{item.name}</Td>
-                <Td>{item.email}</Td>
-                <Td>{item.cpf}</Td>
-                <Td>{formatarDataBrasileira(item.birth_day)}</Td>
-                <Td>{item.address}</Td>
+                <Td>{item.nome}</Td>
+                <Td>{item.descricao}</Td>
+                <Td>{item.categoria}</Td>
+                <Td>{item.preco}</Td>
+                <Td>{item.status}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
@@ -90,10 +90,10 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
 };
 
 // Definindo PropTypes para validar as props
-GridFuncionarios.propTypes = {
-  funcionarios: PropTypes.array.isRequired,
-  setFuncionarios: PropTypes.func.isRequired,
+GridContas.propTypes = {
+  contas: PropTypes.array.isRequired,
+  setContas: PropTypes.func.isRequired,
   setAoEditar: PropTypes.func.isRequired,
 };
 
-export default GridFuncionarios;
+export default GridContas;

@@ -30,7 +30,7 @@ export const adicionarFuncionarios = (req, res) => {
 
 export const atualizarFuncionario = (req, res) => {
   const q =
-    "UPDATE funcionarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `endereco` = ?, `senha` = ? WHERE `idCadastro` = ?";
+    "UPDATE funcionarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `endereco` = ?, `senha` = ? WHERE `idFuncionario` = ?";
 
   const values = [
     req.body.nome,
@@ -41,16 +41,16 @@ export const atualizarFuncionario = (req, res) => {
     req.body.senha,
   ];
 
-  db.query(q, [...values, req.params.idCadastro], (err) => {
+  db.query(q, [...values, req.params.idFuncionario], (err) => {
     if (err) return res.json(err);
     return res.status(200).json("Funcionário atualizado com sucesso!");
   });
 };
 
 export const deletarFuncionario = (req, res) => {
-  const q = "DELETE FROM funcionarios WHERE `idCadastro` = ?";
+  const q = "DELETE FROM funcionarios WHERE `idFuncionario` = ?";
 
-  db.query(q, [req.params.idCadastro], (err) => {
+  db.query(q, [req.params.idFuncionario], (err) => {
     if (err) return res.json(err);
     return res.status(200).json("Funcionário deletado com sucesso!");
   });
