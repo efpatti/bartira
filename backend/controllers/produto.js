@@ -11,14 +11,14 @@ export const pegarProdutos = (_, res) => {
 
 export const adicionarProduto = (req, res) => {
   const q =
-    "INSERT INTO produtos (`nome_produto`, `descricao_produto`, `preco_produto`, `quantidade_produto`, `categoria`) VALUES(?)";
+    "INSERT INTO produtos (`nome_produto`, `descricao_produto`, `preco_produto`, `quantidade_produto`, `categoria_produto`) VALUES(?)";
 
   const values = [
     req.body.nome_produto,
     req.body.descricao_produto,
     req.body.preco_produto,
     req.body.quantidade_produto,
-    req.body.categoria,
+    req.body.categoria_produto,
   ];
 
   db.query(q, [values], (err) => {
@@ -29,14 +29,14 @@ export const adicionarProduto = (req, res) => {
 
 export const atualizarProduto = (req, res) => {
   const q =
-    "UPDATE produtos SET `nome_produto` = ?, `descricao_produto` = ?, `preco_produto` = ?, `quantidade_produto` = ?, `categoria` = ? WHERE `idProduto` = ?";
+    "UPDATE produtos SET `nome_produto` = ?, `descricao_produto` = ?, `preco_produto` = ?, `quantidade_produto` = ?, `categoria_produto` = ? WHERE `idProduto` = ?";
 
   const values = [
     req.body.nome_produto,
     req.body.descricao_produto,
     req.body.preco_produto,
     req.body.quantidade_produto,
-    req.body.categoria,
+    req.body.categoria_produto,
   ];
 
   db.query(q, [...values, req.params.idProduto], (err) => {
