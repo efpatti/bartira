@@ -14,17 +14,17 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridContas = ({ contas, setContas, setAoEditar }) => {
+const GridContas = ({ contas, setContas, setAoEditarConta }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
-    setAoEditar(item);
+    setAoEditarConta(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (idConta) => {
     try {
-      await axios.delete("http://localhost:8080" + id);
-      const newArray = contas.filter((user) => user.id !== id);
+      await axios.delete(`http://localhost:8080/contas/${idConta}`);
+      const newArray = contas.filter((user) => user.idConta !== idConta);
       setContas(newArray);
       toast({
         title: "Conta excluída com sucesso!",
@@ -42,15 +42,6 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
     }
   };
 
-  // Função para formatar a data de nascimento para o formato brasileiro
-  const formatarDataBrasileira = (data) => {
-    const dataObj = new Date(data);
-    const dia = dataObj.getDate().toString().padStart(2, "0");
-    const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataObj.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-  };
-
   return (
     <Container maxW="700px">
       <Stack overflowX="auto">
@@ -59,9 +50,8 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
             <Tr>
               <Th>Nome</Th>
               <Th>Descrição</Th>
-              <Th>Categoria</Th>
               <Th>Preço</Th>
-              <Th>Status</Th>
+              <Th>Categoria</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -71,14 +61,16 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
               <Tr key={i}>
                 <Td>{item.nome_conta}</Td>
                 <Td>{item.descricao_conta}</Td>
-                <Td>{item.categoria_conta}</Td>
                 <Td>{item.preco_conta}</Td>
-                <Td>{item.status_conta}</Td>
+                <Td>{item.categoria_conta}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
-                  <Icon as={FaTrash} onClick={() => handleDelete(item.id)} />
+                  <Icon
+                    as={FaTrash}
+                    onClick={() => handleDelete(item.idConta)}
+                  />
                 </Td>
               </Tr>
             ))}
@@ -93,7 +85,7 @@ const GridContas = ({ contas, setContas, setAoEditar }) => {
 GridContas.propTypes = {
   contas: PropTypes.array.isRequired,
   setContas: PropTypes.func.isRequired,
-  setAoEditar: PropTypes.func.isRequired,
+  setAoEditarConta: PropTypes.func.isRequired,
 };
 
 export default GridContas;

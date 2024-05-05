@@ -6,36 +6,36 @@ import Grid from "./Grid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DashBoardFinanceiro = () => {
-  const [funcionarios, setFuncionarios] = useState([]);
-  const [aoEditar, setAoEditar] = useState(null);
+const DashBoard = () => {
+  const [contas, setContas] = useState([]);
+  const [aoEditarConta, setAoEditarConta] = useState(null);
 
-  const pegarFuncionarios = async () => {
+  const pegarContas = async () => {
     try {
-      const res = await axios.get("http://localhost:8080");
-      setFuncionarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)));
+      const res = await axios.get("http://localhost:8080/contas");
+      setContas(res.data.sort((a, b) => (a.idProduto > b.idProduto ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
   };
 
   useEffect(() => {
-    pegarFuncionarios();
+    pegarContas();
   }, []);
 
   return (
     <>
       <Container maxW="800px" mt="20px" textAlign="center">
-        <Heading as="h2">Contas</Heading>
+        <Heading as="h2">Produtos</Heading>
         <Form
-          aoEditar={aoEditar}
-          setAoEditar={setAoEditar}
-          pegarFuncionarios={pegarFuncionarios}
+          aoEditarConta={aoEditarConta}
+          setAoEditarConta={setAoEditarConta}
+          pegarContas={pegarContas}
         />
         <Grid
-          funcionarios={funcionarios}
-          setAoEditar={setAoEditar}
-          setOnEdit={setAoEditar}
+          contas={contas}
+          setContas={setContas}
+          setAoEditarConta={setAoEditarConta}
         />
       </Container>
       <ToastContainer autoClose={3000} position="bottom-left" />
@@ -43,4 +43,4 @@ const DashBoardFinanceiro = () => {
   );
 };
 
-export default DashBoardFinanceiro;
+export default DashBoard;

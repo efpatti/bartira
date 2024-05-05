@@ -3,6 +3,7 @@ import Home from "./Pages/Home"
 import NavBar from "./Components/NavBar"
 import DashBoard from "./Pages/DashBoard"
 import Funcionarios from "./Pages/Funcionarios"
+import Financeiro from "./Pages/Financeiro"
 function App() {
    return (
       <Router>
@@ -11,6 +12,7 @@ function App() {
          <Route index element={<Home />} />
          <Route path="/dashboard" element={<DashBoard />} />
          <Route path="/funcionarios" element={<Funcionarios />} />
+         <Route path="/financeiro" element={<Financeiro />} />
       </Routes>
       </Router>
    )

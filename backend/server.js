@@ -14,7 +14,7 @@ app.use("/", funcionariosRota);
 
 app.use("/", produtosRota);
 
-// app.use("/contas", contasRota);
+app.use("/", contasRota);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

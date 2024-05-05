@@ -22,7 +22,7 @@ export const adicionarConta = (req, res) => {
 
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
-    return res.status(200).json("Funcionário adicionado com sucesso!");
+    return res.status(200).json("Conta adicionada com sucesso!");
   });
 };
 

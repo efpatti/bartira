@@ -12,8 +12,8 @@ router.get("/contas", pegarContas);
 
 router.post("/contas", adicionarConta);
 
-router.put("/contas:idConta", atualizarConta);
+router.put("/contas/:idConta", atualizarConta);
 
-router.delete("/contas:idConta", deletarConta);
+router.delete("/contas/:idConta", deletarConta);
 
 export default router;
