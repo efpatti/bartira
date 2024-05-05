@@ -26,7 +26,7 @@ const DashBoard = () => {
   return (
     <>
       <Container maxW="800px" mt="20px" textAlign="center">
-        <Heading as="h2">Produtos</Heading>
+        <Heading as="h2">Contas</Heading>
         <Form
           aoEditarConta={aoEditarConta}
           setAoEditarConta={setAoEditarConta}
