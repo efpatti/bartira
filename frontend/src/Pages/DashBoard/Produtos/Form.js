@@ -4,103 +4,103 @@ import axios from "axios";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const Form = ({ pegarProdutos, aoEditar, setAoEditar }) => {
+const FormProdutos = ({ pegarProdutos, aoEditarProduto, setAoEditarProduto }) => {
   const ref = useRef();
 
   useEffect(() => {
-    if (aoEditar) {
+    if (aoEditarProduto) {
       const produto = ref.current;
-      produto.nome.value = aoEditar.nome;
-      produto.descricao.value = aoEditar.descricao;
-      produto.preco.value = aoEditar.preco;
-      produto.quantidade.value = aoEditar.quantidade;
-      produto.categoria.value = aoEditar.categoria;
+      produto.nome_produto.value = aoEditarProduto.nome_produto;
+      produto.descricao_produto.value = aoEditarProduto.descricao_produto;
+      produto.preco_produto.value = aoEditarProduto.preco_produto;
+      produto.quantidade_produto.value = aoEditarProduto.quantidade_produto;
+      produto.categoria_produto.value = aoEditarProduto.categoria_produto;
     }
-  }, [aoEditar]);
+  }, [aoEditarProduto]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Submit form");
+    console.log("Formulário enviado!");
 
     const produto = ref.current;
 
     if (
-      !produto.nome.value ||
-      !produto.descricao.value ||
-      !produto.quantidade.value ||
-      !produto.categoria.value ||
-      !produto.preco.value
+      !produto.nome_produto.value ||
+      !produto.descricao_produto.value ||
+      !produto.preco_produto.value ||
+      !produto.quantidade_produto.value ||
+      !produto.categoria_produto.value 
     ) {
       return toast.warn("Preencha todos os campos!");
     }
-    if (aoEditar) {
+    if (aoEditarProduto) {
       console.log("Editando produto:", produto);
       await axios
-        .put(`http://localhost:8080/${aoEditar.idProduto}`, {
-          nome: produto.nome.value,
-          descricao: produto.descricao.value,
-          preco: produto.preco.value,
-          quantidade: produto.quantidade.value,
-          categoria: produto.categoria.value,
+        .put(`http://localhost:8080/produtos/${aoEditarProduto.idProduto}`, {
+          nome_produto: produto.nome_produto.value,
+          descricao_produto: produto.descricao_produto.value,
+          preco_produto: produto.preco_produto.value,
+          quantidade_produto: produto.quantidade_produto.value,
+          categoria_produto: produto.categoria_produto.value,
         })
         .then(({ data }) => {
-          console.log("Edit response:", data);
+          console.log("Resposta do edit:", data);
           toast.success(data);
         })
         .catch(({ data }) => {
-          console.error("Edit error:", data);
+          console.error("Erro ao editar:", data);
           toast.error(data);
         });
     } else {
       console.log("Adicionando novo produto:", produto);
       await axios
-        .post("http://localhost:8080/produtos", {
-          nome: produto.nome.value,
-          descricao: produto.descricao.value,
-          preco: produto.preco.value,
-          quantidade: produto.quantidade.value,
-          categoria: produto.categoria.value,
+        .post("http://localhost:8080/produtos/", {
+          nome_produto: produto.nome_produto.value,
+          descricao_produto: produto.descricao_produto.value,
+          preco_produto: produto.preco_produto.value,
+          quantidade_produto: produto.quantidade_produto.value,
+          categoria_produto: produto.categoria_produto.value,
         })
         .then(({ data }) => {
-          console.log("Add response:", data);
+          console.log("Resposta da adição:", data);
           toast.success(data);
         })
         .catch(({ data }) => {
-          console.error("Add error:", data);
+          console.error("Erro ao adicionar:", data);
           toast.error(data);
         });
     }
-    produto.nome.value = "";
-    produto.descricao.value = "";
-    produto.preco.value = "";
-    produto.quantidade.value = "";
-    produto.categoria.value = "";
-    setAoEditar(null);
+    produto.nome_produto.value = "";
+    produto.descricao_produto.value = "";
+    produto.preco_produto.value = "";
+    produto.quantidade_produto.value = "";
+    produto.categoria_produto.value = "";
+    setAoEditarProduto(null);
     pegarProdutos();
   };
+
   return (
     <form ref={ref} onSubmit={handleSubmit}>
       <FormControl>
         <FormLabel>Nome</FormLabel>
-        <Input name="nome" />
+        <Input name="nome_produto" />
       </FormControl>
       <FormControl>
         <FormLabel>Descrição</FormLabel>
-        <Input name="descricao" type="descricao" />
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Categoria</FormLabel>
-        <Input name="categoria" type="text" />
+        <Input name="descricao_produto" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Preço</FormLabel>
-        <Input name="preco" type="text" />
+        <Input name="preco_produto" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Quantidade</FormLabel>
-        <Input name="quantidade" type="text" />
+        <Input name="quantidade_produto" />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Categoria</FormLabel>
+        <Input name="categoria_produto" type="text" />
       </FormControl>
       <Button type="submit" variant="ghost">
         Salvar
@@ -110,10 +110,10 @@ const Form = ({ pegarProdutos, aoEditar, setAoEditar }) => {
 };
 
 // Definindo PropTypes para validar as props
-Form.propTypes = {
+FormProdutos.propTypes = {
   pegarProdutos: PropTypes.func.isRequired,
-  aoEditar: PropTypes.object,
-  setAoEditar: PropTypes.func.isRequired,
+  aoEditarProduto: PropTypes.object,
+  setAoEditarProduto: PropTypes.func.isRequired,
 };
 
-export default Form;
+export default FormProdutos;

@@ -7,20 +7,20 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DashBoardProdutos = () => {
-  const [funcionarios, setFuncionarios] = useState([]);
-  const [aoEditar, setAoEditar] = useState(null);
+  const [produtos, setProdutos] = useState([]);
+  const [aoEditarProduto, setAoEditarProduto] = useState(null);
 
-  const pegarFuncionarios = async () => {
+  const pegarProdutos = async () => {
     try {
       const res = await axios.get("http://localhost:8080/produtos");
-      setFuncionarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)));
+      setProdutos(res.data.sort((a, b) => (a.idProduto> b.idProduto ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
   };
 
   useEffect(() => {
-    pegarFuncionarios();
+    pegarProdutos();
   }, []);
 
   return (
@@ -28,14 +28,14 @@ const DashBoardProdutos = () => {
       <Container maxW="800px" mt="20px" textAlign="center">
         <Heading as="h2">Produtos</Heading>
         <Form
-          aoEditar={aoEditar}
-          setAoEditar={setAoEditar}
-          pegarFuncionarios={pegarFuncionarios}
+          aoEditarProduto={aoEditarProduto}
+          setAoEditarProduto={setAoEditarProduto}
+          pegarProdutos={pegarProdutos}
         />
         <Grid
-          funcionarios={funcionarios}
-          setFuncionarios={setFuncionarios}
-          setAoEditar={setAoEditar}
+          produtos={produtos}
+          setProdutos={setProdutos}
+          setAoEditarProduto={setAoEditarProduto}
         />
       </Container>
       <ToastContainer autoClose={3000} position="bottom-left" />

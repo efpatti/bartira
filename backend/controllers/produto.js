@@ -46,7 +46,7 @@ export const atualizarProduto = (req, res) => {
 };
 
 export const deletarProduto = (req, res) => {
-  const q = "DELETE FROM funcionarios WHERE `idProduto` = ?";
+  const q = "DELETE FROM produtos WHERE `idProduto` = ?";
 
   db.query(q, [req.params.idProduto], (err) => {
     if (err) return res.json(err);

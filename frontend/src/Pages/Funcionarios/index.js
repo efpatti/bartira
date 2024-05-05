@@ -12,12 +12,12 @@ const DashboardFuncionarios = () => {
   }, []);
 
   const [funcionarios, setFuncionarios] = useState([]);
-  const [aoEditar, setAoEditar] = useState(null);
+  const [aoEditarFuncionario, setAoEditarFuncionario] = useState(null);
 
   const pegarFuncionarios = async () => {
     try {
       const res = await axios.get("http://localhost:8080/funcionarios");
-      setFuncionarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)));
+      setFuncionarios(res.data.sort((a, b) => (a.idFuncionario > b.idFuncionario ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
@@ -32,14 +32,14 @@ const DashboardFuncionarios = () => {
       <Container maxW="800px" mt="20px" textAlign="center">
         <Heading as="h2">Funcionários</Heading>
         <FormFuncionarios
-          aoEditar={aoEditar}
-          setAoEditar={setAoEditar}
+          aoEditarFuncionario={aoEditarFuncionario}
+          setAoEditarFuncionario={setAoEditarFuncionario}
           pegarFuncionarios={pegarFuncionarios}
         />
         <GridFuncionarios
           funcionarios={funcionarios}
-          setAoEditar={setAoEditar}
-          setOnEdit={setAoEditar}
+          setFuncionarios={setFuncionarios}
+          setAoEditarFuncionario={setAoEditarFuncionario}
         />
       </Container>
       <ToastContainer autoClose={3000} position="bottom-left" />

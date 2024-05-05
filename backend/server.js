@@ -10,11 +10,11 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.json());
 
-app.use("/funcionarios", funcionariosRota);
+app.use("/", funcionariosRota);
 
-app.use("/produtos", produtosRota);
+app.use("/", produtosRota);
 
-app.use("/contas", contasRota);
+// app.use("/contas", contasRota);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

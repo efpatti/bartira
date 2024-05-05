@@ -4,25 +4,25 @@ import axios from "axios";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
+const FormFuncionarios = ({ pegarFuncionarios, aoEditarFuncionario, setAoEditarFuncionario }) => {
   const ref = useRef();
 
   useEffect(() => {
-    if (aoEditar) {
+    if (aoEditarFuncionario) {
       const funcionario = ref.current;
-      funcionario.nome_funcionario.value = aoEditar.nome;
-      funcionario.email_funcionario.value = aoEditar.email;
-      funcionario.cargo_funcionario.value = aoEditar.cargo;
-      funcionario.cpf_funcionario.value = aoEditar.cpf;
-      funcionario.endereco_funcionario.value = aoEditar.endereco;
-      funcionario.senha_funcionario.value = aoEditar.senha;
+      funcionario.nome_funcionario.value = aoEditarFuncionario.nome_funcionario;
+      funcionario.email_funcionario.value = aoEditarFuncionario.email_funcionario;
+      funcionario.cargo_funcionario.value = aoEditarFuncionario.cargo_funcionario;
+      funcionario.cpf_funcionario.value = aoEditarFuncionario.cpf_funcionario;
+      funcionario.endereco_funcionario.value = aoEditarFuncionario.endereco_funcionario;
+      funcionario.senha_funcionario.value = aoEditarFuncionario.senha_funcionario;
     }
-  }, [aoEditar]);
+  }, [aoEditarFuncionario]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Submit form");
+    console.log("Formulário enviado!");
 
     const funcionario = ref.current;
 
@@ -36,29 +36,10 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     ) {
       return toast.warn("Preencha todos os campos!");
     }
-    if (aoEditar) {
+    if (aoEditarFuncionario) {
       console.log("Editando funcionário:", funcionario);
       await axios
-        .put(`http://localhost:8080/funcionarios/${aoEditar.idFuncionario}`, {
-          nome: funcionario.nome_funcionario.value,
-          email: funcionario.email_funcionario.value,
-          cargo: funcionario.cargo_funcionario.value,
-          cpf: funcionario.cpf_funcionario.value,
-          endereco: funcionario.endereco_funcionario.value,
-          senha: funcionario.senha_funcionario.value,
-        })
-        .then(({ data }) => {
-          console.log("Edit response:", data);
-          toast.success(data);
-        })
-        .catch(({ data }) => {
-          console.error("Edit error:", data);
-          toast.error(data);
-        });
-    } else {
-      console.log("Adicionando novo funcionário:", funcionario);
-      await axios
-        .post("http://localhost:8080/funcionarios", {
+        .put(`http://localhost:8080/funcionarios/${aoEditarFuncionario.idFuncionario}`, {
           nome_funcionario: funcionario.nome_funcionario.value,
           email_funcionario: funcionario.email_funcionario.value,
           cargo_funcionario: funcionario.cargo_funcionario.value,
@@ -67,11 +48,30 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
           senha_funcionario: funcionario.senha_funcionario.value,
         })
         .then(({ data }) => {
-          console.log("Add response:", data);
+          console.log("Resposta do edit:", data);
           toast.success(data);
         })
         .catch(({ data }) => {
-          console.error("Add error:", data);
+          console.error("Erro ao editar:", data);
+          toast.error(data);
+        });
+    } else {
+      console.log("Adicionando novo funcionário:", funcionario);
+      await axios
+        .post("http://localhost:8080/funcionarios/", {
+          nome_funcionario: funcionario.nome_funcionario.value,
+          email_funcionario: funcionario.email_funcionario.value,
+          cargo_funcionario: funcionario.cargo_funcionario.value,
+          cpf_funcionario: funcionario.cpf_funcionario.value,
+          endereco_funcionario: funcionario.endereco_funcionario.value,
+          senha_funcionario: funcionario.senha_funcionario.value,
+        })
+        .then(({ data }) => {
+          console.log("Resposta da adição:", data);
+          toast.success(data);
+        })
+        .catch(({ data }) => {
+          console.error("Erro ao adicionar:", data);
           toast.error(data);
         });
     }
@@ -81,7 +81,7 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
     funcionario.cpf_funcionario.value = "";
     funcionario.endereco_funcionario.value = "";
     funcionario.senha_funcionario.value = "";
-    setAoEditar(null);
+    setAoEditarFuncionario(null);
     pegarFuncionarios();
   };
 
@@ -121,8 +121,8 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditar, setAoEditar }) => {
 // Definindo PropTypes para validar as props
 FormFuncionarios.propTypes = {
   pegarFuncionarios: PropTypes.func.isRequired,
-  aoEditar: PropTypes.object,
-  setAoEditar: PropTypes.func.isRequired,
+  aoEditarFuncionario: PropTypes.object,
+  setAoEditarFuncionario: PropTypes.func.isRequired,
 };
 
 export default FormFuncionarios;

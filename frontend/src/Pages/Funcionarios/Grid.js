@@ -14,27 +14,27 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
+const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditarFuncionario }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
-    setAoEditar(item);
+    setAoEditarFuncionario(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (idFuncionario) => {
     try {
-      await axios.delete("http://localhost:8080/funcionarios" + id);
-      const newArray = funcionarios.filter((user) => user.id !== id);
+      await axios.delete(`http://localhost:8080/funcionarios/${idFuncionario}`);
+      const newArray = funcionarios.filter((funcionario) => funcionario.idFuncionario !== idFuncionario);
       setFuncionarios(newArray);
       toast({
-        title: "Usuário excluído com sucesso!",
+        title: "Funcionário excluído com sucesso!",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
       toast({
-        title: "Erro ao deletar usuário!",
+        title: "Erro ao deletar funcionário!",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -42,14 +42,6 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
     }
   };
 
-  // Função para formatar a data de nascimento para o formato brasileiro
-  const formatarDataBrasileira = (data) => {
-    const dataObj = new Date(data);
-    const dia = dataObj.getDate().toString().padStart(2, "0");
-    const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataObj.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-  };
 
   return (
     <Container maxW="700px">
@@ -59,8 +51,8 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
             <Tr>
               <Th>Nome</Th>
               <Th>Email</Th>
-              <Th>Telefone</Th>
-              <Th>Data de Nascimento</Th>
+              <Th>Cargo</Th>
+              <Th>CPF</Th>
               <Th>Endereço</Th>
               <Th>Senha</Th>
               <Th></Th>
@@ -72,15 +64,15 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
               <Tr key={i}>
                 <Td>{item.nome_funcionario}</Td>
                 <Td>{item.email_funcionario}</Td>
+                <Td>{item.cargo_funcionario}</Td>
                 <Td>{item.cpf_funcionario}</Td>
-                <Td>{formatarDataBrasileira(item.cargo_funcionario)}</Td>
                 <Td>{item.endereco_funcionario}</Td>
                 <Td>{item.senha_funcionario}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
-                  <Icon as={FaTrash} onClick={() => handleDelete(item.id)} />
+                  <Icon as={FaTrash} onClick={() => handleDelete(item.idFuncionario)} />
                 </Td>
               </Tr>
             ))}
@@ -95,7 +87,7 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditar }) => {
 GridFuncionarios.propTypes = {
   funcionarios: PropTypes.array.isRequired,
   setFuncionarios: PropTypes.func.isRequired,
-  setAoEditar: PropTypes.func.isRequired,
+  setAoEditarFuncionario: PropTypes.func.isRequired,
 };
 
 export default GridFuncionarios;

@@ -17,7 +17,7 @@ export const adicionarFuncionario = (req, res) => {
     req.body.nome_funcionario,
     req.body.email_funcionario,
     req.body.cargo_funcionario,
-    req.body.cpf_funcionario_funcionario,
+    req.body.cpf_funcionario,
     req.body.endereco_funcionario,
     req.body.senha_funcionario,
   ];

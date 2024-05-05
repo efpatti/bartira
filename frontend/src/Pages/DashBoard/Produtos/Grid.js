@@ -14,17 +14,17 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const Grid = ({ produtos, setProdutos, setAoEditar }) => {
+const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
-    setAoEditar(item);
+    setAoEditarProduto(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (idProduto) => {
     try {
-      await axios.delete("http://localhost:8080" + id);
-      const newArray = produtos.filter((user) => user.id !== id);
+      await axios.delete("http://localhost:8080/produtos/" + idProduto);
+      const newArray = produtos.filter((user) => user.idProduto !== idProduto);
       setProdutos(newArray);
       toast({
         title: "Produto excluído com sucesso!",
@@ -42,15 +42,6 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
     }
   };
 
-  // // Função para formatar a data de nascimento para o formato brasileiro
-  // const formatarDataBrasileira = (data) => {
-  //   const dataObj = new Date(data);
-  //   const dia = dataObj.getDate().toString().padStart(2, "0");
-  //   const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-  //   const ano = dataObj.getFullYear();
-  //   return `${dia}/${mes}/${ano}`;
-  // };
-
   return (
     <Container maxW="700px">
       <Stack overflowX="auto">
@@ -60,8 +51,8 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
               <Th>Nome</Th>
               <Th>Descrição</Th>
               <Th>Preço</Th>
-              <Th>Categoria</Th>
               <Th>Quantidade</Th>
+              <Th>Categoria</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -72,13 +63,13 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
                 <Td>{item.nome_produto}</Td>
                 <Td>{item.descricao_produto}</Td>
                 <Td>{item.preco_produto}</Td>
-                <Td>{item.categoria_produto}</Td>
                 <Td>{item.quantidade_produto}</Td>
+                <Td>{item.categoria_produto}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
-                  <Icon as={FaTrash} onClick={() => handleDelete(item.id)} />
+                  <Icon as={FaTrash} onClick={() => handleDelete(item.idProduto)} />
                 </Td>
               </Tr>
             ))}
@@ -90,10 +81,10 @@ const Grid = ({ produtos, setProdutos, setAoEditar }) => {
 };
 
 // Definindo PropTypes para validar as props
-Grid.propTypes = {
+GridProdutos.propTypes = {
   produtos: PropTypes.array.isRequired,
   setProdutos: PropTypes.func.isRequired,
-  setAoEditar: PropTypes.func.isRequired,
+  setAoEditarProduto: PropTypes.func.isRequired,
 };
 
-export default Grid;
+export default GridProdutos;
