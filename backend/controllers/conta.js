@@ -11,11 +11,10 @@ export const pegarContas = (_, res) => {
 
 export const adicionarConta = (req, res) => {
   const q =
-    "INSERT INTO contas (`nome_conta`, `descricao_conta`, `preco_conta`, `categoria_conta`, `status_conta`) VALUES(?)";
+    "INSERT INTO contas (`nome_conta`, `preco_conta`, `categoria_conta`, `status_conta`) VALUES(?)";
 
   const values = [
     req.body.nome_conta,
-    req.body.descricao_conta,
     req.body.preco_conta,
     req.body.categoria_conta,
     req.body.status_conta,
@@ -29,11 +28,10 @@ export const adicionarConta = (req, res) => {
 
 export const atualizarConta = (req, res) => {
   const q =
-    "UPDATE contas SET `nome_conta` = ?, `descricao_conta` = ?, `preco_conta` = ?, `categoria_conta` = ?, `status_conta` = ? WHERE `idConta` = ?";
+    "UPDATE contas SET `nome_conta` = ?, `preco_conta` = ?, `categoria_conta` = ?, `status_conta` = ? WHERE `idConta` = ?";
 
   const values = [
     req.body.nome_conta,
-    req.body.descricao_conta,
     req.body.preco_conta,
     req.body.categoria_conta,
     req.body.status_conta,

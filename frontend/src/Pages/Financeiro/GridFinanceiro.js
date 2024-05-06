@@ -49,7 +49,6 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
           <Thead>
             <Tr>
               <Th>Nome</Th>
-              <Th>Descrição</Th>
               <Th>Preço</Th>
               <Th>Categoria</Th>
               <Th>Status</Th>
@@ -61,7 +60,6 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
             {contas.map((item, i) => (
               <Tr key={i}>
                 <Td>{item.nome_conta}</Td>
-                <Td>{item.descricao_conta}</Td>
                 <Td>{item.preco_conta}</Td>
                 <Td>{item.categoria_conta}</Td>
                 <Td>{item.status_conta}</Td>

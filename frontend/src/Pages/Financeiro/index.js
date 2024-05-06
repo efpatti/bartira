@@ -21,9 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 const DashBoard = () => {
   const [contas, setContas] = useState([]);
   const [aoEditarConta, setAoEditarConta] = useState(null);
-  const [receber, setReceber] = useState(0); // Estado para armazenar o lucro
-  const [pagar, setPagar] = useState(0); // Estado para armazenar o lucro
-  const [lucro, setLucro] = useState(0);
+  const [receber, setReceber] = useState(0);
+  const [pagar, setPagar] = useState(0);
 
   const pegarContas = async () => {
     try {
@@ -36,11 +35,8 @@ const DashBoard = () => {
 
   useEffect(() => {
     pegarContas();
-  }, []);
-
-  // Função para calcular o receber
-  useEffect(() => {
     let totalReceber = 0;
+    let totalPagar = 0;
 
     contas.forEach((conta) => {
       if (
@@ -50,13 +46,6 @@ const DashBoard = () => {
         totalReceber += parseFloat(conta.preco_conta);
       }
     });
-
-    setReceber(totalReceber);
-  }, [contas]);
-
-  // Função para calcular a despesa
-  useEffect(() => {
-    let totalPagar = 0;
 
     contas.forEach((conta) => {
       if (
@@ -68,26 +57,7 @@ const DashBoard = () => {
     });
 
     setPagar(totalPagar);
-  }, [contas]);
-
-  useEffect(() => {
-    let totalCustos = 0;
-    let totalPagar = 0;
-
-    contas.forEach((conta) => {
-      totalCustos += parseFloat(conta.preco_conta);
-      if (
-        conta.categoria_conta === "Pagar" &&
-        conta.status_conta === "Concluida"
-      ) {
-        totalPagar += parseFloat(conta.preco_conta);
-      }
-    });
-
-    const lucroCalculado = totalCustos - totalPagar;
-    console.log(totalCustos);
-    console.log(lucroCalculado);
-    setLucro(lucroCalculado);
+    setReceber(totalReceber);
   }, [contas]);
 
   return (
@@ -160,9 +130,6 @@ const DashBoard = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-
-        {/* Adicionando o total do lucro */}
-
         <ToastContainer autoClose={3000} position="bottom-left" />
       </Container>
     </>

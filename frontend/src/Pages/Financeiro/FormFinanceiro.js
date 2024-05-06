@@ -17,7 +17,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     if (aoEditarConta) {
       const conta = ref.current;
       conta.nome_conta.value = aoEditarConta.nome_conta;
-      conta.descricao_conta.value = aoEditarConta.descricao_conta;
       conta.preco_conta.value = aoEditarConta.preco_conta;
       conta.categoria_conta.value = aoEditarConta.categoria_conta;
       conta.status_conta.value = aoEditarConta.status_conta;
@@ -33,7 +32,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
 
     if (
       !conta.nome_conta.value ||
-      !conta.descricao_conta.value ||
       !conta.preco_conta.value ||
       !conta.categoria_conta.value ||
       !conta.status_conta.value
@@ -45,7 +43,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
       await axios
         .put(`http://localhost:8080/contas/${aoEditarConta.idConta}`, {
           nome_conta: conta.nome_conta.value,
-          descricao_conta: conta.descricao_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
           status_conta: conta.status_conta.value,
@@ -63,7 +60,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
       await axios
         .post("http://localhost:8080/contas/", {
           nome_conta: conta.nome_conta.value,
-          descricao_conta: conta.descricao_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
           status_conta: conta.status_conta.value,
@@ -78,7 +74,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
         });
     }
     conta.nome_conta.value = "";
-    conta.descricao_conta.value = "";
     conta.preco_conta.value = "";
     conta.categoria_conta.value = "";
     conta.status_conta.value = "";
@@ -91,10 +86,6 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
       <FormControl>
         <FormLabel>Nome</FormLabel>
         <Input name="nome_conta" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Descrição</FormLabel>
-        <Input name="descricao_conta" type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Preço</FormLabel>
