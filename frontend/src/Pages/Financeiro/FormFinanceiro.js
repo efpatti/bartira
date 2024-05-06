@@ -1,10 +1,16 @@
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Select,
+} from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
+const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -14,6 +20,7 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
       conta.descricao_conta.value = aoEditarConta.descricao_conta;
       conta.preco_conta.value = aoEditarConta.preco_conta;
       conta.categoria_conta.value = aoEditarConta.categoria_conta;
+      conta.status_conta.value = aoEditarConta.status_conta;
     }
   }, [aoEditarConta]);
 
@@ -28,7 +35,8 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
       !conta.nome_conta.value ||
       !conta.descricao_conta.value ||
       !conta.preco_conta.value ||
-      !conta.categoria_conta.value 
+      !conta.categoria_conta.value ||
+      !conta.status_conta.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -40,6 +48,7 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
           descricao_conta: conta.descricao_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
+          status_conta: conta.status_conta.value,
         })
         .then(({ data }) => {
           console.log("Resposta do edit:", data);
@@ -57,6 +66,7 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
           descricao_conta: conta.descricao_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
+          status_conta: conta.status_conta.value,
         })
         .then(({ data }) => {
           console.log("Resposta da adição:", data);
@@ -71,6 +81,7 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     conta.descricao_conta.value = "";
     conta.preco_conta.value = "";
     conta.categoria_conta.value = "";
+    conta.status_conta.value = "";
     setAoEditarConta(null);
     pegarContas();
   };
@@ -89,10 +100,19 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
         <FormLabel>Preço</FormLabel>
         <Input name="preco_conta" type="text" />
       </FormControl>
-
       <FormControl>
         <FormLabel>Categoria</FormLabel>
-        <Input name="categoria_conta" type="text" />
+        <Select name="categoria_conta">
+          <option value="Pagar">Pagar</option>
+          <option value="Receber">Receber</option>
+        </Select>
+      </FormControl>
+      <FormControl>
+        <FormLabel>Status</FormLabel>
+        <Select name="status_conta">
+          <option value="Concluida">Concluída</option>
+          <option value="Pendente">Pendente</option>
+        </Select>
       </FormControl>
       <Button type="submit" variant="ghost">
         Salvar
@@ -102,10 +122,10 @@ const FormContas = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
 };
 
 // Definindo PropTypes para validar as props
-FormContas.propTypes = {
+FormFinanceiro.propTypes = {
   pegarContas: PropTypes.func.isRequired,
   aoEditarConta: PropTypes.object,
   setAoEditarConta: PropTypes.func.isRequired,
 };
 
-export default FormContas;
+export default FormFinanceiro;

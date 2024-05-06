@@ -14,7 +14,7 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridContas = ({ contas, setContas, setAoEditarConta }) => {
+const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -52,6 +52,7 @@ const GridContas = ({ contas, setContas, setAoEditarConta }) => {
               <Th>Descrição</Th>
               <Th>Preço</Th>
               <Th>Categoria</Th>
+              <Th>Status</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -63,6 +64,7 @@ const GridContas = ({ contas, setContas, setAoEditarConta }) => {
                 <Td>{item.descricao_conta}</Td>
                 <Td>{item.preco_conta}</Td>
                 <Td>{item.categoria_conta}</Td>
+                <Td>{item.status_conta}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
@@ -82,10 +84,10 @@ const GridContas = ({ contas, setContas, setAoEditarConta }) => {
 };
 
 // Definindo PropTypes para validar as props
-GridContas.propTypes = {
+GridFinanceiro.propTypes = {
   contas: PropTypes.array.isRequired,
   setContas: PropTypes.func.isRequired,
   setAoEditarConta: PropTypes.func.isRequired,
 };
 
-export default GridContas;
+export default GridFinanceiro;
