@@ -1,14 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
-import { Flex, Button, Box, Input, Link } from "@chakra-ui/react";
+import { Flex, Button, Box, Input, Link, Avatar } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser } from "react-icons/fa";
 
+const cargos = {
+  "João": "Gerente",
+  "Maria": "Analista",
+  "Vitor Terribile dos Anjos": "Assistente"
+};
+
 export function Login() {
-  const [email_funcionario, setEmailFuncionario] = useState("");
-  const [senha_funcionario, setSenhaFuncionario] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login, logout, isAuthenticated } = useAuth();
 
@@ -19,16 +25,13 @@ export function Login() {
   };
 
   const clearFields = () => {
-    setEmailFuncionario("");
-    setSenhaFuncionario("");
+    setUsername("");
+    setPassword("");
   };
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:8080/login", {
-        email_funcionario,
-        senha_funcionario,
-      })
+      .post("http://localhost:8080/login", { username, password })
       .then((res) => {
         const { token } = res.data;
         login(token);
@@ -39,7 +42,9 @@ export function Login() {
         toast.error(err.response.data.message);
         toast.error("Se você não tem uma conta, registre-se!");
       });
+      
   };
+
 
   const ProtectedRoute = () => {
     const token = localStorage.getItem("token");
@@ -55,13 +60,13 @@ export function Login() {
 
   return (
     <Flex height="95vh" d="flex" justify="center" align="center">
-      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
-        <Flex w="90%" align="center" justify="space-around">
+      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" >
+        <Flex w="90%" align="center" justify="space-around" >
           {isAuthenticated ? (
             <>
               <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{email_funcionario}</div>
+                <div>{username}</div>
               </Box>
               <Box d="flex" w="50%" gap="10px">
                 <Button
@@ -83,8 +88,8 @@ export function Login() {
             </>
           ) : (
             <>
-              <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} /> {"Email"}
+              <Box d="flex" w="60%" gap="10px" m={2}>
+                <Avatar name={username} /> {username} <br /> {cargos[username] || 'Cargo'}
               </Box>
               <Flex w="50%" align="center" justify="flex-end" />
             </>
@@ -92,30 +97,36 @@ export function Login() {
         </Flex>
 
         <Flex
-          w="85%"
-          h="320px"
+          w="100%"
+          h="400px"
+          p={5}
           align="center"
           flexDirection="column"
           justify="center"
-          border="2px"
+          border={0}
           borderColor="black"
           borderStyle="solid"
           borderRadius="25px"
           gap="10px"
+          bg={"#ebf3f7"}
         >
-          <h1>LOGIN</h1>
+          <h1><b>Login</b></h1>
           <Input
             type="text"
-            placeholder="Email"
-            value={email_funcionario}
-            onChange={(e) => setEmailFuncionario(e.target.value)}
+            placeholder="Usuário"
+            bg={"white"}
+            border={0}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             disabled={isAuthenticated}
           />
           <Input
             type="password"
             placeholder="Senha"
-            value={senha_funcionario}
-            onChange={(e) => setSenhaFuncionario(e.target.value)}
+            bg={"white"}
+            border={0}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             disabled={isAuthenticated}
           />
           <Button onClick={handleLogin}>Login</Button>
@@ -124,7 +135,7 @@ export function Login() {
           </Link>
 
           <Link href="/logado">
-            <Button onClick={ProtectedRoute}>Rota Privada</Button>
+            <Button onClick={ProtectedRoute}>Private Route</Button>
           </Link>
         </Flex>
       </Flex>
