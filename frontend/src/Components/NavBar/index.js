@@ -63,14 +63,14 @@ const NavBar = () => {
                 color={colorMode === "light" ? "white" : "black"}
                 bg={0}
                 _hover={{
-                  color: colorMode === "light" ? "gray.600" : "gray.300",
+                  color: colorMode === "light" ? "blue" : "blue",
                 }}
               />
             </MenuButton>
-            <MenuList paddingBottom="0" m="1">
+            <MenuList paddingBottom="0" m="1" >
               <MenuGroup title="Perfil">
                 <MenuItem>
-                  <Link href="/login" _hover={{ textDecoration: "none" }}>
+                  <Link href="/login" _hover={{ textDecoration: "none" }} >
                     Login
                   </Link>
                 </MenuItem>
