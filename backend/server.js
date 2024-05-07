@@ -3,7 +3,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/users");
 const funcionariosRota = require("./routes/funcionarios");
 const produtosRota = require("./routes/produtos");
-const vendasRota = require("./routes/vendas");
+// const vendasRota = require("./routes/vendas");
 const contasRota = require("./routes/contas");
 
 const app = express();

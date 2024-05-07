@@ -1,4 +1,16 @@
-import { Box, Flex, Input, IconButton, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Input,
+  IconButton,
+  useColorMode,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuGroup,
+  MenuItem,
+  Link,
+} from "@chakra-ui/react";
 import { SearchIcon, MoonIcon, SunIcon, SettingsIcon } from "@chakra-ui/icons";
 
 const NavBar = () => {
@@ -29,15 +41,28 @@ const NavBar = () => {
 
         {/* Ícones */}
         <Flex ml="20%">
-          <IconButton
-            arial-label="Login"
-            icon={<SettingsIcon />}
-            color={colorMode === "light" ? "white" : "black"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "gray.600" : "gray.300",
-            }}
-          />
+          <Menu>
+            <MenuButton>
+              <IconButton
+                arial-label="Login"
+                icon={<SettingsIcon />}
+                color={colorMode === "light" ? "white" : "black"}
+                bg={0}
+                _hover={{
+                  color: colorMode === "light" ? "gray.600" : "gray.300",
+                }}
+              />
+            </MenuButton>
+            <MenuList paddingBottom="0" m="1">
+              <MenuGroup title="Perfil">
+                <MenuItem>
+                  <Link href="/login" _hover={{ textDecoration: "none" }}>
+                    Login
+                  </Link>
+                </MenuItem>
+              </MenuGroup>
+            </MenuList>
+          </Menu>
           <IconButton
             aria-label="Pesquisar"
             icon={<SearchIcon />}

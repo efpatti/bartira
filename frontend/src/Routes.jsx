@@ -1,18 +1,21 @@
 import { Route, Routes } from "react-router-dom";
-import { LoginPage } from "./screens/Login";
-import { RegisterPage } from "./screens/Register";
-import { Logged } from "./screens/Logged";
-//import PrivateRoutes from './utils/PrivateRoutes';
+import { Login } from "./Pages/Conta/Login";
+import { RegistreSe } from "./Pages/Conta/RegistreSe";
+import { Logado } from "./Pages/Conta/Logado";
+import Financeiro from "./Pages/Financeiro";
+import DashBoard from "./Pages/DashBoard";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 export function Router() {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path="/logged" element={<Logged />} />
+        <Route path="/logado" element={<Logado />} />
+        <Route path="/financeiro" element={<Financeiro />} />
+        <Route path="/produtos" element={<DashBoard />} />
       </Route>
-      <Route path="/" element={<LoginPage />} exact />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/" element={<Login />} exact />
+      <Route path="/registre-se" element={<RegistreSe />} />
     </Routes>
   );
 }
