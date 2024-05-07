@@ -32,6 +32,7 @@ const NavBar = () => {
         {/* Barra de Pesquisa */}
         <Input
           w={500}
+          borderRadius={500}
           align="center"
           ml="21%"
           justify="center"
