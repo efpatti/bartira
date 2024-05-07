@@ -77,7 +77,6 @@ const NavBar = () => {
               </MenuGroup>
             </MenuList>
           </Menu>
-
           <IconButton
             aria-label="Pesquisar"
             icon={<SearchIcon />}
