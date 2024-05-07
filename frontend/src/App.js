@@ -1,4 +1,5 @@
 import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
 import DashBoard from "./Pages/DashBoard";
 import Funcionarios from "./Pages/Funcionarios";
 import Home from "./Pages/Home";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/financeiro" element={<Financeiro />} />
           <Route path="/produtos" element={<DashBoard />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
