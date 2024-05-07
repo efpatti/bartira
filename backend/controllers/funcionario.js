@@ -37,14 +37,8 @@ exports.adicionarFuncionario = (req, res) => {
         return res.status(500).json("Erro interno do servidor");
       }
 
-      // Gera um token JWT
-      const token = jwt.sign({ id: result.insertId }, "seu_segredo", {
-        expiresIn: "1h",
-      });
-
       return res.status(200).json({
         message: "Funcionário adicionado com sucesso!",
-        token: token,
       });
     });
   });
@@ -76,6 +70,53 @@ exports.deletarFuncionario = (req, res) => {
     if (err) return res.json(err);
     return res.status(200).json("Funcionário deletado com sucesso!");
   });
+};
+
+exports.logarFuncionario = (req, res) => {
+  const { email_funcionario, senha_funcionario } = req.body;
+
+  // Verificar se o usuário existe no banco de dados
+  db.query(
+    "SELECT * FROM funcionarios WHERE email_funcionario = ?",
+    [email_funcionario],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      if (results.length === 0) {
+        return res.status(401).json({ message: "Email ou senha inválidos" });
+      }
+
+      // Comparar a senha fornecida com a senha armazenada no banco de dados
+      bcrypt.compare(
+        senha_funcionario,
+        results[0].senha_funcionario,
+        (err, match) => {
+          if (err) {
+            return res.status(500).json({ error: err.message });
+          }
+
+          if (!match) {
+            return res
+              .status(401)
+              .json({ message: "Email ou senha inválidos" });
+          }
+
+          // Gerar um token JWT
+          const token = jwt.sign(
+            { email_funcionario: results[0].email_funcionario },
+            "jwt",
+            {
+              expiresIn: "1h",
+            }
+          );
+
+          res.status(200).json({ token });
+        }
+      );
+    }
+  );
 };
 
 exports.rotaProtegida = (req, res) => {

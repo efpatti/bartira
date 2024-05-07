@@ -4,6 +4,7 @@ const {
   adicionarFuncionario,
   atualizarFuncionario,
   deletarFuncionario,
+  logarFuncionario,
 } = require("../controllers/funcionario.js");
 
 const router = express.Router();
@@ -11,6 +12,10 @@ const router = express.Router();
 router.get("/funcionarios", pegarFuncionarios);
 
 router.post("/funcionarios", adicionarFuncionario);
+
+router.post("/funcionarios", adicionarFuncionario);
+
+router.post("/login", logarFuncionario);
 
 router.put("/funcionarios/:idFuncionario", atualizarFuncionario);
 

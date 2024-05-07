@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaUser } from "react-icons/fa";
 
 export function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email_funcionario, setEmailFuncionario] = useState("");
+  const [senha_funcionario, setSenhaFuncionario] = useState("");
 
   const { login, logout, isAuthenticated } = useAuth();
 
@@ -19,13 +19,16 @@ export function Login() {
   };
 
   const clearFields = () => {
-    setUsername("");
-    setPassword("");
+    setEmailFuncionario("");
+    setSenhaFuncionario("");
   };
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:8080/login", { username, password })
+      .post("http://localhost:8080/login", {
+        email_funcionario,
+        senha_funcionario,
+      })
       .then((res) => {
         const { token } = res.data;
         login(token);
@@ -58,7 +61,7 @@ export function Login() {
             <>
               <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{username}</div>
+                <div>{email_funcionario}</div>
               </Box>
               <Box d="flex" w="50%" gap="10px">
                 <Button
@@ -81,7 +84,7 @@ export function Login() {
           ) : (
             <>
               <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} /> {"Usuário"}
+                <FaUser size={20} style={{ marginRight: "0px" }} /> {"Email"}
               </Box>
               <Flex w="50%" align="center" justify="flex-end" />
             </>
@@ -103,16 +106,16 @@ export function Login() {
           <h1>LOGIN</h1>
           <Input
             type="text"
-            placeholder="Usuário"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Email"
+            value={email_funcionario}
+            onChange={(e) => setEmailFuncionario(e.target.value)}
             disabled={isAuthenticated}
           />
           <Input
             type="password"
             placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={senha_funcionario}
+            onChange={(e) => setSenhaFuncionario(e.target.value)}
             disabled={isAuthenticated}
           />
           <Button onClick={handleLogin}>Login</Button>
