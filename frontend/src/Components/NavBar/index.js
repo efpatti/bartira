@@ -17,6 +17,7 @@ const NavBar = () => {
         <Input
           
           w={500}
+          borderRadius={500}
           align="center"
           ml="21%"
           justify="center"
