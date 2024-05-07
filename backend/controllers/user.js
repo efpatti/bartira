@@ -2,7 +2,7 @@ const db = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.registerUser = (req, res) => {
+exports.registrarUsuario = (req, res) => {
   const { username, password } = req.body;
 
   // Verificar se o usuário já existe
@@ -42,7 +42,7 @@ exports.registerUser = (req, res) => {
   );
 };
 
-exports.loginUser = (req, res) => {
+exports.logarUsuario = (req, res) => {
   const { username, password } = req.body;
 
   // Verificar se o usuário existe no banco de dados
@@ -81,6 +81,6 @@ exports.loginUser = (req, res) => {
   );
 };
 
-exports.protectedRoute = (req, res) => {
+exports.rotaProtegida = (req, res) => {
   res.status(200).json({ message: "Seu token é válido" });
 };

@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Router } from "./Routes";
 import { ToastContainer } from "react-toastify";
-import DashBoard from "./Pages/DashBoard";
-import Financeiro from "./Pages/Financeiro";
-import Funcionarios from "./Pages/Funcionarios";
+import NavBar from "./Components/NavBar";
 
 export function App() {
   return (
     <BrowserRouter>
+      <NavBar />
       <Router />
       <ToastContainer />
       {/* <Routes>

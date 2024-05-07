@@ -14,7 +14,11 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditarFuncionario }) => {
+const GridFuncionarios = ({
+  funcionarios,
+  setFuncionarios,
+  setAoEditarFuncionario,
+}) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -24,7 +28,9 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditarFuncionari
   const handleDelete = async (idFuncionario) => {
     try {
       await axios.delete(`http://localhost:8080/funcionarios/${idFuncionario}`);
-      const newArray = funcionarios.filter((funcionario) => funcionario.idFuncionario !== idFuncionario);
+      const newArray = funcionarios.filter(
+        (funcionario) => funcionario.idFuncionario !== idFuncionario
+      );
       setFuncionarios(newArray);
       toast({
         title: "Funcionário excluído com sucesso!",
@@ -41,7 +47,6 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditarFuncionari
       });
     }
   };
-
 
   return (
     <Container maxW="700px">
@@ -72,7 +77,10 @@ const GridFuncionarios = ({ funcionarios, setFuncionarios, setAoEditarFuncionari
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
-                  <Icon as={FaTrash} onClick={() => handleDelete(item.idFuncionario)} />
+                  <Icon
+                    as={FaTrash}
+                    onClick={() => handleDelete(item.idFuncionario)}
+                  />
                 </Td>
               </Tr>
             ))}

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/user");
+const controlerUsuario = require("../controllers/user");
 
-router.post("/register", userController.registerUser);
+router.post("/registre-se", controlerUsuario.registrarUsuario);
 
-router.post("/login", userController.loginUser);
+router.post("/login", controlerUsuario.logarUsuario);
 
-router.get("/protected", userController.protectedRoute);
+router.get("/protegido", controlerUsuario.rotaProtegida);
 
 module.exports = router;
