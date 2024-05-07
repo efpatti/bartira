@@ -1,16 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  ButtonLink,
-  ButtonLogout,
-  ButtonLogoutArea,
-  Container,
-  ContainerLogin,
-  InputArea,
-  LoggedArea,
-  LoggedAreaText,
-  LoginArea,
-} from "../styles";
+import { Flex, Button, Box, Input, Link } from "@chakra-ui/react";
 import { useAuth } from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,52 +51,122 @@ export function LoginPage() {
   };
 
   return (
-    <Container>
-      <ContainerLogin>
-        <LoggedArea>
+    <Box
+      w="100%"
+      height="95vh"
+      d="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Flex
+        w="400px"
+        h="400px"
+        justifyContent="space-around"
+        alignItems="center"
+        border="3px"
+        borderColor="white"
+        borderStyle="solid"
+        borderRadius="25px"
+        flexDirection="column"
+        bg="rgb(123, 54, 244)"
+        p="10px"
+      >
+        <Flex w="90%" alignItems="center" justifyContent="space-around">
           {isAuthenticated ? (
             <>
-              <LoggedAreaText>
+              <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
                 <div>{username}</div>
-              </LoggedAreaText>
-              <ButtonLogoutArea>
-                <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
-              </ButtonLogoutArea>
+              </Box>
+              <Box d="flex" w="50%" gap="10px">
+                <Button
+                  textDecoration="none"
+                  color="black"
+                  bg="white"
+                  fontSize="12px"
+                  borderRadius="15px"
+                  textAlign="center"
+                  p="2"
+                  d="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </Box>
             </>
           ) : (
             <>
-              <LoggedAreaText>
+              <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} /> {"Usuário"}
-              </LoggedAreaText>
-              <ButtonLogoutArea />
+              </Box>
+              <Flex w="50%" alignItems="center" justifyContent="flex-end" />
             </>
           )}
-        </LoggedArea>
+        </Flex>
 
-        <LoginArea>
+        <Flex
+          w="85%"
+          h="320px"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+          border="2px"
+          borderColor="black"
+          borderStyle="solid"
+          borderRadius="25px"
+          gap="10px"
+        >
           <h1>LOGIN</h1>
-          <InputArea
+          <Input
             type="text"
             placeholder="Usuário"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isAuthenticated}
           />
-          <InputArea
+          <Input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isAuthenticated}
           />
-          <ButtonLink onClick={handleLogin}>Login</ButtonLink>
-          <ButtonLink to="/register">Registre-se</ButtonLink>
-          <ButtonLink to="/logged" onClick={ProtectedRoute}>
-            Private Route
-          </ButtonLink>
-        </LoginArea>
-      </ContainerLogin>
-    </Container>
+          <Button
+            onClick={handleLogin}
+            textDecoration="none"
+            bg="white"
+            color="black"
+            p="2"
+            borderRadius="15px"
+            textAlign="center"
+          >
+            Login
+          </Button>
+          <Button
+            textDecoration="none"
+            color="black"
+            bg="white"
+            p="2"
+            borderRadius="15px"
+            textAlign="center"
+          >
+            <Link to="/register">Registre-se</Link>
+          </Button>
+          <Button
+            onClick={ProtectedRoute}
+            textDecoration="none"
+            color="black"
+            bg="white"
+            p="2"
+            borderRadius="15px"
+            textAlign="center"
+          >
+            <Link to="/logged">Private Route</Link>
+          </Button>
+        </Flex>
+      </Flex>
+    </Box>
   );
 }
