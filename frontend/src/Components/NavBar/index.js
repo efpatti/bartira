@@ -22,9 +22,11 @@ const NavBar = () => {
           w={500}
           borderRadius={500}
           align="center"
+          border={0}
           ml="21%"
+          color={colorMode === "light" ? "black" : "white"}
+          bg={colorMode === "light" ? "white" : "black"}
           justify="center"
-          variant="filled"
           placeholder="O que você está buscando?"
         />
 
@@ -33,19 +35,19 @@ const NavBar = () => {
           <IconButton
             arial-label="Login"
             icon={<SettingsIcon />}
-            color={colorMode === "light" ? "white" : "black"}
+            color={colorMode === "light" ? "white" : "white"}
             bg={0}
             _hover={{
-              color: colorMode === "light" ? "gray.600" : "gray.300",
+              color: colorMode === "light" ? "blue" : "blue",
             }}
           />
           <IconButton
             aria-label="Pesquisar"
             icon={<SearchIcon />}
-            color={colorMode === "light" ? "white" : "black"}
+            color={colorMode === "light" ? "white" : "white"}
             bg={0}
             _hover={{
-              color: colorMode === "light" ? "gray.600" : "gray.300",
+              color: colorMode === "light" ? "blue" : "blue",
             }}
           />
           <IconButton
@@ -53,10 +55,10 @@ const NavBar = () => {
             aria-label="Alternar modo de cor"
             icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             onClick={toggleColorMode}
-            color={colorMode === "light" ? "white" : "black"}
+            color={colorMode === "light" ? "white" : "white"}
             bg={0}
             _hover={{
-              color: colorMode === "light" ? "gray.600" : "gray.300",
+              color: colorMode === "light" ? "blue" : "blue",
             }}
           />
         </Flex>
