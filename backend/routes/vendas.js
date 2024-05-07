@@ -1,5 +1,5 @@
 const express = require("express");
-const [pegarVendas, registrarVenda] = require("../controllers/venda.js");
+const { pegarVendas, registrarVenda } = require("../controllers/venda.js");
 
 const router = express.Router();
 

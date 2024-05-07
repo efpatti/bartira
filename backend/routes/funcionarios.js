@@ -1,11 +1,10 @@
-const [
+const express = require("express");
+const {
   pegarFuncionarios,
   adicionarFuncionario,
   atualizarFuncionario,
   deletarFuncionario,
-] = require("../controllers/funcionario.js");
-
-const express = require("express");
+} = require("../controllers/funcionario.js");
 
 const router = express.Router();
 

@@ -1,9 +1,9 @@
-const [
+const {
   pegarContas,
   adicionarConta,
   atualizarConta,
   deletarConta,
-] = require("../controllers/conta.js");
+} = require("../controllers/conta.js");
 
 const express = require("express");
 

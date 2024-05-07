@@ -18,7 +18,7 @@ app.use("/", funcionariosRota);
 
 app.use("/", produtosRota);
 
-app.use("/", vendasRota);
+// app.use("/", vendasRota);
 
 app.use("/", contasRota);
 
