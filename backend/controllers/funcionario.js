@@ -1,4 +1,6 @@
 const db = require("../db.js");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.pegarFuncionarios = (_, res) => {
   const q = "SELECT * FROM funcionarios";
@@ -13,18 +15,38 @@ exports.adicionarFuncionario = (req, res) => {
   const q =
     "INSERT INTO funcionarios (`nome_funcionario`, `email_funcionario`, `cargo_funcionario`, `cpf_funcionario`, `endereco_funcionario`, `senha_funcionario`) VALUES(?)";
 
-  const values = [
-    req.body.nome_funcionario,
-    req.body.email_funcionario,
-    req.body.cargo_funcionario,
-    req.body.cpf_funcionario,
-    req.body.endereco_funcionario,
-    req.body.senha_funcionario,
-  ];
+  // Gera o hash da senha
+  bcrypt.hash(req.body.senha_funcionario, 10, (err, hash) => {
+    if (err) {
+      console.error("Erro ao gerar hash da senha:", err);
+      return res.status(500).json("Erro interno do servidor");
+    }
 
-  db.query(q, [values], (err) => {
-    if (err) return res.json(err);
-    return res.status(200).json("Funcionário adicionado com sucesso!");
+    const values = [
+      req.body.nome_funcionario,
+      req.body.email_funcionario,
+      req.body.cargo_funcionario,
+      req.body.cpf_funcionario,
+      req.body.endereco_funcionario,
+      hash, // Salva o hash da senha no banco de dados
+    ];
+
+    db.query(q, [values], (err, result) => {
+      if (err) {
+        console.error("Erro ao inserir funcionário no banco de dados:", err);
+        return res.status(500).json("Erro interno do servidor");
+      }
+
+      // Gera um token JWT
+      const token = jwt.sign({ id: result.insertId }, "seu_segredo", {
+        expiresIn: "1h",
+      });
+
+      return res.status(200).json({
+        message: "Funcionário adicionado com sucesso!",
+        token: token,
+      });
+    });
   });
 };
 
@@ -54,4 +76,8 @@ exports.deletarFuncionario = (req, res) => {
     if (err) return res.json(err);
     return res.status(200).json("Funcionário deletado com sucesso!");
   });
+};
+
+exports.rotaProtegida = (req, res) => {
+  res.status(200).json({ message: "Seu token é válido" });
 };

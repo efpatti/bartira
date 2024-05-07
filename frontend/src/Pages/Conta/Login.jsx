@@ -121,7 +121,7 @@ export function Login() {
           </Link>
 
           <Link href="/logado">
-            <Button onClick={ProtectedRoute}>Private Route</Button>
+            <Button onClick={ProtectedRoute}>Rota Privada</Button>
           </Link>
         </Flex>
       </Flex>

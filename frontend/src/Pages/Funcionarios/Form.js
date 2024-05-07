@@ -4,18 +4,26 @@ import axios from "axios";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const FormFuncionarios = ({ pegarFuncionarios, aoEditarFuncionario, setAoEditarFuncionario }) => {
+const FormFuncionarios = ({
+  pegarFuncionarios,
+  aoEditarFuncionario,
+  setAoEditarFuncionario,
+}) => {
   const ref = useRef();
 
   useEffect(() => {
     if (aoEditarFuncionario) {
       const funcionario = ref.current;
       funcionario.nome_funcionario.value = aoEditarFuncionario.nome_funcionario;
-      funcionario.email_funcionario.value = aoEditarFuncionario.email_funcionario;
-      funcionario.cargo_funcionario.value = aoEditarFuncionario.cargo_funcionario;
+      funcionario.email_funcionario.value =
+        aoEditarFuncionario.email_funcionario;
+      funcionario.cargo_funcionario.value =
+        aoEditarFuncionario.cargo_funcionario;
       funcionario.cpf_funcionario.value = aoEditarFuncionario.cpf_funcionario;
-      funcionario.endereco_funcionario.value = aoEditarFuncionario.endereco_funcionario;
-      funcionario.senha_funcionario.value = aoEditarFuncionario.senha_funcionario;
+      funcionario.endereco_funcionario.value =
+        aoEditarFuncionario.endereco_funcionario;
+      funcionario.senha_funcionario.value =
+        aoEditarFuncionario.senha_funcionario;
     }
   }, [aoEditarFuncionario]);
 
@@ -39,14 +47,17 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditarFuncionario, setAoEditarF
     if (aoEditarFuncionario) {
       console.log("Editando funcionário:", funcionario);
       await axios
-        .put(`http://localhost:8080/funcionarios/${aoEditarFuncionario.idFuncionario}`, {
-          nome_funcionario: funcionario.nome_funcionario.value,
-          email_funcionario: funcionario.email_funcionario.value,
-          cargo_funcionario: funcionario.cargo_funcionario.value,
-          cpf_funcionario: funcionario.cpf_funcionario.value,
-          endereco_funcionario: funcionario.endereco_funcionario.value,
-          senha_funcionario: funcionario.senha_funcionario.value,
-        })
+        .put(
+          `http://localhost:8080/funcionarios/${aoEditarFuncionario.idFuncionario}`,
+          {
+            nome_funcionario: funcionario.nome_funcionario.value,
+            email_funcionario: funcionario.email_funcionario.value,
+            cargo_funcionario: funcionario.cargo_funcionario.value,
+            cpf_funcionario: funcionario.cpf_funcionario.value,
+            endereco_funcionario: funcionario.endereco_funcionario.value,
+            senha_funcionario: funcionario.senha_funcionario.value,
+          }
+        )
         .then(({ data }) => {
           console.log("Resposta do edit:", data);
           toast.success(data);
@@ -58,7 +69,7 @@ const FormFuncionarios = ({ pegarFuncionarios, aoEditarFuncionario, setAoEditarF
     } else {
       console.log("Adicionando novo funcionário:", funcionario);
       await axios
-        .post("http://localhost:8080/funcionarios/", {
+        .post("http://localhost:8080/funcionarios", {
           nome_funcionario: funcionario.nome_funcionario.value,
           email_funcionario: funcionario.email_funcionario.value,
           cargo_funcionario: funcionario.cargo_funcionario.value,
