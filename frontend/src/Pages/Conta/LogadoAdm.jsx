@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuthAdm } from "../../hooks/useAuthAdm";
 import { Flex, Button, Text, Link } from "@chakra-ui/react";
 
-export function Logado() {
-  const { logout } = useAuth();
+export function LogadoAdm() {
+  const { logout } = useAuthAdm();
 
   const handleLogout = () => {
     logout();
@@ -21,7 +21,7 @@ export function Logado() {
         borderColor="white"
         borderStyle="solid"
         flexDirection="column"
-        bg="rgb(123, 54, 244)"
+        bg="pink"
         p="10px"
       >
         <Flex
@@ -32,7 +32,7 @@ export function Logado() {
           justifyContent="space-around"
           textAlign="center"
         >
-          <Text fontSize="lg">PARABÉNS !!!</Text>
+          <Text fontSize="lg">Adm</Text>
           <Text fontSize="md">Bem vindo a rota privada!</Text>
           <Text fontSize="sm">Você consegue ver isso porque está logado!</Text>
           <Button

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const admsRota = require("./routes/administradores");
 const funcionariosRota = require("./routes/funcionarios");
 const produtosRota = require("./routes/produtos");
 // const vendasRota = require("./routes/vendas");
@@ -12,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", funcionariosRota);
+
+app.use("/", admsRota);
 
 app.use("/", produtosRota);
 

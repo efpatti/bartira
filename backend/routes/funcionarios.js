@@ -16,9 +16,9 @@ router.post("/funcionarios", adicionarFuncionario);
 
 router.post("/funcionarios", adicionarFuncionario);
 
-router.post("/login", logarFuncionario);
+router.post("/loginFuncionario", logarFuncionario);
 
-router.get("/protegido", rotaProtegida);
+router.get("/protegidoFuncionario", rotaProtegida);
 
 router.put("/funcionarios/:idFuncionario", atualizarFuncionario);
 
