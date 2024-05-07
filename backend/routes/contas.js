@@ -1,10 +1,11 @@
-import express from "express";
-import {
+const {
   pegarContas,
   adicionarConta,
   atualizarConta,
   deletarConta,
-} from "../controllers/conta.js";
+} = require("../controllers/conta.js");
+
+const express = require("express");
 
 const router = express.Router();
 
@@ -16,4 +17,4 @@ router.put("/contas/:idConta", atualizarConta);
 
 router.delete("/contas/:idConta", deletarConta);
 
-export default router;
+module.exports = router;

@@ -1,6 +1,6 @@
-import { db } from "../db.js";
+const db = require("../db.js");
 
-export const pegarFuncionarios = (_, res) => {
+exports.pegarFuncionarios = (_, res) => {
   const q = "SELECT * FROM funcionarios";
 
   db.query(q, (err, data) => {
@@ -9,7 +9,7 @@ export const pegarFuncionarios = (_, res) => {
   });
 };
 
-export const adicionarFuncionario = (req, res) => {
+exports.adicionarFuncionario = (req, res) => {
   const q =
     "INSERT INTO funcionarios (`nome_funcionario`, `email_funcionario`, `cargo_funcionario`, `cpf_funcionario`, `endereco_funcionario`, `senha_funcionario`) VALUES(?)";
 
@@ -28,7 +28,7 @@ export const adicionarFuncionario = (req, res) => {
   });
 };
 
-export const atualizarFuncionario = (req, res) => {
+exports.atualizarFuncionario = (req, res) => {
   const q =
     "UPDATE funcionarios SET `nome_funcionario` = ?, `email_funcionario` = ?, `cargo_funcionario` = ?, `cpf_funcionario` = ?, `endereco_funcionario` = ?, `senha_funcionario` = ? WHERE `idFuncionario` = ?";
 
@@ -47,7 +47,7 @@ export const atualizarFuncionario = (req, res) => {
   });
 };
 
-export const deletarFuncionario = (req, res) => {
+exports.deletarFuncionario = (req, res) => {
   const q = "DELETE FROM funcionarios WHERE `idFuncionario` = ?";
 
   db.query(q, [req.params.idFuncionario], (err) => {

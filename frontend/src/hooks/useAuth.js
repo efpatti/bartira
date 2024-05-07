@@ -35,7 +35,7 @@ export function useAuth() {
 
   const handleVerify = (token) => {
     axios
-      .get("http://localhost:3001/protected", {
+      .get("http://localhost:8080/protected", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

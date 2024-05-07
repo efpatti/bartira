@@ -1,11 +1,42 @@
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Select,
+} from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
-const FormProdutos = ({ pegarProdutos, aoEditarProduto, setAoEditarProduto }) => {
+const FormProdutos = ({
+  pegarProdutos,
+  aoEditarProduto,
+  setAoEditarProduto,
+}) => {
   const ref = useRef();
+
+  const categorias = [
+    {
+      name: "Área de Serviço",
+    },
+    {
+      name: "Cozinhas",
+    },
+    {
+      name: "Quarto Infantil e Bebê",
+    },
+    {
+      name: "Quartos",
+    },
+    {
+      name: "Sala de Estar",
+    },
+    {
+      name: "Sala de Jantar",
+    },
+  ];
 
   useEffect(() => {
     if (aoEditarProduto) {
@@ -30,7 +61,7 @@ const FormProdutos = ({ pegarProdutos, aoEditarProduto, setAoEditarProduto }) =>
       !produto.descricao_produto.value ||
       !produto.preco_produto.value ||
       !produto.quantidade_produto.value ||
-      !produto.categoria_produto.value 
+      !produto.categoria_produto.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -100,7 +131,13 @@ const FormProdutos = ({ pegarProdutos, aoEditarProduto, setAoEditarProduto }) =>
       </FormControl>
       <FormControl>
         <FormLabel>Categoria</FormLabel>
-        <Input name="categoria_produto" type="text" />
+        <Select name="categoria_produto">
+          {categorias.map((item, i) => (
+            <option key={i} value={item.name}>
+              {item.name}
+            </option>
+          ))}
+        </Select>
       </FormControl>
       <Button type="submit" variant="ghost">
         Salvar

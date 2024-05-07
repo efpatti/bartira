@@ -1,6 +1,6 @@
-import { db } from "../db.js";
+const db = require("../db.js");
 
-export const pegarContas = (_, res) => {
+exports.pegarContas = (_, res) => {
   const q = "SELECT * FROM contas";
 
   db.query(q, (err, data) => {
@@ -9,7 +9,7 @@ export const pegarContas = (_, res) => {
   });
 };
 
-export const adicionarConta = (req, res) => {
+exports.adicionarConta = (req, res) => {
   const q =
     "INSERT INTO contas (`nome_conta`, `preco_conta`, `categoria_conta`, `status_conta`) VALUES(?)";
 
@@ -26,7 +26,7 @@ export const adicionarConta = (req, res) => {
   });
 };
 
-export const atualizarConta = (req, res) => {
+exports.atualizarConta = (req, res) => {
   const q =
     "UPDATE contas SET `nome_conta` = ?, `preco_conta` = ?, `categoria_conta` = ?, `status_conta` = ? WHERE `idConta` = ?";
 
@@ -43,7 +43,7 @@ export const atualizarConta = (req, res) => {
   });
 };
 
-export const deletarConta = (req, res) => {
+exports.deletarConta = (req, res) => {
   const q = "DELETE FROM contas WHERE `idConta` = ?";
 
   db.query(q, [req.params.idConta], (err) => {

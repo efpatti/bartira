@@ -1,16 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  ButtonLink,
-  ButtonLogout,
-  ButtonLogoutArea,
-  Container,
-  ContainerLogin,
-  InputArea,
-  LoggedArea,
-  LoggedAreaText,
-  LoginArea,
-} from "../styles";
+import { Flex, Button, Box, Input, Link } from "@chakra-ui/react";
 import { useAuth } from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,52 +51,80 @@ export function LoginPage() {
   };
 
   return (
-    <Container>
-      <ContainerLogin>
-        <LoggedArea>
+    <Flex height="95vh" d="flex" justify="center" align="center">
+      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
+        <Flex w="90%" align="center" justify="space-around">
           {isAuthenticated ? (
             <>
-              <LoggedAreaText>
+              <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
                 <div>{username}</div>
-              </LoggedAreaText>
-              <ButtonLogoutArea>
-                <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
-              </ButtonLogoutArea>
+              </Box>
+              <Box d="flex" w="50%" gap="10px">
+                <Button
+                  textDecoration="none"
+                  color="black"
+                  bg="white"
+                  fontSize="12px"
+                  borderRadius="15px"
+                  textAlign="center"
+                  p="2"
+                  d="flex"
+                  align="center"
+                  justify="center"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </Box>
             </>
           ) : (
             <>
-              <LoggedAreaText>
+              <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} /> {"Usuário"}
-              </LoggedAreaText>
-              <ButtonLogoutArea />
+              </Box>
+              <Flex w="50%" align="center" justify="flex-end" />
             </>
           )}
-        </LoggedArea>
+        </Flex>
 
-        <LoginArea>
+        <Flex
+          w="85%"
+          h="320px"
+          align="center"
+          flexDirection="column"
+          justify="center"
+          border="2px"
+          borderColor="black"
+          borderStyle="solid"
+          borderRadius="25px"
+          gap="10px"
+        >
           <h1>LOGIN</h1>
-          <InputArea
+          <Input
             type="text"
             placeholder="Usuário"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isAuthenticated}
           />
-          <InputArea
+          <Input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isAuthenticated}
           />
-          <ButtonLink onClick={handleLogin}>Login</ButtonLink>
-          <ButtonLink to="/register">Registre-se</ButtonLink>
-          <ButtonLink to="/logged" onClick={ProtectedRoute}>
-            Private Route
-          </ButtonLink>
-        </LoginArea>
-      </ContainerLogin>
-    </Container>
+          <Button onClick={handleLogin}>Login</Button>
+          <Link href="/register">
+            <Button>Registre-se</Button>
+          </Link>
+
+          <Link href="/logged">
+            <Button onClick={ProtectedRoute}>Private Route</Button>
+          </Link>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 }

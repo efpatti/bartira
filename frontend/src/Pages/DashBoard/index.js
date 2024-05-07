@@ -1,35 +1,32 @@
 import {
+  Container,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
-  Box,
-  Center,
 } from "@chakra-ui/react";
 import Produtos from "./Produtos";
 import Estoque from "./Estoque";
 
 function DashBoard() {
   return (
-    <Center minH="100vh">
-      <Box w="50%" borderRadius="13px" border="1px">
-        <Tabs isFitted variant="enclosed" colorScheme="green">
-          <TabList mb="1em">
-            <Tab>Produtos</Tab>
-            <Tab>Estoque</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <Produtos />
-            </TabPanel>
-            <TabPanel>
-              <Estoque />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Box>
-    </Center>
+    <Container h="800px" align="center" justify="center">
+      <Tabs isFitted variant="enclosed">
+        <TabList mb="1em">
+          <Tab>Produtos</Tab>
+          <Tab>Estoque</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Produtos />
+          </TabPanel>
+          <TabPanel>
+            <Estoque />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Container>
   );
 }
 
