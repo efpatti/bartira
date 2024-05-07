@@ -51,27 +51,9 @@ export function LoginPage() {
   };
 
   return (
-    <Box
-      w="100%"
-      height="95vh"
-      d="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Flex
-        w="400px"
-        h="400px"
-        justifyContent="space-around"
-        alignItems="center"
-        border="3px"
-        borderColor="white"
-        borderStyle="solid"
-        borderRadius="25px"
-        flexDirection="column"
-        bg="rgb(123, 54, 244)"
-        p="10px"
-      >
-        <Flex w="90%" alignItems="center" justifyContent="space-around">
+    <Flex height="95vh" d="flex" justify="center" align="center">
+      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
+        <Flex w="90%" align="center" justify="space-around">
           {isAuthenticated ? (
             <>
               <Box d="flex" w="50%" gap="10px">
@@ -88,8 +70,8 @@ export function LoginPage() {
                   textAlign="center"
                   p="2"
                   d="flex"
-                  alignItems="center"
-                  justifyContent="center"
+                  align="center"
+                  justify="center"
                   onClick={handleLogout}
                 >
                   Logout
@@ -101,7 +83,7 @@ export function LoginPage() {
               <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} /> {"Usuário"}
               </Box>
-              <Flex w="50%" alignItems="center" justifyContent="flex-end" />
+              <Flex w="50%" align="center" justify="flex-end" />
             </>
           )}
         </Flex>
@@ -109,9 +91,9 @@ export function LoginPage() {
         <Flex
           w="85%"
           h="320px"
-          alignItems="center"
+          align="center"
           flexDirection="column"
-          justifyContent="center"
+          justify="center"
           border="2px"
           borderColor="black"
           borderStyle="solid"
@@ -133,40 +115,16 @@ export function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             disabled={isAuthenticated}
           />
-          <Button
-            onClick={handleLogin}
-            textDecoration="none"
-            bg="white"
-            color="black"
-            p="2"
-            borderRadius="15px"
-            textAlign="center"
-          >
-            Login
-          </Button>
-          <Button
-            textDecoration="none"
-            color="black"
-            bg="white"
-            p="2"
-            borderRadius="15px"
-            textAlign="center"
-          >
-            <Link to="/register">Registre-se</Link>
-          </Button>
-          <Button
-            onClick={ProtectedRoute}
-            textDecoration="none"
-            color="black"
-            bg="white"
-            p="2"
-            borderRadius="15px"
-            textAlign="center"
-          >
-            <Link to="/logged">Private Route</Link>
-          </Button>
+          <Button onClick={handleLogin}>Login</Button>
+          <Link href="/register">
+            <Button>Registre-se</Button>
+          </Link>
+
+          <Link href="/logged">
+            <Button onClick={ProtectedRoute}>Private Route</Button>
+          </Link>
         </Flex>
       </Flex>
-    </Box>
+    </Flex>
   );
 }

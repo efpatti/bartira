@@ -1,6 +1,5 @@
-import { db } from "../db.js";
-
-export const pegarProdutos = (_, res) => {
+const db = require("../db.js");
+exports.pegarProdutos = (_, res) => {
   const q = "SELECT * FROM produtos";
 
   db.query(q, (err, data) => {
@@ -8,8 +7,7 @@ export const pegarProdutos = (_, res) => {
     return res.status(200).json(data);
   });
 };
-
-export const adicionarProduto = (req, res) => {
+exports.adicionarProduto = (req, res) => {
   const q =
     "INSERT INTO produtos (`nome_produto`, `descricao_produto`, `preco_produto`, `quantidade_produto`, `categoria_produto`) VALUES(?)";
 
@@ -26,8 +24,7 @@ export const adicionarProduto = (req, res) => {
     return res.status(200).json("Produto adicionado com sucesso!");
   });
 };
-
-export const atualizarProduto = (req, res) => {
+exports.atualizarProduto = (req, res) => {
   const q =
     "UPDATE produtos SET `nome_produto` = ?, `descricao_produto` = ?, `preco_produto` = ?, `quantidade_produto` = ?, `categoria_produto` = ? WHERE `idProduto` = ?";
 
@@ -44,8 +41,7 @@ export const atualizarProduto = (req, res) => {
     return res.status(200).json("Produto atualizado com sucesso!");
   });
 };
-
-export const deletarProduto = (req, res) => {
+exports.deletarProduto = (req, res) => {
   const q = "DELETE FROM produtos WHERE `idProduto` = ?";
 
   db.query(q, [req.params.idProduto], (err) => {

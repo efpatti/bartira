@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Box, Flex, Input, Button, Link } from "@chakra-ui/react";
+import { Box, Flex, Input, Button, Link, Text } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
 export function RegisterPage() {
@@ -19,37 +19,33 @@ export function RegisterPage() {
   };
 
   return (
-    <Box
-      w="100%"
-      height="95vh"
-      d="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <Box w="100%" height="95vh" d="flex" justify="center" align="center">
       <Flex
         w="400px"
         h="400px"
-        justifyContent="space-around"
-        alignItems="center"
+        justify="space-around"
+        align="center"
         border="3px"
         borderColor="white"
         borderStyle="solid"
         borderRadius="25px"
         flexDirection="column"
-        bg="rgb(123, 54, 244)"
         p="10px"
       >
-        <h1>Registre-se</h1>
-        <Box
-          w="85%"
-          h="320px"
-          d="flex"
-          alignItems="center"
+        <Text fontSize="lg" as="b">
+          Registre-se
+        </Text>
+        <Flex
+          boxSize="md"
+          align="center"
           flexDirection="column"
-          justifyContent="center"
+          justify="center"
+          borderRadius="2rem"
           border="2px"
           borderColor="black"
           borderStyle="solid"
+          gap="10px"
+          p="7"
         >
           <Input
             type="text"
@@ -63,30 +59,13 @@ export function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            onClick={handleRegister}
-            bg="white"
-            color="black"
-            borderRadius="15px"
-            textAlign="center"
-            p="2"
-            textDecoration="none"
-            w="40%"
-          >
-            <Link to="/">Registrar</Link>
-          </Button>
-          <Button
-            bg="white"
-            color="black"
-            borderRadius="15px"
-            textAlign="center"
-            p="2"
-            textDecoration="none"
-            w="40%"
-          >
-            <Link to="/">Voltar</Link>
-          </Button>
-        </Box>
+          <Link href="/">
+            <Button onClick={handleRegister}>Registrar</Button>
+          </Link>
+          <Link href="/">
+            <Button>Voltar</Button>
+          </Link>
+        </Flex>
       </Flex>
     </Box>
   );

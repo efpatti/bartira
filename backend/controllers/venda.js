@@ -1,7 +1,7 @@
-import { db } from "../db.js";
+const db = require("../db.js");
 
 // Função para recuperar todas as vendas
-export const pegarVendas = (_, res) => {
+exports.pegarVendas = (_, res) => {
   const q = "SELECT * FROM vendas";
 
   db.query(q, (err, data) => {
@@ -11,7 +11,7 @@ export const pegarVendas = (_, res) => {
 };
 
 // Função para registrar uma nova venda
-export const registrarVenda = (req, res) => {
+exports.registrarVenda = (req, res) => {
   const { idProduto, quantidadeVendida, dataVenda } = req.body;
   const qInsertVenda =
     "INSERT INTO vendas (idProduto, quantidadeVendida, dataVenda) VALUES (?, ?, ?)";

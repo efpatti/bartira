@@ -1,10 +1,11 @@
-import express from "express";
-import {
+const [
   pegarFuncionarios,
   adicionarFuncionario,
   atualizarFuncionario,
   deletarFuncionario,
-} from "../controllers/funcionario.js";
+] = require("../controllers/funcionario.js");
+
+const express = require("express");
 
 const router = express.Router();
 
@@ -16,4 +17,4 @@ router.put("/funcionarios/:idFuncionario", atualizarFuncionario);
 
 router.delete("/funcionarios/:idFuncionario", deletarFuncionario);
 
-export default router;
+module.exports = router;

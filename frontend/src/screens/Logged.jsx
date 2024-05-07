@@ -11,7 +11,7 @@ export function Logged() {
   };
 
   return (
-    <Flex width="100%" h="95vh" justifyContent="center" alignItems="center">
+    <Flex h="95vh" justifyContent="center" alignItems="center">
       <Flex
         w="400px"
         h="400px"
