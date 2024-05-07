@@ -1,27 +1,56 @@
-import { Box } from '@chakra-ui/react';
-import { Image } from '@chakra-ui/react';
-import { Avatar, Stack, Input, Text } from '@chakra-ui/react'
-
+import { Box, Flex, Input, IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { SearchIcon, MoonIcon, SunIcon, SettingsIcon } from "@chakra-ui/icons";
 
 const NavBar = () => {
-  return <>
-    <Box w='100%' h={115} bg='darkblue'>
-        <Stack direction='row' justify='center' spacing={5}>
+  const { toggleColorMode } = useColorMode();
+  const iconColor = useColorModeValue("white", "blue");
 
-          <Image w={150} align="center" src='https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75' alt='Bartira' />
+  return (
+    <Box bg={"darkblue"} p={4}>
+      <Flex alignItems="center">
+        {/* Logo */}
+        <Box>
+          <img src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75" alt="bartira" width="150" ml={50} />
+        </Box>
+        
+        {/* Barra de Pesquisa */}
+        <Input
+          
+          w={500}
+          align="center"
+          ml="21%"
+          justify="center"
+          variant="filled"
+          placeholder="O que você está buscando?"
+        />
 
-          <Input borderRadius={20} bg='white' m={35} w={500} justify="center" align="center" placeholder='O que você está buscando?' />
-
-          <Avatar mt={30} src='https://bit.ly/broken-link' /><Text mt={10} color="white">Produtos</Text> 
-          <Avatar mt={30} src='https://bit.ly/broken-link' />
-          <Avatar mt={30} src='https://bit.ly/broken-link' />
-
-        </Stack>
+        {/* Ícones */}
+        <Flex ml="20%">
+          <IconButton
+            arial-label="Login"
+            icon={<SettingsIcon />}
+            color={iconColor}
+            bg={0}
+          />
+          <IconButton
+            aria-label="Pesquisar"
+            icon={<SearchIcon />}
+            color={iconColor}
+            bg={0}
+          />
+          <IconButton
+            ml={4}
+            aria-label="Alternar modo de cor"
+            icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
+            onClick={toggleColorMode}
+            color={iconColor}
+            bg={0}
+          />
+        </Flex>
+      </Flex>
     </Box>
-
-
-  </>
-}
+  );
+};
 
 export default NavBar;
 
