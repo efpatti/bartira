@@ -1,47 +1,57 @@
-import { Box } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
-import { Avatar, Stack, Input } from "@chakra-ui/react";
+import { Box, Flex, Input, IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { SearchIcon, MoonIcon, SunIcon, SettingsIcon } from "@chakra-ui/icons";
 
 const NavBar = () => {
+  const { toggleColorMode } = useColorMode();
+  const iconColor = useColorModeValue("white", "blue");
+
   return (
-    <>
-      <Box w="100%" h={115} bg="darkblue">
-        <Stack direction="col" spacing={10}>
-          <Image
-            w={150}
-            ml={18}
-            align="center"
-            src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
-            alt="Bartira"
-          />
+    <Box bg={"darkblue"} p={4}>
+      <Flex alignItems="center">
+        {/* Logo */}
+        <Box>
+          <img src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75" alt="bartira" width="150" ml={50} />
+        </Box>
+        
+        {/* Barra de Pesquisa */}
+        <Input
+          
+          w={500}
+          align="center"
+          ml="21%"
+          justify="center"
+          variant="filled"
+          placeholder="O que você está buscando?"
+        />
 
-          <Input
-            borderRadius={20}
-            bg="white"
-            m={35}
-            w={400}
-            justify="center"
-            align="center"
-            placeholder="O que você está buscando?"
+        {/* Ícones */}
+        <Flex ml="20%">
+          <IconButton
+            arial-label="Login"
+            icon={<SettingsIcon />}
+            color={iconColor}
+            bg={0}
           />
-
-          <Avatar
-            mt={30}
-            ml={50}
-            name="Oshigaki Kisame"
-            src="https://bit.ly/broken-link"
+          <IconButton
+            aria-label="Pesquisar"
+            icon={<SearchIcon />}
+            color={iconColor}
+            bg={0}
           />
-          <Avatar
-            mt={30}
-            ml={50}
-            name="Sasuke Uchiha"
-            src="https://bit.ly/broken-link"
+          <IconButton
+            ml={4}
+            aria-label="Alternar modo de cor"
+            icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
+            onClick={toggleColorMode}
+            color={iconColor}
+            bg={0}
           />
-          <Avatar mt={30} ml={50} src="https://bit.ly/broken-link" />
-        </Stack>
-      </Box>
-    </>
+        </Flex>
+      </Flex>
+    </Box>
   );
 };
 
 export default NavBar;
+
+
