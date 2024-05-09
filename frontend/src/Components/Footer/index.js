@@ -1,14 +1,23 @@
-import React from 'react';
-import './Footer.css';
+import { Stack, HStack, Link, Image } from '@chakra-ui/react'
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>© {new Date().getFullYear()} INDÚSTRIA DE MÓVEIS BARTIRA LTDA. Todos os direitos reservados.</p>
-      </div>
-    </footer>
+    <Stack
+      marginInline="auto"
+      p={8}
+      margin={0}
+      bgColor={'darkblue'}
+      alignItems="center"
+      color={'white'}
+    >
+
+      <Stack d={{ base: 'flex', md: 'none' }} alignItems="center">
+      <p>© {new Date().getFullYear()} INDÚSTRIA DE MÓVEIS BARTIRA LTDA. Todos os direitos reservados.</p>
+      </Stack>
+
+    </Stack>
   );
-}
+};
+
 
 export default Footer;
