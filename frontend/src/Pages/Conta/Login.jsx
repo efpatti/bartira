@@ -9,6 +9,8 @@ import {
   InputGroup,
   FormLabel,
   InputRightElement,
+  useColorMode,
+  Text,
 } from "@chakra-ui/react";
 import { useAuthFuncionario, useAuthAdm } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
@@ -28,6 +30,8 @@ export function Login() {
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+
+  const { colorMode } = useColorMode();
 
   const handleEmailFocus = () => setEmailFocused(true);
   const handleEmailBlur = (e) => {
@@ -129,19 +133,19 @@ export function Login() {
         </Flex>
 
         <Flex
+          mt={50}
           w="100%"
-          h="380px"
+          h="350px"
+          borderRadius={25}
           p={5}
           align="center"
           flexDirection="column"
-          justify="center"
-          border="2px"
-          borderColor="black"
-          borderStyle="none"
-          borderRadius="25px"
           gap="10px"
+          bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
-          <h1>LOGIN</h1>
+          <Text fontSize={40} mb={8}>
+            Login
+          </Text>
           <InputGroup>
             <FormLabel
               htmlFor="email"
@@ -150,8 +154,8 @@ export function Login() {
               color={emailFocused ? "blue.400" : "gray.500"}
               transform={
                 emailFocused ||
-                (document.getElementById("email") &&
-                  document.getElementById("email").value !== "")
+                  (document.getElementById("email") &&
+                    document.getElementById("email").value !== "")
                   ? "translateY(-1rem)"
                   : "translateY(0.25rem) translateX(0.35rem)"
               }
@@ -160,6 +164,10 @@ export function Login() {
               Email
             </FormLabel>
             <Input
+              borderRadius={15}
+              mb={2}
+              placeholder="Email"
+              bg={colorMode === "light" ? "white" : "#022b5f"}
               type="text"
               id="email"
               value={isAdmin ? email_adm : email_funcionario}
@@ -183,8 +191,8 @@ export function Login() {
               color={passwordFocused ? "blue.400" : "gray.500"}
               transform={
                 passwordFocused ||
-                (document.getElementById("password") &&
-                  document.getElementById("password").value !== "")
+                  (document.getElementById("password") &&
+                    document.getElementById("password").value !== "")
                   ? "translateY(-1rem)"
                   : "translateY(0.25rem) translateX(0.35rem)"
               }
@@ -193,6 +201,10 @@ export function Login() {
               Senha
             </FormLabel>
             <Input
+              borderRadius={15}
+              mt={2}
+              placeholder="Senha"
+              bg={colorMode === "light" ? "white" : "#022b5f"}
               id="password"
               type={click ? "text" : "password"}
               value={isAdmin ? senha_adm : senha_funcionario}
@@ -209,6 +221,7 @@ export function Login() {
             />
             <InputRightElement width="4.5rem">
               <Button
+                mt={4}
                 h="1.75rem"
                 size="sm"
                 onClick={handleClick}
@@ -219,13 +232,17 @@ export function Login() {
               </Button>
             </InputRightElement>
           </InputGroup>
-          <Button onClick={handleLogin}>Login</Button>
-          <Link href="/registre-se">
-            <Button>Registre-se</Button>
-          </Link>
-          <Link href={isAdmin ? "logado-adm" : "logado-funcionario"}>
-            <Button onClick={ProtectedRoute}>Rota Privada</Button>
-          </Link>
+
+          <Flex mt={5}>
+            <Button onClick={handleLogin} m={2}>Login</Button>
+            <Link href="/registre-se">
+              <Button m={2}>Registre-se</Button>
+            </Link>
+            <Link href={isAdmin ? "logado-adm" : "logado-funcionario"}>
+              <Button onClick={ProtectedRoute} m={2}>Rota Privada</Button>
+            </Link>
+          </Flex>
+
         </Flex>
       </Flex>
     </Flex>
