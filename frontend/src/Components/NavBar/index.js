@@ -20,7 +20,7 @@ const NavBar = () => {
   const [display, changeDisplay] = useState('none')
 
   return (
-    <Box position="fixed" w="100%"  zIndex={1000} top={0} bg={"darkblue"} p={4}>
+    <Box position="fixed" w="100%" zIndex={1000} top={0} bg={"darkblue"} p={4}>
       <Flex alignItems="center">
         {/* Logo */}
         <Box>
@@ -121,6 +121,10 @@ const NavBar = () => {
       {/* Menu Responsivo */}
 
       <Flex
+        height={{
+          base: '100%',
+          md: '0%'
+        }}
         ml="40%"
         w={250}
         h="100%"
@@ -136,10 +140,12 @@ const NavBar = () => {
 
         <Flex justify="flex-end">
           <IconButton
-            m={10}
+            m={7}
             aria-label="Fechar Menu"
             size="lg"
             icon={<CloseIcon />}
+            bgColor={"darkblue"}
+            color={"white"}
             onClick={() => changeDisplay('none')}
           />
         </Flex>
@@ -160,7 +166,7 @@ const NavBar = () => {
             }}
           />
           <Text
-          color={colorMode === "light" ? "white" : "white"}
+            color={colorMode === "light" ? "white" : "white"}
           >Configurações</Text>
 
           <Menu>
@@ -186,7 +192,7 @@ const NavBar = () => {
             </MenuList>
           </Menu>
           <Text
-          color={colorMode === "light" ? "white" : "white"}
+            color={colorMode === "light" ? "white" : "white"}
           >Login</Text>
 
           <IconButton
@@ -199,7 +205,7 @@ const NavBar = () => {
             }}
           />
           <Text
-          color={colorMode === "light" ? "white" : "white"}
+            color={colorMode === "light" ? "white" : "white"}
           >Pesquisar</Text>
 
         </Flex>
