@@ -20,7 +20,7 @@ const NavBar = () => {
   const [display, changeDisplay] = useState('none')
 
   return (
-    <Box bg={"darkblue"} p={4}>
+    <Box position="fixed" w="100%"  zIndex={1000} top={0} bg={"darkblue"} p={4}>
       <Flex alignItems="center">
         {/* Logo */}
         <Box>

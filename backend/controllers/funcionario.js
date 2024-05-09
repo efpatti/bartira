@@ -104,7 +104,7 @@ exports.logarFuncionario = (req, res) => {
           }
 
           // Gerar um token JWT
-          const token = jwt.sign(
+          const token_funcionario = jwt.sign(
             { email_funcionario: results[0].email_funcionario },
             "jwt",
             {
@@ -112,13 +112,13 @@ exports.logarFuncionario = (req, res) => {
             }
           );
 
-          res.status(200).json({ token });
+          res.status(200).json({ token_funcionario });
         }
       );
     }
   );
 };
 
-exports.rotaProtegida = (req, res) => {
+exports.rotaProtegidaFuncionario = (req, res) => {
   res.status(200).json({ message: "Seu token é válido" });
 };
