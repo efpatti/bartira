@@ -1,22 +1,25 @@
 import { useState } from "react";
 import axios from "axios";
-import { Flex, Button, Box, Input, Link, Avatar } from "@chakra-ui/react";
+import { Flex, Button, Box, Input, Link, Avatar, useColorMode } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser } from "react-icons/fa";
 
 const cargos = {
-  "João": "Gerente",
-  "Maria": "Analista",
-  "Vitor Terribile dos Anjos": "Assistente"
+  "12345": "Gerente",
+  "54321": "Analista",
+  "09876": "Assistente"
 };
 
 export function Login() {
+  const [Cod, setCod] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { login, logout, isAuthenticated } = useAuth();
+
+  const { toggleColorMode, colorMode } = useColorMode();
 
   const handleLogout = () => {
     logout();
@@ -25,13 +28,14 @@ export function Login() {
   };
 
   const clearFields = () => {
+    setCod("");
     setUsername("");
     setPassword("");
   };
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:8080/login", { username, password })
+      .post("http://localhost:8080/login", { username, password, Cod })
       .then((res) => {
         const { token } = res.data;
         login(token);
@@ -59,7 +63,7 @@ export function Login() {
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center">
+    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" >
         <Flex w="90%" align="center" justify="space-around" >
           {isAuthenticated ? (
@@ -88,8 +92,8 @@ export function Login() {
             </>
           ) : (
             <>
-              <Box d="flex" w="60%" gap="10px" m={2}>
-                <Avatar name={username} /> {username} <br /> {cargos[username] || 'Cargo'}
+              <Box d="flex" w="60%" gap="10px" mb={2}>
+                <Avatar name={username} /> {username} <br /> {cargos[Cod] || 'Cargo'}
               </Box>
               <Flex w="50%" align="center" justify="flex-end" />
             </>
@@ -108,13 +112,22 @@ export function Login() {
           borderStyle="solid"
           borderRadius="25px"
           gap="10px"
-          bg={"#ebf3f7"}
+          bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
           <h1><b>Login</b></h1>
           <Input
             type="text"
+            placeholder="Cod. Funcionario"
+            bg={colorMode === "light" ? "white" : "#022b5f"}
+            border={0}
+            value={Cod}
+            onChange={(e) => setCod(e.target.value)}
+            disabled={isAuthenticated}
+          />
+          <Input
+            type="text"
             placeholder="Usuário"
-            bg={"white"}
+            bg={colorMode === "light" ? "white" : "#022b5f"}
             border={0}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -123,7 +136,7 @@ export function Login() {
           <Input
             type="password"
             placeholder="Senha"
-            bg={"white"}
+            bg={colorMode === "light" ? "white" : "#022b5f"}
             border={0}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
