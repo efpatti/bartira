@@ -40,7 +40,6 @@ const NavBar = () => {
           bg={colorMode === "light" ? "white" : "black"}
           justify="center"
           placeholder="O que você está buscando?"
-          color={colorMode === "light" ? "white" : "white"}
         />
 
         {/* Ícones */}
