@@ -1,14 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  Flex,
-  Button,
-  Box,
-  Input,
-  Link,
-  Avatar,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Flex, Button, Box, Input, Link, Avatar, useColorMode, Text } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,6 +50,7 @@ export function Login() {
         toast.error(err.response.data.message);
         toast.error("Se você não tem uma conta, registre-se!");
       });
+
   };
 
   const ProtectedRoute = () => {
@@ -134,9 +127,9 @@ export function Login() {
           gap="10px"
           bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
-          <h1>
-            <b>Login</b>
-          </h1>
+
+          <Text fontSize={40} mb={8}>Login</Text>
+
           <Input
             type="text"
             placeholder="Cod. Funcionario"
@@ -155,22 +148,28 @@ export function Login() {
             onChange={(e) => setUsername(e.target.value)}
             disabled={isAuthenticated}
           />
-          <Input
-            type="password"
-            placeholder="Senha"
-            bg={colorMode === "light" ? "white" : "#022b5f"}
-            border={0}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isAuthenticated}
-          />
-          <Button onClick={handleLogin}>Login</Button>
-          <Link href="/registre-se">
-            <Button>Registre-se</Button>
-          </Link>
-          <Link href="/logado">
-            <Button onClick={ProtectedRoute}>Private Route</Button>
-          </Link>
+            <Input
+              type="password"
+              placeholder="Senha"
+              bg={colorMode === "light" ? "white" : "#022b5f"}
+              border={0}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isAuthenticated}
+            />
+            
+            <Flex mt={3}>
+            <Button onClick={handleLogin} m={2}>Login</Button>
+
+            <Link href="/registre-se">
+              <Button m={2}>Registre-se</Button>
+            </Link>
+
+            <Link href="/logado">
+              <Button onClick={ProtectedRoute} m={2}>Private Route</Button>
+            </Link>
+          </Flex>
+          
         </Flex>
       </Flex>
     </Flex>
