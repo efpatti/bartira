@@ -133,7 +133,7 @@ export function Login() {
         </Flex>
 
         <Flex
-          mt={50}
+          mt={70}
           w="100%"
           h="350px"
           borderRadius={25}
