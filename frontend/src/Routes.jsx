@@ -1,25 +1,25 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./Pages/Conta/Login";
-import { LogadoFuncionario } from "./Pages/Conta/LogadoFuncionario";
-import { LogadoAdm } from "./Pages/Conta/LogadoAdm";
+import { LogadoFuncionario, LogadoAdm } from "./Pages/Conta/Logado";
 import Financeiro from "./Pages/Financeiro";
 import DashBoard from "./Pages/DashBoard";
-import RotasPrivadasFuncionario from "./utilidades/RotasPrivadasFuncionario";
-import RotasPrivadasAdm from "./utilidades/RotasPrivadasAdm";
-import Funcionarios from "./Pages/Funcionarios";
 import Administradores from "./Pages/Administradores";
+import {
+  PrivateRoutesFuncionario,
+  PrivateRoutesAdm,
+} from "./utils/PrivateRoutes";
+import Funcionarios from "./Pages/Funcionarios";
 
 export function Router() {
   return (
     <Routes>
-      <Route element={<RotasPrivadasFuncionario />}>
+      <Route element={<PrivateRoutesFuncionario />}>
         <Route path="/logado-funcionario" element={<LogadoFuncionario />} />
-        <Route path="/financeiro" element={<Financeiro />} />
         <Route path="/produtos" element={<DashBoard />} />
-      </Route>
-      <Route element={<RotasPrivadasAdm />}>
-        <Route path="/logado-adm" element={<LogadoAdm />} />
         <Route path="/financeiro" element={<Financeiro />} />
+      </Route>
+      <Route element={<PrivateRoutesAdm />}>
+        <Route path="/logado-adm" element={<LogadoAdm />} />
         <Route path="/produtos" element={<DashBoard />} />
         <Route path="/funcionarios" element={<Funcionarios />} />
       </Route>

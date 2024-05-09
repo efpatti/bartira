@@ -105,7 +105,15 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
           <option value="Pendente">Pendente</option>
         </Select>
       </FormControl>
-      <Button type="submit" variant="ghost">
+      <Button
+        type="submit"
+        variant="ghost"
+        border="1px"
+        borderColor="blue"
+        colorScheme="blue"
+        mt="3"
+        mb="3"
+      >
         Salvar
       </Button>
     </form>

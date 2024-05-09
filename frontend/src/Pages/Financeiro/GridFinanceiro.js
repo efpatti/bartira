@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 import {
   Table,
@@ -10,12 +11,17 @@ import {
   useToast,
   Container,
   Stack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
   const toast = useToast();
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todas");
 
   const handleEdit = (item) => {
     setAoEditarConta(item);
@@ -42,6 +48,14 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
     }
   };
 
+  const filteredContas = contas.filter((conta) => {
+    if (categoriaSelecionada === "Todas") {
+      return true;
+    } else {
+      return conta.categoria_conta === categoriaSelecionada;
+    }
+  });
+
   return (
     <Container maxW="700px">
       <Stack overflowX="auto">
@@ -50,14 +64,31 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
             <Tr>
               <Th>Nome</Th>
               <Th>Preço</Th>
-              <Th>Categoria</Th>
+              <Th>
+                <Menu>
+                  <MenuButton>{categoriaSelecionada}</MenuButton>
+                  <MenuList>
+                    <MenuItem onClick={() => setCategoriaSelecionada("Pagar")}>
+                      Pagar
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => setCategoriaSelecionada("Receber")}
+                    >
+                      Receber
+                    </MenuItem>
+                    <MenuItem onClick={() => setCategoriaSelecionada("Todas")}>
+                      Todas
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Th>
               <Th>Status</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {contas.map((item, i) => (
+            {filteredContas.map((item, i) => (
               <Tr key={i}>
                 <Td>{item.nome_conta}</Td>
                 <Td>{item.preco_conta}</Td>
