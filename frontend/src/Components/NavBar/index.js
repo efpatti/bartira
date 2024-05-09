@@ -20,7 +20,7 @@ const NavBar = () => {
   const [display, changeDisplay] = useState('none')
 
   return (
-    <Box position="fixed" w="100%"  zIndex={1000} top={0} bg={"darkblue"} p={4}>
+    <Box position="fixed" w="100%" zIndex={1000} top={0} bg={"darkblue"} p={4}>
       <Flex alignItems="center">
         {/* Logo */}
         <Box>
@@ -150,57 +150,75 @@ const NavBar = () => {
           align="flex-end"
           justify="flex-end"
         >
-          <IconButton
-            arial-label="Login"
-            icon={<SettingsIcon />}
-            color={colorMode === "light" ? "white" : "white"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "blue" : "blue",
-            }}
-          />
-          <Text
-          color={colorMode === "light" ? "white" : "white"}
-          >Configurações</Text>
+          <Flex align="center">
+            <Text
+              _hover={{
+                color: colorMode === "light" ? "blue" : "blue",
+              }}
+              color={colorMode === "light" ? "white" : "white"}
+            >Configurações</Text>
+            <IconButton
+              arial-label="Login"
+              icon={<SettingsIcon />}
+              color={colorMode === "light" ? "white" : "white"}
+              bg={0}
+              _hover={{
+                color: colorMode === "light" ? "blue" : "blue",
+              }}
+            />
+            
+          </Flex>
 
-          <Menu>
-            <MenuButton>
-              <IconButton
-                arial-label="Login"
-                icon={<SettingsIcon />}
-                color={colorMode === "light" ? "white" : "white"}
-                bg={0}
-                _hover={{
-                  color: colorMode === "light" ? "blue" : "blue",
-                }}
-              />
-            </MenuButton>
-            <MenuList paddingBottom="0" m="1" >
-              <MenuGroup title="Perfil">
-                <MenuItem>
-                  <Link href="/login" _hover={{ textDecoration: "none" }} >
-                    Login
-                  </Link>
-                </MenuItem>
-              </MenuGroup>
-            </MenuList>
-          </Menu>
-          <Text
-          color={colorMode === "light" ? "white" : "white"}
-          >Login</Text>
+          <Flex align="center">
+            <Text
+              _hover={{
+                color: colorMode === "light" ? "blue" : "blue",
+              }}
+              color={colorMode === "light" ? "white" : "white"}
+            >Login</Text>
+            <Menu>
+              <MenuButton>
+                <IconButton
+                  arial-label="Login"
+                  icon={<SettingsIcon />}
+                  color={colorMode === "light" ? "white" : "white"}
+                  bg={0}
+                  _hover={{
+                    color: colorMode === "light" ? "blue" : "blue",
+                  }}
+                />
+              </MenuButton>
+              <MenuList paddingBottom="0" m="1" >
+                <MenuGroup title="Perfil">
+                  <MenuItem>
+                    <Link href="/login" _hover={{ textDecoration: "none" }} >
+                      Login
+                    </Link>
+                  </MenuItem>
+                </MenuGroup>
+              </MenuList>
+            </Menu>
+            
+          </Flex>
 
-          <IconButton
-            aria-label="Pesquisar"
-            icon={<SearchIcon />}
-            color={colorMode === "light" ? "white" : "white"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "blue" : "blue",
-            }}
-          />
-          <Text
-          color={colorMode === "light" ? "white" : "white"}
-          >Pesquisar</Text>
+          <Flex align="center">
+            <Text
+              _hover={{
+                color: colorMode === "light" ? "blue" : "blue",
+              }}
+              color={colorMode === "light" ? "white" : "white"}
+            >Pesquisar</Text>
+            <IconButton
+              aria-label="Pesquisar"
+              icon={<SearchIcon />}
+              color={colorMode === "light" ? "white" : "white"}
+              bg={0}
+              _hover={{
+                color: colorMode === "light" ? "blue" : "blue",
+              }}
+            />
+            
+          </Flex>
 
         </Flex>
       </Flex>
