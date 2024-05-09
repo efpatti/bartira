@@ -63,7 +63,7 @@ export function Login() {
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
+    <Flex height="95vh" d="flex" paddingTop="55px" justify="center" align="center" m={3}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" >
         <Flex w="90%" align="center" justify="space-around" >
           {isAuthenticated ? (
@@ -102,7 +102,7 @@ export function Login() {
 
         <Flex
           w="100%"
-          h="400px"
+          h="380px"
           p={5}
           align="center"
           flexDirection="column"
