@@ -4,22 +4,28 @@ const {
   adicionarAdm,
   atualizarAdm,
   deletarAdm,
-  rotaProtegida,
   logarAdm,
+  rotaProtegidaAdm,
 } = require("../controllers/administrador.js");
 
 const router = express.Router();
 
-router.get("/adms", pegarAdms);
+// Rota para pegar todos os administradores
+router.get("/administradores", pegarAdms);
 
-router.post("/adms", adicionarAdm);
+// Rota para adicionar um novo administrador
+router.post("/administradores", adicionarAdm);
 
+// Rota para fazer login
 router.post("/loginAdm", logarAdm);
 
-router.get("/protegidoAdm", rotaProtegida);
+// Rota protegida que requer autenticação
+router.get("/protegidoAdm", rotaProtegidaAdm);
 
-router.put("/adms/:idAdm", atualizarAdm);
+// Rota para atualizar informações de um administrador existente
+router.put("/administradores/:idAdm", atualizarAdm);
 
-router.delete("/adms/:idAdm", deletarAdm);
+// Rota para deletar um administrador
+router.delete("/administradores/:idAdm", deletarAdm);
 
 module.exports = router;

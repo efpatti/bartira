@@ -119,6 +119,6 @@ exports.logarFuncionario = (req, res) => {
   );
 };
 
-exports.rotaProtegida = (req, res) => {
-  res.status(200).json({ message: "Seu token de funcionário é válido" });
+exports.rotaProtegidaFuncionario = (req, res) => {
+  res.status(200).json({ message: "Seu token é válido" });
 };

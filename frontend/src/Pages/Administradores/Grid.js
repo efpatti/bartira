@@ -14,7 +14,7 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridAdms = ({ adms, setAdms, setAoEditarAdm }) => {
+const GridAdministradores = ({ adms, setAdms, setAoEditarAdm }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -23,7 +23,7 @@ const GridAdms = ({ adms, setAdms, setAoEditarAdm }) => {
 
   const handleDelete = async (idAdm) => {
     try {
-      await axios.delete(`http://localhost:8080/adms/${idAdm}`);
+      await axios.delete(`http://localhost:8080/administradores/${idAdm}`);
       const newArray = adms.filter((adm) => adm.idAdm !== idAdm);
       setAdms(newArray);
       toast({
@@ -48,7 +48,11 @@ const GridAdms = ({ adms, setAdms, setAoEditarAdm }) => {
         <Table variant="simple" size="md">
           <Thead>
             <Tr>
+              <Th>Nome</Th>
               <Th>Email</Th>
+              <Th>Cargo</Th>
+              <Th>CPF</Th>
+              <Th>Endereço</Th>
               <Th>Senha</Th>
               <Th></Th>
               <Th></Th>
@@ -57,7 +61,11 @@ const GridAdms = ({ adms, setAdms, setAoEditarAdm }) => {
           <Tbody>
             {adms.map((item, i) => (
               <Tr key={i}>
+                <Td>{item.nome_adm}</Td>
                 <Td>{item.email_adm}</Td>
+                <Td>{item.cargo_adm}</Td>
+                <Td>{item.cpf_adm}</Td>
+                <Td>{item.endereco_adm}</Td>
                 <Td>{item.senha_adm}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
@@ -75,10 +83,10 @@ const GridAdms = ({ adms, setAdms, setAoEditarAdm }) => {
 };
 
 // Definindo PropTypes para validar as props
-GridAdms.propTypes = {
+GridAdministradores.propTypes = {
   adms: PropTypes.array.isRequired,
   setAdms: PropTypes.func.isRequired,
   setAoEditarAdm: PropTypes.func.isRequired,
 };
 
-export default GridAdms;
+export default GridAdministradores;

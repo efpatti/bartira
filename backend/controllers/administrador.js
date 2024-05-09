@@ -12,7 +12,8 @@ exports.pegarAdms = (_, res) => {
 };
 
 exports.adicionarAdm = (req, res) => {
-  const q = "INSERT INTO administradores (`email_adm`, `senha_adm`) VALUES(?)";
+  const q =
+    "INSERT INTO administradores (`nome_adm`, `email_adm`, `cargo_adm`, `cpf_adm`, `endereco_adm`, `senha_adm`) VALUES(?)";
 
   // Gera o hash da senha
   bcrypt.hash(req.body.senha_adm, 10, (err, hash) => {
@@ -22,7 +23,11 @@ exports.adicionarAdm = (req, res) => {
     }
 
     const values = [
+      req.body.nome_adm,
       req.body.email_adm,
+      req.body.cargo_adm,
+      req.body.cpf_adm,
+      req.body.endereco_adm,
       hash, // Salva o hash da senha no banco de dados
     ];
 
@@ -41,9 +46,16 @@ exports.adicionarAdm = (req, res) => {
 
 exports.atualizarAdm = (req, res) => {
   const q =
-    "UPDATE administradores SET `email_adm` = ?, `senha_adm` = ? WHERE `idAdm` = ?";
+    "UPDATE administradores SET `nome_adm` = ?, `email_adm` = ?, `cargo_adm` = ?, `cpf_adm` = ?, `endereco_adm` = ?, `senha_adm` = ? WHERE `idAdm` = ?";
 
-  const values = [req.body.email_adm, req.body.senha_adm];
+  const values = [
+    req.body.nome_adm,
+    req.body.email_adm,
+    req.body.cargo_adm,
+    req.body.cpf_adm,
+    req.body.endereco_adm,
+    req.body.senha_adm,
+  ];
 
   db.query(q, [...values, req.params.idAdm], (err) => {
     if (err) return res.json(err);
@@ -97,6 +109,6 @@ exports.logarAdm = (req, res) => {
   );
 };
 
-exports.rotaProtegida = (req, res) => {
-  res.status(200).json({ message: "Seu token de administrador é válido" });
+exports.rotaProtegidaAdm = (req, res) => {
+  res.status(200).json({ message: "Seu token é válido" });
 };

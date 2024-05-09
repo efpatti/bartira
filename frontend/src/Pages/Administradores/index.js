@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Heading } from "@chakra-ui/react";
-import FormAdms from "./Form";
-import GridAdms from "./Grid";
+import FormAdministradores from "./Form";
+import GridAdministradores from "./Grid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DashBoardAdms = () => {
+const DashBoardAdministradores = () => {
   useEffect(() => {
     document.title = "Bartira | Administradores";
   }, []);
@@ -16,8 +16,12 @@ const DashBoardAdms = () => {
 
   const pegarAdms = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/adms");
-      setAdms(res.data.sort((a, b) => (a.idAdms > b.idAdms ? 1 : -1)));
+      const res = await axios.get("http://localhost:8080/administradores");
+      setAdms(
+        res.data.sort((a, b) =>
+          a.idAdministrador > b.idAdministrador ? 1 : -1
+        )
+      );
     } catch (error) {
       toast.error(error);
     }
@@ -31,12 +35,12 @@ const DashBoardAdms = () => {
     <>
       <Container maxW="800px" mt="20px" textAlign="center">
         <Heading as="h2">Administradores</Heading>
-        <FormAdms
+        <FormAdministradores
           aoEditarAdm={aoEditarAdm}
           setAoEditarAdm={setAoEditarAdm}
           pegarAdms={pegarAdms}
         />
-        <GridAdms
+        <GridAdministradores
           adms={adms}
           setAdms={setAdms}
           setAoEditarAdm={setAoEditarAdm}
@@ -47,4 +51,4 @@ const DashBoardAdms = () => {
   );
 };
 
-export default DashBoardAdms;
+export default DashBoardAdministradores;

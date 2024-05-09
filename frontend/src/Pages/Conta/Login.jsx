@@ -1,21 +1,33 @@
 import { useState } from "react";
 import axios from "axios";
-import { Flex, Button, Box, Input, Link } from "@chakra-ui/react";
-import { useAuthFuncionario } from "../../hooks/useAuthFuncionario";
-import { useAuthAdm } from "../../hooks/useAuthAdm";
+import {
+  Flex,
+  Button,
+  Box,
+  Input,
+  Link,
+  Avatar,
+  useColorMode,
+} from "@chakra-ui/react";
+import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser } from "react-icons/fa";
 
-export function Login() {
-  const [email_funcionario, setEmailFuncionario] = useState("");
-  const [senha_funcionario, setSenhaFuncionario] = useState("");
-  const [email_adm, setEmailAdm] = useState("");
-  const [senha_adm, setSenhaAdm] = useState("");
+const cargos = {
+  12345: "Gerente",
+  54321: "Analista",
+  "09876": "Assistente",
+};
 
-  const { loginFuncionario, logoutFuncionario, isAuthenticatedFuncionario } =
-    useAuthFuncionario();
-  const { loginAdm, logoutAdm, isAuthenticatedAdm } = useAuthAdm();
+export function Login() {
+  const [Cod, setCod] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { login, logout, isAuthenticated } = useAuth();
+
+  const { toggleColorMode, colorMode } = useColorMode();
 
   const handleLogout = () => {
     if (isAuthenticatedFuncionario) {
@@ -28,45 +40,24 @@ export function Login() {
   };
 
   const clearFields = () => {
-    setEmailFuncionario("");
-    setSenhaFuncionario("");
-    setEmailAdm("");
-    setSenhaAdm("");
+    setCod("");
+    setUsername("");
+    setPassword("");
   };
 
   const handleLogin = () => {
-    if (email_funcionario && senha_funcionario) {
-      axios
-        .post("http://localhost:8080/loginFuncionario", {
-          email_funcionario,
-          senha_funcionario,
-        })
-        .then((res) => {
-          const { token } = res.data;
-          loginFuncionario(token);
-          toast.success("Login feito com sucesso!");
-          toast.success("Token válido, agora você tem acesso!");
-        })
-        .catch(() => {
-          axios
-            .post("http://localhost:8080/loginAdm", {
-              email_adm,
-              senha_adm,
-            })
-            .then((res) => {
-              const { token } = res.data;
-              loginAdm(token);
-              toast.success("Login feito com sucesso!");
-              toast.success("Token válido, agora você tem acesso!");
-            })
-            .catch((err) => {
-              toast.error(err.response.data.message);
-            });
-        });
-    } else {
-      toast.error("Se você não tem uma conta, registre-se!");
-      toast.warn("Preencha todos os campos!");
-    }
+    axios
+      .post("http://localhost:8080/login", { username, password, Cod })
+      .then((res) => {
+        const { token } = res.data;
+        login(token);
+        toast.success("Login feito com sucesso!");
+        toast.success("Token válido, agora você tem acesso!");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+        toast.error("Se você não tem uma conta, registre-se!");
+      });
   };
 
   const ProtectedRoute = () => {
@@ -92,38 +83,14 @@ export function Login() {
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center">
+    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
         <Flex w="90%" align="center" justify="space-around">
-          {isAuthenticatedFuncionario ? (
+          {isAuthenticated ? (
             <>
               <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{email_funcionario}</div>
-              </Box>
-              <Box d="flex" w="50%" gap="10px">
-                <Button
-                  textDecoration="none"
-                  color="black"
-                  bg="white"
-                  fontSize="12px"
-                  borderRadius="15px"
-                  textAlign="center"
-                  p="2"
-                  d="flex"
-                  align="center"
-                  justify="center"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Button>
-              </Box>
-            </>
-          ) : isAuthenticatedAdm ? (
-            <>
-              <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{email_adm}</div>
+                <div>{username}</div>
               </Box>
               <Box d="flex" w="50%" gap="10px">
                 <Button
@@ -145,46 +112,64 @@ export function Login() {
             </>
           ) : (
             <>
-              <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} /> {"Email"}
+              <Box d="flex" w="60%" gap="10px" mb={2}>
+                <Avatar name={username} /> {username} <br />{" "}
+                {cargos[Cod] || "Cargo"}
               </Box>
             </>
           )}
         </Flex>
 
         <Flex
-          w="85%"
-          h="320px"
+          w="100%"
+          h="400px"
+          p={5}
           align="center"
           flexDirection="column"
           justify="center"
-          border="2px"
+          border={0}
           borderColor="black"
           borderStyle="solid"
           borderRadius="25px"
           gap="10px"
+          bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
-          <h1>LOGIN</h1>
+          <h1>
+            <b>Login</b>
+          </h1>
           <Input
             type="text"
-            placeholder="Email"
-            value={email_funcionario}
-            onChange={(e) => setEmailFuncionario(e.target.value)}
-            disabled={isAuthenticatedFuncionario || isAuthenticatedAdm}
+            placeholder="Cod. Funcionario"
+            bg={colorMode === "light" ? "white" : "#022b5f"}
+            border={0}
+            value={Cod}
+            onChange={(e) => setCod(e.target.value)}
+            disabled={isAuthenticated}
+          />
+          <Input
+            type="text"
+            placeholder="Usuário"
+            bg={colorMode === "light" ? "white" : "#022b5f"}
+            border={0}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={isAuthenticated}
           />
           <Input
             type="password"
             placeholder="Senha"
-            value={senha_funcionario}
-            onChange={(e) => setSenhaFuncionario(e.target.value)}
-            disabled={isAuthenticatedFuncionario || isAuthenticatedAdm}
+            bg={colorMode === "light" ? "white" : "#022b5f"}
+            border={0}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isAuthenticated}
           />
           <Button onClick={handleLogin}>Login</Button>
           <Link href="/registre-se">
             <Button>Registre-se</Button>
           </Link>
           <Link href="/logado">
-            <Button onClick={ProtectedRoute}>Rota Privada</Button>
+            <Button onClick={ProtectedRoute}>Private Route</Button>
           </Link>
         </Flex>
       </Flex>
