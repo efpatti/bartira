@@ -115,7 +115,7 @@ export function Login() {
           bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
 
-          <Text fontSize={40} mb={10}>Login</Text>
+          <Text fontSize={40} mb={8}>Login</Text>
 
           <Input
             type="text"
@@ -145,7 +145,7 @@ export function Login() {
               disabled={isAuthenticated}
             />
             
-            <Flex mt={10}>
+            <Flex mt={3}>
             <Button onClick={handleLogin} m={2}>Login</Button>
 
             <Link href="/registre-se">
