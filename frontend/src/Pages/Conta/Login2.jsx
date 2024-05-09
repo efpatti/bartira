@@ -104,10 +104,10 @@ export function Login() {
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center">
+    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
         <Flex w="90%" align="center" justify="space-around">
-          {isAuthenticatedFuncionario ? (
+          {isAuthenticated ? (
             <>
               <Box d="flex" w="50%" gap="10px">
                 <FaUser size={20} style={{ marginRight: "0px" }} />
@@ -129,8 +129,9 @@ export function Login() {
         </Flex>
 
         <Flex
-          w="85%"
-          h="320px"
+          w="100%"
+          h="380px"
+          p={5}
           align="center"
           flexDirection="column"
           justify="center"
