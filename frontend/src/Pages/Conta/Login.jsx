@@ -1,15 +1,24 @@
 import { useState } from "react";
 import axios from "axios";
-import { Flex, Button, Box, Input, Link, Avatar, useColorMode, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Box,
+  Input,
+  Link,
+  Avatar,
+  useColorMode,
+  Text,
+} from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser } from "react-icons/fa";
 
 const cargos = {
-  "12345": "Gerente",
-  "54321": "Analista",
-  "09876": "Assistente"
+  12345: "Gerente",
+  54321: "Analista",
+  "09876": "Assistente",
 };
 
 export function Login() {
@@ -22,7 +31,11 @@ export function Login() {
   const { toggleColorMode, colorMode } = useColorMode();
 
   const handleLogout = () => {
-    logout();
+    if (isAuthenticatedFuncionario) {
+      logoutFuncionario();
+    } else if (isAuthenticatedAdm) {
+      logoutAdm();
+    }
     clearFields();
     toast.warn("Você saiu!");
   };
@@ -46,24 +59,32 @@ export function Login() {
         toast.error(err.response.data.message);
         toast.error("Se você não tem uma conta, registre-se!");
       });
-
   };
 
-
   const ProtectedRoute = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token_funcionario");
+    console.log(token);
+    if (token) {
+      toast.success("Seu token é válido");
+    } else {
+      ProtectedRouteAdm();
+    }
+  };
+
+  const ProtectedRouteAdm = () => {
+    const token = localStorage.getItem("token_adm");
     console.log(token);
     if (token) {
       toast.success("Seu token é válido");
     } else {
       toast.error("Sem acesso a rota");
-      toast.error("Registre-se e faça login para acessar esta rota!1");
-      toast.error("Você foi direcionado para página de registro.");
+      toast.error("Registre-se e faça login para acessar esta rota!");
+      toast.error("Você foi direcionado para a página de registro.");
     }
   };
 
   return (
-    <Flex height="95vh" d="flex" paddingTop="55px" justify="center" align="center" m={3}>
+    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" >
         <Flex w="90%" align="center" justify="space-around" >
           {isAuthenticated ? (
@@ -93,9 +114,9 @@ export function Login() {
           ) : (
             <>
               <Box d="flex" w="60%" gap="10px" mb={2}>
-                <Avatar name={username} /> {username} <br /> {cargos[Cod] || 'Cargo'}
+                <Avatar name={username} /> {username} <br />{" "}
+                {cargos[Cod] || "Cargo"}
               </Box>
-              <Flex w="50%" align="center" justify="flex-end" />
             </>
           )}
         </Flex>
@@ -114,8 +135,9 @@ export function Login() {
           gap="10px"
           bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
         >
-
-          <Text fontSize={40} mb={8}>Login</Text>
+          <Text fontSize={40} mb={8}>
+            Login
+          </Text>
 
           <Input
             type="text"
@@ -135,28 +157,31 @@ export function Login() {
             onChange={(e) => setUsername(e.target.value)}
             disabled={isAuthenticated}
           />
-            <Input
-              type="password"
-              placeholder="Senha"
-              bg={colorMode === "light" ? "white" : "#022b5f"}
-              border={0}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={isAuthenticated}
-            />
-            
-            <Flex mt={3}>
-            <Button onClick={handleLogin} m={2}>Login</Button>
+          <Input
+            type="password"
+            placeholder="Senha"
+            bg={colorMode === "light" ? "white" : "#022b5f"}
+            border={0}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isAuthenticated}
+          />
+
+          <Flex mt={3}>
+            <Button onClick={handleLogin} m={2}>
+              Login
+            </Button>
 
             <Link href="/registre-se">
               <Button m={2}>Registre-se</Button>
             </Link>
 
             <Link href="/logado">
-              <Button onClick={ProtectedRoute} m={2}>Private Route</Button>
+              <Button onClick={ProtectedRoute} m={2}>
+                Private Route
+              </Button>
             </Link>
           </Flex>
-          
         </Flex>
       </Flex>
     </Flex>
