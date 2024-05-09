@@ -11,7 +11,9 @@ import {
   InputRightElement,
   useColorMode,
   Text,
+  IconButton,
 } from "@chakra-ui/react";
+import { WarningIcon } from "@chakra-ui/icons";
 import { useAuthFuncionario, useAuthAdm } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -108,7 +110,7 @@ export function Login() {
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center" m={3}>
+    <Flex height="95vh" d="flex" justify="center" align="center" mt={90}>
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
         <Flex w="90%" align="center" justify="space-around">
           {isAuthenticatedFuncionario ? (
@@ -126,9 +128,16 @@ export function Login() {
               </Box>
             </>
           ) : (
-            <>
-              <h1>vc n tem conta mermao</h1>
-            </>
+            <Flex
+              borderRadius={35}
+              bg="red.300"
+              p={3}
+              align="center"
+              justify="center"
+              >
+              <IconButton bg="red" borderRadius={25} icon={<WarningIcon />} />
+              <Text p={2} >vc n tem conta mermao</Text>
+            </Flex>
           )}
         </Flex>
 

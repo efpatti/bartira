@@ -156,59 +156,6 @@ const NavBar = () => {
           align="flex-end"
           justify="flex-end"
         >
-<<<<<<< HEAD
-          <IconButton
-            arial-label="Login"
-            icon={<SettingsIcon />}
-            color={colorMode === "light" ? "white" : "white"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "blue" : "blue",
-            }}
-          />
-          <Text
-            color={colorMode === "light" ? "white" : "white"}
-          >Configurações</Text>
-
-          <Menu>
-            <MenuButton>
-              <IconButton
-                arial-label="Login"
-                icon={<SettingsIcon />}
-                color={colorMode === "light" ? "white" : "white"}
-                bg={0}
-                _hover={{
-                  color: colorMode === "light" ? "blue" : "blue",
-                }}
-              />
-            </MenuButton>
-            <MenuList paddingBottom="0" m="1" >
-              <MenuGroup title="Perfil">
-                <MenuItem>
-                  <Link href="/login" _hover={{ textDecoration: "none" }} >
-                    Login
-                  </Link>
-                </MenuItem>
-              </MenuGroup>
-            </MenuList>
-          </Menu>
-          <Text
-            color={colorMode === "light" ? "white" : "white"}
-          >Login</Text>
-
-          <IconButton
-            aria-label="Pesquisar"
-            icon={<SearchIcon />}
-            color={colorMode === "light" ? "white" : "white"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "blue" : "blue",
-            }}
-          />
-          <Text
-            color={colorMode === "light" ? "white" : "white"}
-          >Pesquisar</Text>
-=======
           <Flex align="center">
             <Text
               _hover={{
@@ -278,7 +225,6 @@ const NavBar = () => {
             />
             
           </Flex>
->>>>>>> cc666557284077afa8af9c287d696b0ee2a8325e
 
         </Flex>
       </Flex>
