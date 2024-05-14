@@ -11,9 +11,9 @@ import {
   InputRightElement,
   useColorMode,
   Text,
-  IconButton,
+  Icon,
 } from "@chakra-ui/react";
-import { WarningIcon } from "@chakra-ui/icons";
+import { CloseIcon } from "@chakra-ui/icons";
 import { useAuthFuncionario, useAuthAdm } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -134,8 +134,11 @@ export function Login() {
               p={3}
               align="center"
               justify="center"
-              >
-              <IconButton bg="red" borderRadius={25} icon={<WarningIcon />} />
+            >
+              <Flex bg="red" borderRadius={25} p={4}>
+                <Icon as={CloseIcon} />
+              </Flex>
+
               <Text p={2} >vc n tem conta mermao</Text>
             </Flex>
           )}

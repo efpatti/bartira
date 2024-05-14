@@ -12,6 +12,7 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+import { IoMdPerson } from "react-icons/io";
 import { SearchIcon, MoonIcon, SunIcon, SettingsIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
@@ -66,7 +67,7 @@ const NavBar = () => {
               <MenuButton>
                 <IconButton
                   arial-label="Login"
-                  icon={<SettingsIcon />}
+                  icon={<IoMdPerson />}
                   color={colorMode === "light" ? "white" : "white"}
                   bg={0}
                   _hover={{
