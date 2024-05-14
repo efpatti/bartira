@@ -5,10 +5,10 @@ const Footer = () => {
     <Stack
       marginInline="auto"
       p={8}
-      margin={0}
       bgColor={'darkblue'}
       alignItems="center"
       color={'white'}
+      mt={10}
     >
 
       <Stack d={{ base: 'flex', md: 'none' }} alignItems="center">

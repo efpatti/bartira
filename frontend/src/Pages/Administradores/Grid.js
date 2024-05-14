@@ -43,7 +43,7 @@ const GridAdministradores = ({ adms, setAdms, setAoEditarAdm }) => {
   };
 
   return (
-    <Container maxW="700px">
+    <Container maxW="700px" bgColor={'#7c9eff'} mt={4} borderRadius={8}>
       <Stack overflowX="auto">
         <Table variant="simple" size="md">
           <Thead>

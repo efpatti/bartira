@@ -111,7 +111,7 @@ const FormAdministradores = ({ pegarAdms, aoEditarAdm, setAoEditarAdm }) => {
         <FormLabel>Senha</FormLabel>
         <Input name="senha_adm" type="password" />
       </FormControl>
-      <Button type="submit" variant="ghost">
+      <Button mt={4} type="submit" variant="ghost">
         Salvar
       </Button>
     </form>

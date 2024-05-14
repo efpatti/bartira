@@ -33,7 +33,7 @@ const DashBoardAdministradores = () => {
 
   return (
     <>
-      <Container maxW="800px" mt="20px" textAlign="center">
+      <Container maxW="800px" p={4} mt="100px" textAlign="center">
         <Heading as="h2">Administradores</Heading>
         <FormAdministradores
           aoEditarAdm={aoEditarAdm}
