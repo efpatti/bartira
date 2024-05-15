@@ -1,14 +1,22 @@
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
 import { Flex, Button, Text, Link } from "@chakra-ui/react";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 export function LogadoAdm() {
+  const [loggedOff, setLoggedOff] = useState(false);
   const { logout } = useAuth(); // Alteração aqui
 
-  const handleLogoutAdm = () => {
+  const handleLogout = () => {
     logout();
     toast.warn("Você saiu da conta!");
+    setLoggedOff(true);
   };
+
+  if (loggedOff) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Flex h="95vh" justifyContent="center" alignItems="center">
@@ -36,7 +44,7 @@ export function LogadoAdm() {
           <Text fontSize="md">Bem vindo a rota privada!</Text>
           <Text fontSize="sm">Você consegue ver isso porque está logado!</Text>
           <Button
-            onClick={handleLogoutAdm}
+            onClick={handleLogout}
             textDecoration="none"
             color="black"
             w="40%"
@@ -54,16 +62,21 @@ export function LogadoAdm() {
 }
 
 export function LogadoFuncionario() {
+  const [loggedOff, setLoggedOff] = useState(false);
   const { logout } = useAuth(); // Alteração aqui
 
-  const handleLogoutFuncionario = () => {
+  const handleLogout = () => {
     logout();
     toast.warn("Você saiu da conta!");
+    setLoggedOff(true);
   };
 
   const { userType } = useAuth();
   console.log(userType);
 
+  if (loggedOff) {
+    return <Navigate to="/" />;
+  }
   return (
     <Flex h="95vh" justifyContent="center" alignItems="center">
       <Flex
@@ -90,7 +103,7 @@ export function LogadoFuncionario() {
           <Text fontSize="md">Bem vindo a rota privada!</Text>
           <Text fontSize="sm">Você consegue ver isso porque está logado!</Text>
           <Button
-            onClick={handleLogoutFuncionario}
+            onClick={handleLogout}
             textDecoration="none"
             color="black"
             w="40%"

@@ -34,9 +34,6 @@ export function useAuth() {
   const login = (token) => {
     handleVerify(token);
     setIsAuthenticated(true); // Definindo isAuthenticated como true após o login bem-sucedido
-    setInterval(function () {
-      window.location.reload();
-    }, 5000);
   };
 
   const logout = () => {
@@ -44,9 +41,6 @@ export function useAuth() {
     setIsAuthenticated(false);
     setUser(null);
     setUserType(null);
-    setInterval(function () {
-      window.location.reload();
-    }, 5000);
   };
 
   const handleVerify = (token) => {
