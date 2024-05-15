@@ -12,10 +12,10 @@ const Footer = () => {
       mt={10}
     >
       <Stack d={{ base: "flex", md: "none" }} alignItems="center">
-        <Text fontSize="sm" fontWeight="600">
+        <p>
           © {new Date().getFullYear()} INDÚSTRIA DE MÓVEIS BARTIRA LTDA. Todos
           os direitos reservados.
-        </Text>
+        </p>
       </Stack>
     </Stack>
   );
