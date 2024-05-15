@@ -61,7 +61,7 @@ export function LogadoFuncionario() {
     toast.warn("Você saiu da conta!");
   };
 
-  const { isAuthenticated, userType } = useAuth();
+  const { userType } = useAuth();
   console.log(userType);
 
   return (

@@ -10,10 +10,10 @@ import {
   InputRightElement,
   useColorMode,
   Text,
-  Icon,
+  Stack,
+  Link,
 } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
-import { useAuthFuncionario, useAuthAdm } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
@@ -80,121 +80,94 @@ function Login() {
             </Box>
           ) : (
             <Flex
-              borderRadius={35}
-              bg="red.300"
-              p={3}
+              mt={70}
+              w="100%"
+              h="350px"
+              borderRadius={25}
+              p={5}
               align="center"
-              justify="center"
+              flexDirection="column"
+              gap="10px"
+              bg={colorMode === "light" ? "darkblue" : "blue.700"}
+              color={colorMode === "light" ? "white" : "black"}
             >
-              <Flex bg="red" borderRadius={25} p={4}>
-                <Icon as={CloseIcon} />
-              </Flex>
-
-              <Text p={2} >vc n tem conta mermao</Text>
-            </Flex>
-          )}
-        </Flex>
-
-        <Flex
-          mt={70}
-          w="100%"
-          h="350px"
-          borderRadius={25}
-          p={5}
-          align="center"
-          flexDirection="column"
-          gap="10px"
-          bg={colorMode === "light" ? "#ebf3f7" : "#21226c"}
-        >
-          <Text fontSize={40} mb={8}>
-            Login
-          </Text>
-          <InputGroup>
-            <FormLabel
-              htmlFor="email"
-              position="absolute"
-              fontSize={emailFocused ? "xs" : "sm"}
-              color={emailFocused ? "blue.400" : "gray.500"}
-              transform={
-                emailFocused ||
-                  (document.getElementById("email") &&
-                    document.getElementById("email").value !== "")
-                  ? "translateY(-1rem)"
-                  : "translateY(0.25rem) translateX(0.35rem)"
-              }
-              transition="transform 0.2s, font-size 0.2s, color 0.2s"
-            >
-              Email
-            </FormLabel>
-            <Input
-              borderRadius={15}
-              mb={2}
-              placeholder="Email"
-              bg={colorMode === "light" ? "white" : "#022b5f"}
-              type="text"
-              id="email"
-              value={isAdmin ? email_adm : email_funcionario}
-              onChange={(e) =>
-                isAdmin
-                  ? setEmailAdm(e.target.value)
-                  : setEmailFuncionario(e.target.value)
-              }
-              disabled={
-                isAdmin ? isAuthenticatedAdm : isAuthenticatedFuncionario
-              }
-              onFocus={handleEmailFocus}
-              onBlur={handleEmailBlur}
-            />
-          </InputGroup>
-          <InputGroup size="md">
-            <FormLabel
-              htmlFor="password"
-              position="absolute"
-              fontSize={passwordFocused ? "xs" : "sm"}
-              color={passwordFocused ? "blue.400" : "gray.500"}
-              transform={
-                passwordFocused ||
-                  (document.getElementById("password") &&
-                    document.getElementById("password").value !== "")
-                  ? "translateY(-1rem)"
-                  : "translateY(0.25rem) translateX(0.35rem)"
-              }
-              transition="transform 0.2s, font-size 0.2s, color 0.2s"
-            >
-              Senha
-            </FormLabel>
-            <Input
-              borderRadius={15}
-              mt={2}
-              placeholder="Senha"
-              bg={colorMode === "light" ? "white" : "#022b5f"}
-              id="password"
-              type={click ? "text" : "password"}
-              value={isAdmin ? senha_adm : senha_funcionario}
-              onChange={(e) =>
-                isAdmin
-                  ? setSenhaAdm(e.target.value)
-                  : setSenhaFuncionario(e.target.value)
-              }
-              disabled={
-                isAdmin ? isAuthenticatedAdm : isAuthenticatedFuncionario
-              }
-              onFocus={handlePasswordFocus}
-              onBlur={handlePasswordBlur}
-            />
-            <InputRightElement width="4.5rem">
-              <Button
-                mt={4}
-                h="1.75rem"
-                size="sm"
-                onClick={handleClick}
-                variant="none"
-                _hover={{ opacity: "70%" }}
-              >
-                {click ? <FaEyeSlash /> : <FaEye />}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+              <Text fontSize={40} mb={8}>
+                Login
+              </Text>
+              <InputGroup>
+                <FormLabel
+                  htmlFor="email"
+                  position="absolute"
+                  fontSize={emailFocused ? "xs" : "sm"}
+                  transform={
+                    emailFocused ||
+                    (document.getElementById("email") &&
+                      document.getElementById("email").value !== "")
+                      ? "translateY(-1rem)"
+                      : "translateY(0.25rem) translateX(0.35rem)"
+                  }
+                  transition="transform 0.2s, font-size 0.2s, color 0.2s"
+                >
+                  Email
+                </FormLabel>
+                <Input
+                  color={colorMode === "light" ? "black" : "white"}
+                  borderRadius={15}
+                  placeholder="Email"
+                  bg={colorMode === "light" ? "gray.200" : "gray.800"}
+                  type="text"
+                  id="email"
+                  value={email}
+                  mb="3"
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isAuthenticated}
+                  onFocus={handleEmailFocus}
+                  onBlur={handleEmailBlur}
+                />
+              </InputGroup>
+              <InputGroup>
+                <FormLabel
+                  htmlFor="password"
+                  position="absolute"
+                  fontSize={passwordFocused ? "xs" : "sm"}
+                  transform={
+                    passwordFocused ||
+                    (document.getElementById("password") &&
+                      document.getElementById("password").value !== "")
+                      ? "translateY(-1rem)"
+                      : "translateY(0.25rem) translateX(0.35rem)"
+                  }
+                  transition="transform 0.2s, font-size 0.2s, color 0.2s"
+                >
+                  Senha
+                </FormLabel>
+                <Input
+                  borderRadius={15}
+                  mb="3"
+                  placeholder="Senha"
+                  bg={colorMode === "light" ? "gray.200" : "gray.800"}
+                  color={colorMode === "light" ? "black" : "white"}
+                  id="password"
+                  type={click ? "text" : "password"}
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  disabled={isAuthenticated}
+                  onFocus={handlePasswordFocus}
+                  onBlur={handlePasswordBlur}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClick}
+                    variant="none"
+                    _hover={{ opacity: "70%" }}
+                    color={colorMode === "light" ? "black" : "white"}
+                  >
+                    {click ? <FaEyeSlash /> : <FaEye />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
 
               <Stack direction="row" gap="3">
                 <Link
@@ -215,3 +188,5 @@ function Login() {
     </Flex>
   );
 }
+
+export default Login;

@@ -14,11 +14,17 @@ import {
   Text,
   Stack,
   VStack,
-  Button,
 } from "@chakra-ui/react";
-import { IoMdPerson } from "react-icons/io";
-import { SearchIcon, MoonIcon, SunIcon, SettingsIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import {
+  MdAccountCircle,
+  MdSearch,
+  MdDarkMode,
+  MdLightMode,
+  MdCloseFullscreen,
+  MdSettings,
+  MdMenu,
+} from "react-icons/md";
+import { useAuth } from "../../hooks/useAuth";
 
 const NavBar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -28,7 +34,6 @@ const NavBar = () => {
     // Este useEffect vai ser chamado sempre que isAuthenticated, userType ou display mudarem
     // Você pode adicionar qualquer lógica que precisa ser executada quando esses valores mudarem
     // Por exemplo, atualizar o estado localmente ou fazer chamadas de API
-    console.log(isAuthenticated);
   }, [isAuthenticated, userType, display]); // Adicionando o display como uma dependência
   const iconsBtn = {
     _hover: {
@@ -39,124 +44,6 @@ const NavBar = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <Box position="fixed" w="100%" zIndex={1000} top={0} bg={"darkblue"} p={4}>
-      <Flex alignItems="center">
-        {/* Logo */}
-        <Box>
-          <img
-            src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
-            alt="bartira"
-            width="150"
-            justify="flex-end"
-          />
-        </Box>
-
-        {/* Barra de Pesquisa */}
-        <Input
-          w={500}
-          borderRadius={500}
-          align="center"
-          justify="center"
-          border={0}
-          ml="21%"
-          mr="18%"
-          color={colorMode === "light" ? "black" : "white"}
-          bg={colorMode === "light" ? "white" : "black"}
-          placeholder="O que você está buscando?"
-        />
-
-        {/* Ícones */}
-
-        <Flex justify="flex-end" >
-
-          <Flex display={['none', 'none', 'flex', 'flex']}>
-
-            <IconButton
-              arial-label="Login"
-              icon={<SettingsIcon />}
-              color={colorMode === "light" ? "white" : "white"}
-              bg={0}
-              _hover={{
-                color: colorMode === "light" ? "blue" : "blue",
-              }}
-            />
-
-            <Menu>
-              <MenuButton>
-                <IconButton
-                  arial-label="Login"
-                  icon={<IoMdPerson />}
-                  color={colorMode === "light" ? "white" : "white"}
-                  bg={0}
-                  _hover={{
-                    color: colorMode === "light" ? "blue" : "blue",
-                  }}
-                />
-              </MenuButton>
-              <MenuList paddingBottom="0" m="1" >
-                <MenuGroup title="Perfil">
-                  <MenuItem>
-                    <Link href="/login" _hover={{ textDecoration: "none" }} >
-                      Login
-                    </Link>
-                  </MenuItem>
-                </MenuGroup>
-              </MenuList>
-            </Menu>
-            <IconButton
-              aria-label="Pesquisar"
-              icon={<SearchIcon />}
-              color={colorMode === "light" ? "white" : "white"}
-              bg={0}
-              _hover={{
-                color: colorMode === "light" ? "blue" : "blue",
-              }}
-            />
-          </Flex>
-
-          <IconButton
-            aria-label="Abrir Menu"
-            size="lg"
-            mr={2}
-            icon={<HamburgerIcon />}
-            display={['flex', 'flex', 'none', 'none']}
-            onClick={() => changeDisplay('flex')}
-          />
-
-          <IconButton
-            ml={4}
-            aria-label="Alternar modo de cor"
-            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            onClick={toggleColorMode}
-            color={colorMode === "light" ? "white" : "white"}
-            bg={0}
-            _hover={{
-              color: colorMode === "light" ? "blue" : "blue",
-            }}
-          />
-        </Flex>
-      </Flex>
-
-      {/* Menu Responsivo */}
-
-      <Flex
-        height={{
-          base: '100%',
-          md: '0%'
-        }}
-        ml="40%"
-        w={250}
-        h="100%"
-        bgColor="darkblue"
-        zIndex={20}
-        pos="fixed"
-        top={0}
-        left={0}
-        overflow="auto"
-        flexDir="column"
-        display={display}
-=======
     <Stack direction="row" top={0} gap="0" position="fixed" w="100%">
       <Box
         p={4}
@@ -164,7 +51,6 @@ const NavBar = () => {
         color="black"
         w="15%"
         zIndex={1000}
->>>>>>> 6ae6ad3 (tipo usuario agora funcionando perfeitamente)
       >
         <Sidebar />
       </Box>
@@ -365,13 +251,12 @@ const NavBar = () => {
 
 const Sidebar = () => {
   const { isAuthenticated, userType } = useAuth();
-  const [display, changeDisplay] = useState("none"); // Adicionando o estado display
 
   useEffect(() => {
     // Este useEffect vai ser chamado sempre que isAuthenticated, userType ou display mudarem
     // Você pode adicionar qualquer lógica que precisa ser executada quando esses valores mudarem
     // Por exemplo, atualizar o estado localmente ou fazer chamadas de API
-  }, [isAuthenticated, userType, display]); // Adicionando o display como uma dependência
+  }, [isAuthenticated, userType]); // Adicionando o display como uma dependência
 
   return (
     <VStack h="100vh" w="100%">

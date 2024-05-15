@@ -14,15 +14,15 @@ export function Router() {
     <Routes>
       <Route element={<PrivateRoutesFuncionario />}>
         <Route path="/logado-funcionario" element={<LogadoFuncionario />} />
+        <Route path="/produtos" element={<DashBoardProdutos />} />
       </Route>
       <Route element={<PrivateRoutesAdm />}>
         <Route path="/logado-adm" element={<LogadoAdm />} />
+        <Route path="/produtos" element={<DashBoardProdutos />} />
+        <Route path="/financeiro" element={<Financeiro />} />
+        <Route path="/usuarios" element={<Usuarios />} />
       </Route>
       <Route path="/" element={<Login />} exact />
-      <Route path="/financeiro" element={<Financeiro />} />
-      <Route path="/produtos" element={<DashBoard />} />
-      <Route path="/funcionarios" element={<Funcionarios />} />
-      <Route path="/administradores" element={<Administradores />} />
     </Routes>
   );
 }
