@@ -23,7 +23,7 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
 
   const handleDelete = async (idProduto) => {
     try {
-      await axios.delete(`http://localhost:8080/produtos/${idProduto}`);
+      await axios.delete(`http://localhost:8081/produtos/${idProduto}`);
       const newArray = produtos.filter((user) => user.idProduto !== idProduto);
       setProdutos(newArray);
       toast({
@@ -43,7 +43,7 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
   };
 
   return (
-    <Container maxW="700px">
+    <Container maxW="700px" bgColor={'#7c9eff'} mt={4} borderRadius={8}>
       <Stack overflowX="auto">
         <Table variant="simple" size="md">
           <Thead>
@@ -69,7 +69,10 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
-                  <Icon as={FaTrash} onClick={() => handleDelete(item.idProduto)} />
+                  <Icon
+                    as={FaTrash}
+                    onClick={() => handleDelete(item.idProduto)}
+                  />
                 </Td>
               </Tr>
             ))}

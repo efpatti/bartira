@@ -1,14 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import { Login } from "./Pages/Conta/Login";
+import Login from "./Pages/Conta/Login";
 import { LogadoFuncionario, LogadoAdm } from "./Pages/Conta/Logado";
 import Financeiro from "./Pages/Financeiro";
-import DashBoard from "./Pages/DashBoard";
-import Administradores from "./Pages/Administradores";
+import DashBoardProdutos from "./Pages/DashBoardProdutos";
+import Usuarios from "./Pages/Usuarios";
 import {
   PrivateRoutesFuncionario,
   PrivateRoutesAdm,
 } from "./utils/PrivateRoutes";
-import Funcionarios from "./Pages/Funcionarios";
 
 export function Router() {
   return (

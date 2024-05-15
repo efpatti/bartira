@@ -12,8 +12,10 @@ const DashBoardProdutos = () => {
 
   const pegarProdutos = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/produtos");
-      setProdutos(res.data.sort((a, b) => (a.idProduto> b.idProduto ? 1 : -1)));
+      const res = await axios.get("http://localhost:8081/produtos");
+      setProdutos(
+        res.data.sort((a, b) => (a.idProduto > b.idProduto ? 1 : -1))
+      );
     } catch (error) {
       toast.error(error);
     }

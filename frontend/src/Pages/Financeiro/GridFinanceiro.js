@@ -29,7 +29,7 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
 
   const handleDelete = async (idConta) => {
     try {
-      await axios.delete(`http://localhost:8080/contas/${idConta}`);
+      await axios.delete(`http://localhost:8081/contas/${idConta}`);
       const newArray = contas.filter((user) => user.idConta !== idConta);
       setContas(newArray);
       toast({

@@ -68,7 +68,7 @@ const FormProdutos = ({
     if (aoEditarProduto) {
       console.log("Editando produto:", produto);
       await axios
-        .put(`http://localhost:8080/produtos/${aoEditarProduto.idProduto}`, {
+        .put(`http://localhost:8081/produtos/${aoEditarProduto.idProduto}`, {
           nome_produto: produto.nome_produto.value,
           descricao_produto: produto.descricao_produto.value,
           preco_produto: produto.preco_produto.value,
@@ -86,7 +86,7 @@ const FormProdutos = ({
     } else {
       console.log("Adicionando novo produto:", produto);
       await axios
-        .post("http://localhost:8080/produtos/", {
+        .post("http://localhost:8081/produtos/", {
           nome_produto: produto.nome_produto.value,
           descricao_produto: produto.descricao_produto.value,
           preco_produto: produto.preco_produto.value,

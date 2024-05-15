@@ -10,11 +10,6 @@ export function App() {
       <NavBar />
       <Router />
       <ToastContainer />
-      {/* <Routes>
-        <Route path="/" element={<DashBoard />} />
-        <Route path="/financeiro" element={<Financeiro />} />
-        <Route path="/funcionarios" element={<Funcionarios />} />
-      </Routes> */}
       <Footer />
     </BrowserRouter>
   );

@@ -5,7 +5,6 @@ import {
   Button,
   Box,
   Input,
-  Link,
   InputGroup,
   FormLabel,
   InputRightElement,
@@ -19,16 +18,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 
-export function Login() {
-  const [email_funcionario, setEmailFuncionario] = useState("");
-  const [senha_funcionario, setSenhaFuncionario] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [email_adm, setEmailAdm] = useState("");
-  const [senha_adm, setSenhaAdm] = useState("");
-
-  const { loginFuncionario, isAuthenticatedFuncionario } = useAuthFuncionario();
-  const { loginAdm, isAuthenticatedAdm } = useAuthAdm();
+function Login() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [click, setClick] = useState(false);
+  const { login, isAuthenticated, user, logout } = useAuth();
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -46,87 +40,44 @@ export function Login() {
 
   const handleClick = () => setClick(!click);
 
-  // const clearFields = () => {
-  //   setEmailFuncionario("");
-  //   setEmailAdm("");
-  //   setSenhaFuncionario("");
-  //   setSenhaAdm("");
-  // };
-
   const handleLogin = () => {
     axios
-      .post("http://localhost:8080/loginAdm", {
-        email_adm,
-        senha_adm,
+      .post("http://localhost:8081/loginUsuario", {
+        email,
+        senha,
       })
       .then((res) => {
-        const { token_adm } = res.data;
-        loginAdm(token_adm);
-        toast.success("Login feito com sucesso!");
-        toast.success("Token válido, agora você tem acesso!");
-      })
-      .catch((err) => {
-        handleLoginFuncionario();
-      });
-  };
+        const { token } = res.data;
+        login(token);
+        console.log(token);
 
-  const handleLoginFuncionario = () => {
-    axios
-      .post("http://localhost:8080/loginFuncionario", {
-        email_funcionario,
-        senha_funcionario,
-      })
-      .then((res) => {
-        const { token_funcionario } = res.data;
-        loginFuncionario(token_funcionario);
         toast.success("Login feito com sucesso!");
         toast.success("Token válido, agora você tem acesso!");
       })
       .catch((err) => {
-        setIsAdmin(true);
         toast.error(err.response.data.message);
-        toast.error("Se você não tem uma conta, registre-se!");
       });
-  };
-
-  const ProtectedRoute2 = () => {
-    const token_adm = localStorage.getItem("token_adm");
-    if (token_adm) {
-      toast.success("Seu token é válido");
-    } else {
-      toast.error("Sem acesso a rota");
-      toast.error("Registre-se e faça login para acessar esta rota!");
-      toast.error("Você foi direcionado para página de registro.");
-    }
-  };
-
-  const ProtectedRoute = () => {
-    const token_funcionario = localStorage.getItem("token_funcionario");
-    if (token_funcionario) {
-      toast.success("Seu token é válido");
-    } else {
-      ProtectedRoute2();
-    }
   };
 
   return (
-    <Flex height="95vh" d="flex" justify="center" align="center" mt={90}>
+    <Flex
+      height="95vh"
+      d="flex"
+      justify="center"
+      align="center"
+      bg={colorMode === "light" ? "gray.200" : "gray.800"}
+    >
       <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
         <Flex w="90%" align="center" justify="space-around">
-          {isAuthenticatedFuncionario ? (
-            <>
-              <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{email_funcionario}</div>
-              </Box>
-            </>
-          ) : isAuthenticatedAdm ? (
-            <>
-              <Box d="flex" w="50%" gap="10px">
-                <FaUser size={20} style={{ marginRight: "0px" }} />
-                <div>{email_adm}</div>
-              </Box>
-            </>
+          {isAuthenticated ? (
+            <Box d="flex" w="50%" gap="10px">
+              <FaUser size={20} style={{ marginRight: "0px" }} />
+              <div>{user.email}</div>
+              <div>{user.nome}</div>
+              <Link as={Button} href="/" onClick={logout}>
+                Sair
+              </Link>
+            </Box>
           ) : (
             <Flex
               borderRadius={35}
@@ -245,16 +196,20 @@ export function Login() {
             </InputRightElement>
           </InputGroup>
 
-          <Flex mt={5}>
-            <Button onClick={handleLogin} m={2}>Login</Button>
-            <Link href="/registre-se">
-              <Button m={2}>Registre-se</Button>
-            </Link>
-            <Link href={isAdmin ? "logado-adm" : "logado-funcionario"}>
-              <Button onClick={ProtectedRoute} m={2}>Rota Privada</Button>
-            </Link>
-          </Flex>
-
+              <Stack direction="row" gap="3">
+                <Link
+                  as={Button}
+                  href="/logado-adm"
+                  onClick={handleLogin}
+                  _hover={{ opacity: "80%" }}
+                  color={colorMode === "light" ? "gray.800" : "gray.200"}
+                  bg={colorMode === "light" ? "gray.200" : "gray.800"}
+                >
+                  Login
+                </Link>
+              </Stack>
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Flex>

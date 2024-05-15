@@ -1,11 +1,20 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export const PrivateRoutesFuncionario = () => {
-  const token_funcionario = localStorage.getItem("token_funcionario");
-  return token_funcionario ? <Outlet /> : <Navigate to="/" />;
+  const { userType } = useAuth();
+  const token = localStorage.getItem("token");
+
+  return token && userType !== "Administrador" ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
 };
 
 export const PrivateRoutesAdm = () => {
-  const token_adm = localStorage.getItem("token_adm");
-  return token_adm ? <Outlet /> : <Navigate to="/" />;
+  const { userType } = useAuth();
+  const token = localStorage.getItem("token");
+
+  return token && userType !== "Funcionário" ? <Outlet /> : <Navigate to="/" />;
 };

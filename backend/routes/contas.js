@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const {
   pegarContas,
   adicionarConta,
@@ -5,16 +7,16 @@ const {
   deletarConta,
 } = require("../controllers/conta.js");
 
-const express = require("express");
-
-const router = express.Router();
-
+// Rota para obter todas as contas
 router.get("/contas", pegarContas);
 
-router.post("/contas", adicionarConta);
+// Rota para adicionar uma nova conta
+router.post("/conta", adicionarConta);
 
-router.put("/contas/:idConta", atualizarConta);
+// Rota para atualizar informações de uma conta existente
+router.put("/conta/:idConta", atualizarConta);
 
-router.delete("/contas/:idConta", deletarConta);
+// Rota para deletar uma conta
+router.delete("/conta/:idConta", deletarConta);
 
 module.exports = router;

@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
-import { useAuthAdm, useAuthFuncionario } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
 import { Flex, Button, Text, Link } from "@chakra-ui/react";
 
 export function LogadoAdm() {
-  const { logoutAdm } = useAuthAdm();
+  const { logout } = useAuth(); // Alteração aqui
 
   const handleLogoutAdm = () => {
-    logoutAdm();
+    logout();
     toast.warn("Você saiu da conta!");
   };
 
@@ -54,12 +54,15 @@ export function LogadoAdm() {
 }
 
 export function LogadoFuncionario() {
-  const { logoutFuncionario } = useAuthFuncionario();
+  const { logout } = useAuth(); // Alteração aqui
 
   const handleLogoutFuncionario = () => {
-    logoutFuncionario();
+    logout();
     toast.warn("Você saiu da conta!");
   };
+
+  const { isAuthenticated, userType } = useAuth();
+  console.log(userType);
 
   return (
     <Flex h="95vh" justifyContent="center" alignItems="center">

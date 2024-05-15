@@ -9,7 +9,7 @@ import {
 import Produtos from "./Produtos";
 import Estoque from "./Estoque";
 
-function DashBoard() {
+function DashBoardProdutos() {
   return (
     <Container h="800px" align="center" justify="center">
       <Tabs isFitted variant="enclosed">
@@ -30,4 +30,4 @@ function DashBoard() {
   );
 }
 
-export default DashBoard;
+export default DashBoardProdutos;

@@ -2,131 +2,88 @@ import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-export function useAuthAdm() {
-  const [isAuthenticatedAdm, setIsAuthenticatedAdm] = useState(false);
-  const [userAdm, setUserAdm] = useState(null);
-
-  console.log(userAdm);
+export function useAuth() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userType, setUserType] = useState(null);
 
   useEffect(() => {
-    const token_adm = localStorage.getItem("token_adm");
-
-    if (token_adm) {
-      const decodedToken = jwtDecode(token_adm);
+    const token = localStorage.getItem("token");
+    console.log("Seu token é ", token);
+    if (token) {
+      const decodedToken = jwtDecode(token);
 
       if (decodedToken.exp * 1000 < Date.now()) {
-        logoutAdm();
+        logout();
       } else {
-        setIsAuthenticatedAdm(true);
-        setUserAdm(decodedToken.email_adm);
+        setIsAuthenticated(true);
+        setUser(decodedToken);
+        setUserType(getUserType(decodedToken)); // Aqui você define o userType
       }
     }
-  }, []);
+  }, [isAuthenticated]); // Adicionando userType como dependência
 
-  const loginAdm = (token_adm) => {
-    handleVerify(token_adm);
+  const getUserType = (decodedToken) => {
+    if (decodedToken.tipo === "Administrador") {
+      return "Administrador";
+    } else {
+      return "Funcionário";
+    }
   };
 
-  const logoutAdm = () => {
-    localStorage.removeItem("token_adm");
-    setIsAuthenticatedAdm(false);
-    setUserAdm(null);
+  const login = (token) => {
+    handleVerify(token);
+    setIsAuthenticated(true); // Definindo isAuthenticated como true após o login bem-sucedido
+    setInterval(function () {
+      window.location.reload();
+    }, 5000);
   };
 
-  const handleVerify = (token_adm) => {
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    setUser(null);
+    setUserType(null);
+    setInterval(function () {
+      window.location.reload();
+    }, 5000);
+  };
+
+  const handleVerify = (token) => {
+    const decodedToken = jwtDecode(token);
+
+    if (decodedToken.exp * 1000 < Date.now()) {
+      console.error("Token inválido");
+      return;
+    }
+
+    localStorage.setItem("token", token);
+    setIsAuthenticated(true);
+    setUser(decodedToken);
+    setUserType(getUserType(decodedToken));
+
     axios
-      .get("http://localhost:8080/protegidoAdm", {
+      .get("http://localhost:8081/protegido", {
         headers: {
-          Authorization: `Bearer ${token_adm}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        const decodedToken = jwtDecode(token_adm);
-
-        if (decodedToken.exp * 1000 < Date.now()) {
-          console.error("Token inválido");
-          return;
-        }
-
-        localStorage.setItem("token_adm", token_adm);
-        setIsAuthenticatedAdm(true);
-        setUserAdm(decodedToken.email_adm);
         console.log(response.data);
       })
       .catch((error) => {
         console.error(error.response.data);
+        console.log("Sem token");
       });
   };
 
-  return {
-    isAuthenticatedAdm,
-    userAdm,
-    loginAdm,
-    logoutAdm,
-  };
-}
-
-export function useAuthFuncionario() {
-  const [isAuthenticatedFuncionario, setIsAuthenticatedFuncionario] =
-    useState(false);
-  const [userFuncionario, setUserFuncionario] = useState(null);
-
-  console.log(userFuncionario);
-
-  useEffect(() => {
-    const token_funcionario = localStorage.getItem("token_funcionario");
-
-    if (token_funcionario) {
-      const decodedToken = jwtDecode(token_funcionario);
-
-      if (decodedToken.exp * 1000 < Date.now()) {
-        logoutFuncionario();
-      } else {
-        setIsAuthenticatedFuncionario(true);
-        setUserFuncionario(decodedToken.email_funcionario);
-      }
-    }
-  }, []);
-
-  const loginFuncionario = (token_funcionario) => {
-    handleVerify(token_funcionario);
-  };
-
-  const logoutFuncionario = () => {
-    localStorage.removeItem("token_funcionario");
-    setIsAuthenticatedFuncionario(false);
-    setUserFuncionario(null);
-  };
-
-  const handleVerify = (token_funcionario) => {
-    axios
-      .get("http://localhost:8080/protegidoFuncionario", {
-        headers: {
-          Authorization: `Bearer ${token_funcionario}`,
-        },
-      })
-      .then((response) => {
-        const decodedToken = jwtDecode(token_funcionario);
-
-        if (decodedToken.exp * 1000 < Date.now()) {
-          console.error("Token inválido");
-          return;
-        }
-
-        localStorage.setItem("token_funcionario", token_funcionario);
-        setIsAuthenticatedFuncionario(true);
-        setUserFuncionario(decodedToken.email_funcionario);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
-  };
+  console.log(userType);
 
   return {
-    isAuthenticatedFuncionario,
-    userFuncionario,
-    loginFuncionario,
-    logoutFuncionario,
+    isAuthenticated,
+    user,
+    userType,
+    login,
+    logout,
   };
 }

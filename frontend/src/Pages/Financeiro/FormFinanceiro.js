@@ -41,7 +41,7 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     if (aoEditarConta) {
       console.log("Editando conta:", conta);
       await axios
-        .put(`http://localhost:8080/contas/${aoEditarConta.idConta}`, {
+        .put(`http://localhost:8081/contas/${aoEditarConta.idConta}`, {
           nome_conta: conta.nome_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
@@ -58,7 +58,7 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     } else {
       console.log("Adicionando novo conta:", conta);
       await axios
-        .post("http://localhost:8080/contas/", {
+        .post("http://localhost:8081/contas/", {
           nome_conta: conta.nome_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
