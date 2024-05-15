@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+// AuthContext.js
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 
-export function useAuth() {
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [userType, setUserType] = useState(null);
@@ -21,7 +25,7 @@ export function useAuth() {
         setUserType(getUserType(decodedToken)); // Aqui você define o userType
       }
     }
-  }, [isAuthenticated]); // Adicionando userType como dependência
+  }, []);
 
   const getUserType = (decodedToken) => {
     if (decodedToken.tipo === "Administrador") {
@@ -33,7 +37,7 @@ export function useAuth() {
 
   const login = (token) => {
     handleVerify(token);
-    setIsAuthenticated(true); // Definindo isAuthenticated como true após o login bem-sucedido
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
@@ -55,29 +59,13 @@ export function useAuth() {
     setIsAuthenticated(true);
     setUser(decodedToken);
     setUserType(getUserType(decodedToken));
-
-    axios
-      .get("http://localhost:8081/protegido", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-        console.log("Sem token");
-      });
   };
 
-  console.log(userType);
-
-  return {
-    isAuthenticated,
-    user,
-    userType,
-    login,
-    logout,
-  };
-}
+  return (
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, userType, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
