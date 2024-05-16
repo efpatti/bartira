@@ -79,6 +79,8 @@ const NavBar = () => {
         />
         <Box bg={colorMode === "light" ? "darkblue" : "blue.700"}>
           <Input
+            ml="8%"
+            w={430}
             borderRadius={500}
             align="center"
             fluid
