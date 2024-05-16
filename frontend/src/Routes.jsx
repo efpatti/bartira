@@ -24,9 +24,9 @@ export function Router() {
           <Route path="/logado-adm" element={<LogadoAdm />} />
           <Route path="/produtos" element={<DashBoardProdutos />} />
           <Route path="/financeiro" element={<Financeiro />} />
-          <Route path="/usuarios" element={<Usuarios />} />
         </Route>
         <Route path="/" element={<Login />} exact />
+        <Route path="/usuarios" element={<Usuarios />} />
       </Routes>
       <Footer />
     </>
