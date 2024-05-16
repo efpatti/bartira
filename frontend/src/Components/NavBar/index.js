@@ -80,7 +80,7 @@ const NavBar = () => {
         <Box bg={colorMode === "light" ? "darkblue" : "blue.700"}>
           <Input
             ml="8%"
-            w={430}
+            w={[150, 400, 500]}
             borderRadius={500}
             align="center"
             fluid
@@ -165,7 +165,7 @@ const NavBar = () => {
           base: "100%",
           md: "0%",
         }}
-        bg="darkblue"
+        bg={colorMode === "light" ? "darkblue" : "blue.700"}
         ml="40%"
         w={250}
         pr={8}
@@ -179,9 +179,9 @@ const NavBar = () => {
       >
         <Flex justify="flex-end">
           <IconButton
-            variant="none"
             sx={iconsBtn}
             mb={8}
+            mt={6}
             aria-label="Fechar Menu"
             size="lg"
             icon={<MdCloseFullscreen />}
@@ -195,7 +195,7 @@ const NavBar = () => {
               _hover={{
                 color: colorMode === "light" ? "blue" : "blue",
               }}
-              color={colorMode === "light" ? "white" : "white"}
+              color={colorMode === "light" ? "white" : "black"}
             >
               Configurações
             </Text>
@@ -215,7 +215,7 @@ const NavBar = () => {
               <MenuButton
                 arial-label="Login"
                 icon={<MdSettings />}
-                color={colorMode === "light" ? "white" : "white"}
+                color={colorMode === "light" ? "white" : "black"}
                 _hover={{
                   color: colorMode === "light" ? "blue" : "blue",
                 }}
@@ -223,16 +223,17 @@ const NavBar = () => {
                 Conta
               </MenuButton>
               <MenuList paddingBottom="0" m="1">
-                <MenuGroup title="Perfil">
+                <MenuGroup title="Perfil"
+                color={colorMode === "light" ? "blue.700" : "white"}>
                   <MenuItem>
-                    <Link href="/login" _hover={{ textDecoration: "none" }}>
-                      Login
+                    <Link href="/login" color={colorMode === "light" ? "blue.700" : "white"} _hover={{ textDecoration: "none" }}>
+                      Login 
                     </Link>
                   </MenuItem>
                 </MenuGroup>
               </MenuList>
             </Menu>
-            <IconButton aria-label="Pesquisar" icon={<MdAccountCircle />} />
+            <IconButton aria-label="Pesquisar" bg={'none'}  color={colorMode === "light" ? "white" : "black"} z icon={<MdAccountCircle />} />
           </Flex>
 
           <Flex align="center">
@@ -240,11 +241,11 @@ const NavBar = () => {
               _hover={{
                 color: colorMode === "light" ? "blue" : "blue",
               }}
-              color={colorMode === "light" ? "white" : "white"}
+              color={colorMode === "light" ? "white" : "black"}
             >
               Pesquisar
             </Text>
-            <IconButton aria-label="Pesquisar" icon={<MdSearch />} />
+            <IconButton bg={'none'} color={colorMode === "light" ? "white" : "black"} aria-label="Pesquisar" icon={<MdSearch />} />
           </Flex>
         </Flex>
       </Flex>
