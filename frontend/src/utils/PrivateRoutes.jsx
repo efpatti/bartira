@@ -5,16 +5,16 @@ export const PrivateRoutesFuncionario = () => {
   const { userType } = useAuth();
   const token = localStorage.getItem("token");
 
-  return token && userType !== "Administrador" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-  );
+  return token && userType === "Funcionário" ? <Outlet /> : <Navigate to="/" />;
 };
 
 export const PrivateRoutesAdm = () => {
   const { userType } = useAuth();
   const token = localStorage.getItem("token");
 
-  return token && userType !== "Funcionário" ? <Outlet /> : <Navigate to="/" />;
+  return token && userType === "Administrador" ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" />
+  );
 };
