@@ -72,7 +72,7 @@ function Login() {
       align="center"
       bg={colorMode === "light" ? "gray.200" : "gray.800"}
     >
-      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
+      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" justify="center" align="center">
         <Flex w="90%" align="center" justify="space-around">
           <Flex
             mt={70}

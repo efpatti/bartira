@@ -75,17 +75,15 @@ const NavBar = () => {
         <Image
           src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
           fluid
-          boxSize="20"
+          boxSize={20}
         />
         <Box bg={colorMode === "light" ? "darkblue" : "blue.700"}>
           <Input
-            w={500}
             borderRadius={500}
             align="center"
+            fluid
             justify="center"
             border={0}
-            ml="21%"
-            mr="18%"
             color={colorMode === "light" ? "black" : "white"}
             bg={colorMode === "light" ? "white" : "black"}
             placeholder="O que você está buscando?"
@@ -100,6 +98,7 @@ const NavBar = () => {
           <Stack direction="row" spacing={3}>
             <Menu>
               <MenuButton
+                display={["none", "none", "flex", "flex"]}
                 variant="none"
                 as={IconButton}
                 icon={<MdAccountCircle />}
@@ -132,6 +131,7 @@ const NavBar = () => {
             <IconButton
               variant="none"
               sx={iconsBtn}
+              display={["none", "none", "flex", "flex"]}
               arial-label="Pesquisar"
               icon={<MdSearch />}
             />
@@ -163,8 +163,10 @@ const NavBar = () => {
           base: "100%",
           md: "0%",
         }}
+        bg="darkblue"
         ml="40%"
         w={250}
+        pr={8}
         h="100%"
         pos="fixed"
         top={0}
@@ -177,7 +179,7 @@ const NavBar = () => {
           <IconButton
             variant="none"
             sx={iconsBtn}
-            m={8}
+            mb={8}
             aria-label="Fechar Menu"
             size="lg"
             icon={<MdCloseFullscreen />}
