@@ -10,11 +10,20 @@ import {
   Heading,
   Box,
   Icon,
+  keyframes,
 } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
 import { FaRegHandshake } from "react-icons/fa6";
 
 function Logado() {
+
+  const shakeKeyframes = keyframes`
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-2px); }
+    50% { transform: translateY(3px); }
+    75% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+  `;
   const { logout, isAuthenticated, user } = useAuth(); // Alteração aqui
 
   const handleLogout = () => {
@@ -41,7 +50,12 @@ function Logado() {
       <Heading fontSize={30} >{user.email}</Heading>
 
       <Box textAlign="center" mt={12}>
-        <Icon as={FaRegHandshake} boxSize="100px" color="darkblue" />
+        <Icon
+          as={FaRegHandshake}
+          boxSize="100px"
+          color="darkblue"
+          animation={`${shakeKeyframes} 1.5s infinite`} 
+        />
       </Box>
 
 
