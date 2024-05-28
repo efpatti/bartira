@@ -12,14 +12,11 @@ import {
   MenuItem,
   Link,
   Text,
-  Stack,
-  VStack,
   Button,
   Image,
 } from "@chakra-ui/react";
 import {
   MdAccountCircle,
-  MdSearch,
   MdDarkMode,
   MdLightMode,
   MdCloseFullscreen,
@@ -27,11 +24,12 @@ import {
   MdMenu,
 } from "react-icons/md";
 import { useAuth } from "../../hooks/useAuth";
-import Logo from "../../img/bartira.png";
+import { FaFileContract, FaSearch, FaUsers } from "react-icons/fa";
+import { FaBagShopping } from "react-icons/fa6";
 
 const NavBar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
-  const { isAuthenticated, userType, logout } = useAuth();
+  const { isAuthenticated, userType, logout, user } = useAuth();
   const [display, changeDisplay] = useState("none");
   useEffect(() => {
     // Este useEffect vai ser chamado sempre que isAuthenticated, userType ou display mudarem
@@ -46,15 +44,17 @@ const NavBar = () => {
     bg: "none",
   };
 
-  const accountsBtn = {
+  const iconBtn = {
+    background: "none",
     _hover: {
-      bg: colorMode === "light" ? "gray.300" : "gray.700",
+      color: "blue",
+      background: "none",
+      transition: "all 200ms",
       textDecoration: "none",
     },
-    color: colorMode === "light" ? "gray.800" : "gray.200",
-    bg: colorMode === "light" ? "gray.200" : "gray.800",
+    transition: "all 200ms",
+    color: colorMode === "light" ? "white" : "black",
   };
-
   return (
     <Box
       zIndex={10}
@@ -71,13 +71,13 @@ const NavBar = () => {
         justify="space-between"
         bg={colorMode === "light" ? "darkblue" : "blue.700"}
       >
-        {/* Barra de Pesquisa */}
-        <a href="/login">
+        <a href="/">
           <Image
             src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
             fluid
             boxSize={20}
-          /></a>
+          />
+        </a>
         <Box bg={colorMode === "light" ? "darkblue" : "blue.700"}>
           <Input
             w={[150, 400, 500]}
@@ -98,7 +98,6 @@ const NavBar = () => {
           mr={15}
           bg={colorMode === "light" ? "darkblue" : "blue.700"}
         >
-
           <IconButton
             variant="none"
             sx={iconsBtn}
@@ -120,7 +119,7 @@ const NavBar = () => {
         pr={8}
         h="100%"
         pos="fixed"
-        placement='right'
+        placement="right"
         top={0}
         left={0}
         overflow="auto"
@@ -139,63 +138,99 @@ const NavBar = () => {
           />
         </Flex>
 
-        <Flex flexDir="column" align="flex-end" justify="flex-end" mt={3}>
+        <Flex flexDir="column" align="flex-end" justify="flex-end">
+          {isAuthenticated &&
+            (userType === "Administrador" || "Funcionário" ? (
+              <>
+                <Flex align="center">
+                  <Button sx={iconBtn} as={Link} href="/perfil">
+                    <Text>Usuários</Text>
+                    <Box ml="3">
+                      <FaUsers />
+                    </Box>
+                  </Button>
+                </Flex>
+                <Flex align="center">
+                  <Button sx={iconBtn} as={Link} href="/perfil">
+                    <Text>Produtos</Text>
+                    <Box ml="3">
+                      <FaBagShopping />
+                    </Box>
+                  </Button>
+                </Flex>
+              </>
+            ) : (
+              <>
+                <Flex align="center">
+                  <Button sx={iconBtn} as={Link} href="/perfil">
+                    <Text>Orçamento</Text>
+                    <Box ml="3">
+                      <FaFileContract />
+                    </Box>
+                  </Button>
+                </Flex>
+              </>
+            ))}
+
           <Flex align="center">
-            <Text
-              _hover={{
-                color: colorMode === "light" ? "blue" : "blue",
-              }}
-              color={colorMode === "light" ? "white" : "black"}
-            >
-              Configurações
-            </Text>
-            <IconButton
-              variant="none"
-              sx={iconsBtn}
-              arial-label="Login"
-              icon={<MdSettings />}
-              color={colorMode === "light" ? "white" : "white"}
-              _hover={{
-                color: colorMode === "light" ? "blue" : "blue",
-              }}
-            />
+            <Button sx={iconBtn} as={Link} href="/perfil">
+              <Text>Configurações</Text>
+              <Box ml="3">
+                <MdSettings />
+              </Box>
+            </Button>
           </Flex>
           <Flex align="center">
             <Menu>
               <MenuButton
-                arial-label="Login"
-                icon={<MdSettings />}
-                color={colorMode === "light" ? "white" : "black"}
-                _hover={{
-                  color: colorMode === "light" ? "blue" : "blue",
-                }}
+                as={Button}
+                rightIcon={
+                  <Box ml="2">
+                    <MdAccountCircle />
+                  </Box>
+                }
+                sx={iconBtn}
+                variant="none"
               >
                 Conta
               </MenuButton>
               <MenuList paddingBottom="0" m="1">
-                <MenuGroup title="Perfil"
-                  color={colorMode === "light" ? "blue.700" : "white"}>
+                {isAuthenticated ? (
+                  <MenuGroup title={user.nome}>
+                    <MenuItem>
+                      <Button
+                        onClick={logout}
+                        variant="none"
+                        color={colorMode === "light" ? "black" : "white"}
+                      >
+                        Sair
+                      </Button>
+                    </MenuItem>
+                  </MenuGroup>
+                ) : (
                   <MenuItem>
-                    <Link href="/login" color={colorMode === "light" ? "blue.700" : "white"} _hover={{ textDecoration: "none" }}>
+                    <Button
+                      as={Link}
+                      _hover={{ textDecoration: "none" }}
+                      variant="none"
+                      href="/"
+                      color={colorMode === "light" ? "black" : "white"}
+                    >
                       Login
-                    </Link>
+                    </Button>
                   </MenuItem>
-                </MenuGroup>
+                )}
               </MenuList>
             </Menu>
-            <IconButton aria-label="Pesquisar" bg={'none'} color={colorMode === "light" ? "white" : "black"} z icon={<MdAccountCircle />} />
           </Flex>
 
           <Flex align="center">
-            <Text
-              _hover={{
-                color: colorMode === "light" ? "blue" : "blue",
-              }}
-              color={colorMode === "light" ? "white" : "black"}
-            >
-              Pesquisar
-            </Text>
-            <IconButton bg={'none'} color={colorMode === "light" ? "white" : "black"} aria-label="Pesquisar" icon={<MdSearch />} />
+            <Button sx={iconBtn}>
+              <Text>Pesquisar</Text>
+              <Box ml="3">
+                <FaSearch />
+              </Box>
+            </Button>
           </Flex>
 
           <IconButton
@@ -209,49 +244,6 @@ const NavBar = () => {
         </Flex>
       </Flex>
     </Box>
-  );
-};
-
-const Sidebar = () => {
-  const { isAuthenticated, userType } = useAuth();
-
-  useEffect(() => {
-    // Este useEffect vai ser chamado sempre que isAuthenticated, userType ou display mudarem
-    // Você pode adicionar qualquer lógica que precisa ser executada quando esses valores mudarem
-    // Por exemplo, atualizar o estado localmente ou fazer chamadas de API
-  }, [isAuthenticated, userType]); // Adicionando o display como uma dependência
-
-  return (
-    <VStack h="100vh" w="100%">
-      {" "}
-      {/* Alteração feita aqui */}
-      <Box mb="3">
-        <img
-          src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
-          alt="bartira"
-          width="150"
-          justify="flex-end"
-        />
-      </Box>
-      <Stack justify="center" align="center" gap="3">
-        {isAuthenticated ? (
-          <>
-            <Link href="/produtos">Produtos</Link>{" "}
-            {userType === "Administrador" ? (
-              <>
-                <Link href="/usuarios">Usuários</Link>
-                <Link href="/financeiro">Financeiro</Link>
-                <Link href="/logado-adm">Login</Link>
-              </>
-            ) : (
-              <Link href="/logado-funcionario">Login</Link>
-            )}
-          </>
-        ) : (
-          <Link href="/">Login</Link>
-        )}
-      </Stack>
-    </VStack>
   );
 };
 

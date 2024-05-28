@@ -76,7 +76,8 @@ function Login() {
             align="center"
             flexDirection="column"
             gap="10px"
-            bg={colorMode === "light" ? "blue.600" : "darkblue"}
+            bgColor={colorMode === "light" ? "darkblue" : "blue.700"}
+            color={colorMode === "light" ? "gray.200" : "gray.800"}
           >
             <Text fontSize={40} mb={8} as="b">
               Login

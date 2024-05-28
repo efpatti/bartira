@@ -1,5 +1,14 @@
 import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
-import { Container, Stack, Heading } from "@chakra-ui/react";
+import {
+  Container,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Heading,
+  Link,
+} from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
 
 function Logado() {
@@ -25,7 +34,22 @@ function Logado() {
       flexDirection="column"
       justifyContent="center"
     >
-      <Stack direction="column" gap="2rem"></Stack>
+      <Tabs isFitted variant="enclosed">
+        <TabList mb="1em">
+          <Link as={Tab} href="/usuarios">
+            Usuários
+          </Link>
+          <Tab>Two</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <p>one!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Container>
   );
 }
