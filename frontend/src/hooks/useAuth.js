@@ -1,4 +1,3 @@
-// AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
@@ -10,6 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [userType, setUserType] = useState(null);
+  const [loading, setLoading] = useState(true); // Adicionando estado de carregamento
+  const [isActive, setIsActive] = useState(false);
+  const [visionUser, setVisionUser] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,13 +27,17 @@ export const AuthProvider = ({ children }) => {
         setUserType(getUserType(decodedToken)); // Aqui você define o userType
       }
     }
+    setLoading(false); // Marca o carregamento como concluído
   }, []);
 
   const getUserType = (decodedToken) => {
     if (decodedToken.tipo === "Administrador") {
       return "Administrador";
-    } else {
+    }
+    if (decodedToken.tipo === "Funcionário") {
       return "Funcionário";
+    } else {
+      return "Cliente";
     }
   };
 
@@ -63,9 +69,19 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, userType, login, logout }}
+      value={{
+        isAuthenticated,
+        user,
+        userType,
+        login,
+        logout,
+        isActive,
+        setIsActive,
+        setVisionUser,
+      }}
     >
-      {children}
+      {!loading && children}{" "}
+      {/* Renderiza children somente quando o carregamento estiver concluído */}
     </AuthContext.Provider>
   );
 };

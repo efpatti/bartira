@@ -14,27 +14,29 @@ import {
 import { FaTrash, FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
+const Grid = ({ fornecedores, setFornecedores, setAoEditarFornecedor }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
-    setAoEditarProduto(item);
+    setAoEditarFornecedor(item);
   };
 
-  const handleDelete = async (idProduto) => {
+  const handleDelete = async (idFornecedor) => {
     try {
-      await axios.delete(`http://localhost:8080/produtos/${idProduto}`);
-      const newArray = produtos.filter((user) => user.idProduto !== idProduto);
-      setProdutos(newArray);
+      await axios.delete(`http://localhost:8080/fornecedores/${idFornecedor}`);
+      const newArray = fornecedores.filter(
+        (user) => user.idFornecedor !== idFornecedor
+      );
+      setFornecedores(newArray);
       toast({
-        title: "Produto excluído com sucesso!",
+        title: "Fornecedor excluído com sucesso!",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
       toast({
-        title: "Erro ao deletar produto!",
+        title: "Erro ao deletar fornecedor!",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -49,29 +51,25 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
           <Thead>
             <Tr>
               <Th>Nome</Th>
-              <Th>Descrição</Th>
-              <Th>Preço</Th>
-              <Th>Quantidade</Th>
+              <Th>CNPJ</Th>
               <Th>Categoria</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {produtos.map((item, i) => (
+            {fornecedores.map((item, i) => (
               <Tr key={i}>
-                <Td>{item.nome_produto}</Td>
-                <Td>{item.descricao_produto}</Td>
-                <Td>{item.preco_produto}</Td>
-                <Td>{item.quantidade_produto}</Td>
-                <Td>{item.categoria_produto}</Td>
+                <Td>{item.nome_fornecedor}</Td>
+                <Td>{item.cnpj_fornecedor}</Td>
+                <Td>{item.categoria_fornecedor}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
                   <Icon
                     as={FaTrash}
-                    onClick={() => handleDelete(item.idProduto)}
+                    onClick={() => handleDelete(item.idFornecedor)}
                   />
                 </Td>
               </Tr>
@@ -84,10 +82,10 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
 };
 
 // Definindo PropTypes para validar as props
-GridProdutos.propTypes = {
-  produtos: PropTypes.array.isRequired,
-  setProdutos: PropTypes.func.isRequired,
-  setAoEditarProduto: PropTypes.func.isRequired,
+Grid.propTypes = {
+  fornecedores: PropTypes.array.isRequired,
+  setFornecedores: PropTypes.func.isRequired,
+  setAoEditarFornecedor: PropTypes.func.isRequired,
 };
 
-export default GridProdutos;
+export default Grid;

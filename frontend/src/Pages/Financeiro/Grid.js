@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
   const toast = useToast();
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todas");
+  const [statusDesejado, setStatusDesejado] = useState("Todos");
 
   const handleEdit = (item) => {
     setAoEditarConta(item);
@@ -49,24 +50,30 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
   };
 
   const filteredContas = contas.filter((conta) => {
-    if (categoriaSelecionada === "Todas") {
+    if (categoriaSelecionada === "Todas" && statusDesejado === "Todos") {
       return true;
     } else {
-      return conta.categoria_conta === categoriaSelecionada;
+      return (
+        (categoriaSelecionada === "Todas" ||
+          conta.categoria_conta === categoriaSelecionada) &&
+        (statusDesejado === "Todos" || conta.status_conta === statusDesejado)
+      );
     }
   });
 
   return (
-    <Container maxW="700px">
+    <Container maxW="xl">
       <Stack overflowX="auto">
-        <Table variant="simple" size="md">
+        <Table>
           <Thead>
             <Tr>
               <Th>Nome</Th>
               <Th>Preço</Th>
               <Th>
                 <Menu>
-                  <MenuButton>{categoriaSelecionada}</MenuButton>
+                  <MenuButton as={Th} cursor="pointer">
+                    {categoriaSelecionada}
+                  </MenuButton>
                   <MenuList>
                     <MenuItem onClick={() => setCategoriaSelecionada("Pagar")}>
                       Pagar
@@ -82,7 +89,24 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
                   </MenuList>
                 </Menu>
               </Th>
-              <Th>Status</Th>
+              <Th>
+                <Menu>
+                  <MenuButton as={Th} cursor="pointer">
+                    {statusDesejado}
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem onClick={() => setStatusDesejado("Concluida")}>
+                      Concluída
+                    </MenuItem>
+                    <MenuItem onClick={() => setStatusDesejado("Pendente")}>
+                      Pendente
+                    </MenuItem>
+                    <MenuItem onClick={() => setStatusDesejado("Todos")}>
+                      Todos
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -95,12 +119,17 @@ const GridFinanceiro = ({ contas, setContas, setAoEditarConta }) => {
                 <Td>{item.categoria_conta}</Td>
                 <Td>{item.status_conta}</Td>
                 <Td>
-                  <Icon as={FaEdit} onClick={() => handleEdit(item)} />
+                  <Icon
+                    as={FaEdit}
+                    onClick={() => handleEdit(item)}
+                    cursor="pointer"
+                  />
                 </Td>
                 <Td>
                   <Icon
                     as={FaTrash}
                     onClick={() => handleDelete(item.idConta)}
+                    cursor="pointer"
                   />
                 </Td>
               </Tr>

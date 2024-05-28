@@ -41,7 +41,7 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     if (aoEditarConta) {
       console.log("Editando conta:", conta);
       await axios
-        .put(`http://localhost:8081/contas/${aoEditarConta.idConta}`, {
+        .put(`http://localhost:8080/contas/${aoEditarConta.idConta}`, {
           nome_conta: conta.nome_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
@@ -58,7 +58,7 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
     } else {
       console.log("Adicionando novo conta:", conta);
       await axios
-        .post("http://localhost:8081/contas/", {
+        .post("http://localhost:8080/contas/", {
           nome_conta: conta.nome_conta.value,
           preco_conta: conta.preco_conta.value,
           categoria_conta: conta.categoria_conta.value,
@@ -98,22 +98,14 @@ const FormFinanceiro = ({ pegarContas, aoEditarConta, setAoEditarConta }) => {
           <option value="Receber">Receber</option>
         </Select>
       </FormControl>
-      <FormControl>
+      <FormControl mb="5">
         <FormLabel>Status</FormLabel>
         <Select name="status_conta">
           <option value="Concluida">Concluída</option>
           <option value="Pendente">Pendente</option>
         </Select>
       </FormControl>
-      <Button
-        type="submit"
-        variant="ghost"
-        border="1px"
-        borderColor="blue"
-        colorScheme="blue"
-        mt="3"
-        mb="3"
-      >
+      <Button type="submit" variant="ghost">
         Salvar
       </Button>
     </form>

@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import {
   Table,
@@ -12,29 +14,27 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import PropTypes from "prop-types";
 
-const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
+const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
-    setAoEditarProduto(item);
+    setAoEditarVenda(item);
   };
 
-  const handleDelete = async (idProduto) => {
+  const handleDelete = async (idVenda) => {
     try {
-      await axios.delete(`http://localhost:8080/produtos/${idProduto}`);
-      const newArray = produtos.filter((user) => user.idProduto !== idProduto);
-      setProdutos(newArray);
+      await axios.delete(`http://localhost:8080/vendas/${idVenda}`);
+      pegarVendas();
       toast({
-        title: "Produto excluído com sucesso!",
+        title: "Venda excluída com sucesso!",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
       toast({
-        title: "Erro ao deletar produto!",
+        title: "Erro ao deletar venda!",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -49,29 +49,23 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
           <Thead>
             <Tr>
               <Th>Nome</Th>
-              <Th>Descrição</Th>
-              <Th>Preço</Th>
               <Th>Quantidade</Th>
-              <Th>Categoria</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {produtos.map((item, i) => (
-              <Tr key={i}>
-                <Td>{item.nome_produto}</Td>
-                <Td>{item.descricao_produto}</Td>
-                <Td>{item.preco_produto}</Td>
-                <Td>{item.quantidade_produto}</Td>
-                <Td>{item.categoria_produto}</Td>
+            {vendas.map((item) => (
+              <Tr key={item.idVenda}>
+                <Td>{item.nome_produto_venda}</Td>
+                <Td>{item.quantidade_produto_venda}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
                 <Td>
                   <Icon
                     as={FaTrash}
-                    onClick={() => handleDelete(item.idProduto)}
+                    onClick={() => handleDelete(item.idVenda)}
                   />
                 </Td>
               </Tr>
@@ -83,11 +77,10 @@ const GridProdutos = ({ produtos, setProdutos, setAoEditarProduto }) => {
   );
 };
 
-// Definindo PropTypes para validar as props
-GridProdutos.propTypes = {
-  produtos: PropTypes.array.isRequired,
-  setProdutos: PropTypes.func.isRequired,
-  setAoEditarProduto: PropTypes.func.isRequired,
+Grid.propTypes = {
+  vendas: PropTypes.array.isRequired,
+  pegarVendas: PropTypes.func.isRequired,
+  setAoEditarVenda: PropTypes.func.isRequired,
 };
 
-export default GridProdutos;
+export default Grid;

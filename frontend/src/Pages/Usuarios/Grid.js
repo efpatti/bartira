@@ -23,7 +23,7 @@ const Grid = ({ usuarios, setUsuarios, setAoEditarUsuario }) => {
 
   const handleDelete = async (idUsuario) => {
     try {
-      await axios.delete(`http://localhost:8081/usuarios/${idUsuario}`);
+      await axios.delete(`http://localhost:8080/usuarios/${idUsuario}`);
       const newArray = usuarios.filter(
         (usuario) => usuario.idUsuario !== idUsuario
       );
@@ -54,7 +54,12 @@ const Grid = ({ usuarios, setUsuarios, setAoEditarUsuario }) => {
               <Th>Email</Th>
               <Th>Cargo</Th>
               <Th>CPF</Th>
-              <Th>Endereço</Th>
+              <Th>CEP</Th>
+              <Th>Rua</Th>
+              <Th>Número</Th>
+              <Th>Cidade</Th>
+              <Th>Estado</Th>
+              <Th>País</Th>
               <Th>Tipo</Th>
               <Th>Senha</Th>
               <Th></Th>
@@ -68,7 +73,12 @@ const Grid = ({ usuarios, setUsuarios, setAoEditarUsuario }) => {
                 <Td>{item.email}</Td>
                 <Td>{item.cargo}</Td>
                 <Td>{item.cpf}</Td>
-                <Td>{item.endereco}</Td>
+                <Td>{item.cep}</Td>
+                <Td>{item.rua}</Td>
+                <Td>{item.numero}</Td>
+                <Td>{item.cidade}</Td>
+                <Td>{item.estado}</Td>
+                <Td>{item.pais}</Td>
                 <Td>{item.tipo}</Td>
                 <Td>{item.senha}</Td>
                 <Td>

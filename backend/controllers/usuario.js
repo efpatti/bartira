@@ -14,13 +14,39 @@ exports.pegarUsuarios = (_, res) => {
 };
 
 exports.adicionarUsuario = (req, res) => {
-  const { nome, email, cargo, cpf, endereco, tipo, senha } = req.body;
+  const {
+    nome,
+    email,
+    cargo,
+    cpf,
+    cep,
+    rua,
+    numero,
+    cidade,
+    estado,
+    pais,
+    tipo,
+    senha,
+  } = req.body;
 
   const q =
-    "INSERT INTO usuarios (`nome`, `email`, `cargo`, `cpf`, `endereco`, `tipo`, `senha`) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO usuarios (`nome`, `email`, `cargo`, `cpf`, `cep`, `rua`, `numero`, `cidade`, `estado`, `pais`, `tipo`, `senha`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   // Validar entrada
-  if (!nome || !email || !cargo || !cpf || !endereco || !tipo || !senha) {
+  if (
+    !nome ||
+    !email ||
+    !cargo ||
+    !cpf ||
+    !cep ||
+    !rua ||
+    !numero ||
+    !cidade ||
+    !estado ||
+    !pais ||
+    !tipo ||
+    !senha
+  ) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
 
@@ -31,7 +57,20 @@ exports.adicionarUsuario = (req, res) => {
       return res.status(500).json("Erro interno do servidor");
     }
 
-    const values = [nome, email, cargo, cpf, endereco, tipo, hash];
+    const values = [
+      nome,
+      email,
+      cargo,
+      cpf,
+      cep,
+      rua,
+      numero,
+      cidade,
+      estado,
+      pais,
+      tipo,
+      hash,
+    ];
 
     db.query(q, values, (err, result) => {
       if (err) {
@@ -47,13 +86,40 @@ exports.adicionarUsuario = (req, res) => {
 };
 
 exports.atualizarUsuario = (req, res) => {
-  const { nome, email, cargo, cpf, endereco, tipo, senha } = req.body;
+  const {
+    nome,
+    email,
+    cargo,
+    cpf,
+    cep,
+    rua,
+    numero,
+    cidade,
+    estado,
+    pais,
+    tipo,
+    senha,
+  } = req.body;
 
   const q =
-    "UPDATE usuarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `endereco` = ?, `tipo` = ?, `senha` = ? WHERE `idUsuario` = ?";
+    "UPDATE usuarios SET `nome` = ?, `email` = ?, `cargo` = ?, `cpf` = ?, `cep` = ?, `rua` = ?, `numero` = ?, `cidade` = ?, `estado` = ?, `pais` = ?, `tipo` = ?, `senha` = ? WHERE `idUsuario` = ?";
 
   // Validar entrada
-  if (!nome || !email || !cargo || !cpf || !endereco || !tipo || !senha) {
+  // Validar entrada
+  if (
+    !nome ||
+    !email ||
+    !cargo ||
+    !cpf ||
+    !cep ||
+    !rua ||
+    !numero ||
+    !cidade ||
+    !estado ||
+    !pais ||
+    !tipo ||
+    !senha
+  ) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
 
@@ -62,7 +128,12 @@ exports.atualizarUsuario = (req, res) => {
     email,
     cargo,
     cpf,
-    endereco,
+    cep,
+    rua,
+    numero,
+    cidade,
+    estado,
+    pais,
     tipo,
     senha,
     req.params.idUsuario,
@@ -116,7 +187,19 @@ exports.logarUsuario = (req, res) => {
         if (tipo === "Administrador") {
           // Gerar um token de administrador
           token = jwt.sign(
-            { email: results[0].email, tipo: "Administrador" },
+            {
+              nome: results[0].nome,
+              email: results[0].email,
+              cargo: results[0].cargo,
+              cpf: results[0].cpf,
+              cep: results[0].cep,
+              rua: results[0].rua,
+              numero: results[0].numero,
+              cidade: results[0].cidade,
+              estado: results[0].estado,
+              pais: results[0].pais,
+              tipo: "Administrador",
+            },
             jwtSecret,
             {
               expiresIn: "1h",
@@ -126,8 +209,44 @@ exports.logarUsuario = (req, res) => {
         } else if (tipo === "Funcionário") {
           // Gerar um token de funcionário
           token = jwt.sign(
-            { email: results[0].email, tipo: "Funcionário" },
+            {
+              nome: results[0].nome,
+              email: results[0].email,
+              cargo: results[0].cargo,
+              cpf: results[0].cpf,
+              cep: results[0].cep,
+              rua: results[0].rua,
+              numero: results[0].numero,
+              cidade: results[0].cidade,
+              estado: results[0].estado,
+              pais: results[0].pais,
+              tipo: "Funcionário",
+            },
             jwtSecret,
+
+            {
+              expiresIn: "1h",
+            },
+            console.log("a", tipo)
+          );
+        } else if (tipo === "Cliente") {
+          // Gerar um token de cliente
+          token = jwt.sign(
+            {
+              nome: results[0].nome,
+              email: results[0].email,
+              cargo: results[0].cargo,
+              cpf: results[0].cpf,
+              cep: results[0].cep,
+              rua: results[0].rua,
+              numero: results[0].numero,
+              cidade: results[0].cidade,
+              estado: results[0].estado,
+              pais: results[0].pais,
+              tipo: "Cliente",
+            },
+            jwtSecret,
+
             {
               expiresIn: "1h",
             },

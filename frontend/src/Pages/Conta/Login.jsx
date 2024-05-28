@@ -14,15 +14,15 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [click, setClick] = useState(false);
-  const { login, isAuthenticated, userType } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -42,7 +42,7 @@ function Login() {
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:8081/loginUsuario", {
+      .post("http://localhost:8080/loginUsuario", {
         email,
         senha,
       })
@@ -50,32 +50,25 @@ function Login() {
         const { token } = res.data;
         login(token);
         console.log(token);
-
-        toast.success("Login feito com sucesso!");
-        toast.success("Token válido, agora você tem acesso!");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
   };
-  if (isAuthenticated && userType === "Funcionário") {
-    return <Navigate to="/logado-funcionario" />;
-  }
-  if (isAuthenticated && userType === "Administrador") {
-    return <Navigate to="/logado-adm" />;
+  if (isAuthenticated) {
+    return <Navigate to="/logado" />;
   }
   return (
     <Flex
-      height="95vh"
+      minH="120vh"
       d="flex"
       justify="center"
       align="center"
-      bg={colorMode === "light" ? "gray.200" : "gray.800"}
+      color={colorMode === "light" ? "gray.800" : "gray.200"}
     >
-      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px" justify="center" align="center">
+      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
         <Flex w="90%" align="center" justify="space-around">
           <Flex
-            mt={70}
             w="100%"
             h="350px"
             borderRadius={25}
@@ -83,10 +76,9 @@ function Login() {
             align="center"
             flexDirection="column"
             gap="10px"
-            bg={colorMode === "light" ? "darkblue" : "blue.700"}
-            color={colorMode === "light" ? "white" : "black"}
+            bg={colorMode === "light" ? "blue.600" : "darkblue"}
           >
-            <Text fontSize={40} mb={8}>
+            <Text fontSize={40} mb={8} as="b">
               Login
             </Text>
             <InputGroup>
@@ -167,13 +159,13 @@ function Login() {
             <Stack direction="row" gap="3">
               <Link
                 as={Button}
-                href="/logado-adm"
+                href="/logado"
                 onClick={handleLogin}
                 _hover={{ opacity: "80%" }}
                 color={colorMode === "light" ? "gray.800" : "gray.200"}
                 bg={colorMode === "light" ? "gray.200" : "gray.800"}
               >
-                Login
+                Entrar
               </Link>
             </Stack>
           </Flex>

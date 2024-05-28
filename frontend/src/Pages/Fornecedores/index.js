@@ -7,21 +7,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DashBoard = () => {
-  const [contas, setContas] = useState([]);
-  const [aoEditarConta, setAoEditarConta] = useState(null);
+  const [fornecedores, setFornecedores] = useState([]);
+  const [aoEditarFornecedor, setAoEditarFornecedor] = useState(null);
 
-  const pegarContas = async () => {
+  const pegarFornecedores = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/contas");
-      setContas(res.data.sort((a, b) => (a.idConta > b.idConta ? 1 : -1)));
+      const res = await axios.get("http://localhost:8080/fornecedores");
+      setFornecedores(
+        res.data.sort((a, b) => (a.idFornecedor > b.idFornecedor ? 1 : -1))
+      );
     } catch (error) {
       toast.error(error);
     }
   };
 
   useEffect(() => {
-    pegarContas();
-  });
+    pegarFornecedores();
+  }, []);
 
   return (
     <>
@@ -34,21 +36,21 @@ const DashBoard = () => {
         flexDirection="column"
         justifyContent="center"
       >
-        <Heading as="h2">Financeiro</Heading>
         <Stack direction="column" gap="2rem">
+          <Heading as="h2">Fornecedores</Heading>
           <Form
-            aoEditarConta={aoEditarConta}
-            setAoEditarConta={setAoEditarConta}
-            pegarContas={pegarContas}
+            aoEditarFornecedor={aoEditarFornecedor}
+            setAoEditarFornecedor={setAoEditarFornecedor}
+            pegarFornecedores={pegarFornecedores}
           />
           <Grid
-            contas={contas}
-            setContas={setContas}
-            setAoEditarConta={setAoEditarConta}
+            fornecedores={fornecedores}
+            setFornecedores={setFornecedores}
+            setAoEditarFornecedor={setAoEditarFornecedor}
           />
         </Stack>
-        <ToastContainer autoClose={3000} position="bottom-left" />
       </Container>
+      <ToastContainer autoClose={3000} position="bottom-left" />
     </>
   );
 };

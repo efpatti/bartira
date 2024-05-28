@@ -5,11 +5,7 @@ const PrivateRoutes = () => {
   const { userType } = useAuth();
   const token = localStorage.getItem("token");
 
-  return token && userType === "Administrador" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-  );
+  return token && userType === "Cliente" ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoutes;
