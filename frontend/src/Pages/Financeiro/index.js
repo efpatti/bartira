@@ -26,6 +26,7 @@ const DashBoard = () => {
   return (
     <>
       <Container
+        mt={50}
         maxW="800px"
         minH="50vh"
         textAlign="center"

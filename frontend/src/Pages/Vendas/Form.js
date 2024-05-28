@@ -61,16 +61,6 @@ const Form = ({ clientes, produtos, pegarVendas }) => {
           ))}
         </Select>
       </FormControl>
-      <FormControl>
-        <FormLabel>Nome do Cliente</FormLabel>
-        <Select defaultValue="" name="nome_cliente_venda">
-          {clientesReal.map((item) => (
-            <option key={item.idUsuario} value={item.nome_usuario}>
-              {item.nome_usuario}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
       <FormControl mb="5">
         <FormLabel>Quantidade</FormLabel>
         <Input

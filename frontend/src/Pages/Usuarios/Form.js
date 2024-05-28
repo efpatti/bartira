@@ -122,6 +122,7 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
       campos.forEach((campo) => (usuario[campo].value = ""));
       setAoEditarUsuario(null);
       pegarUsuarios();
+      clearInputs();
     } catch (error) {
       console.error("Erro:", error.response.data);
       toast.error(error.response.data.message);
@@ -234,7 +235,6 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
         p="5"
       >
         <Stack direction="row" gap="5" borderRadius="lg" mb="5">
-          <Text fontSize="xl">Usuários</Text>
           {resetAppear && (
             <Link as={Text} onClick={clearInputs} variant="none" fontSize="xl">
               Reset
@@ -242,7 +242,7 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
           )}
         </Stack>
       </Flex>
-      {!view ? (
+      {view ? (
         <Stack direction="column" gap="3">
           <Button onClick={handleColaborador}>Colaborador</Button>
           <Button onClick={handleCliente}>Cliente</Button>
@@ -363,6 +363,8 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
                     ) : (
                       <Select name="tipo" defaultValue="Cliente">
                         <option value="Cliente">Cliente</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Funcionário">Funcionário</option>
                       </Select>
                     )}
                   </FormControl>

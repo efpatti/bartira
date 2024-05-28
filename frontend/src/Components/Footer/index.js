@@ -5,11 +5,11 @@ const Footer = () => {
   return (
     <Stack
       marginInline="auto"
+      mt={150}
       p={8}
       bgColor={colorMode === "light" ? "darkblue" : "blue.700"}
       alignItems="center"
       color={colorMode === "light" ? "gray.200" : "gray.800"}
-      position="fixed"
       width="100%"
       bottom="0"
     >
