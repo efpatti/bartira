@@ -57,6 +57,7 @@ const Index = () => {
     <>
       <Container
         maxW="800px"
+        mt={50}
         minH="50vh"
         textAlign="center"
         paddingY="7rem"
