@@ -33,8 +33,9 @@ const routes = [
       },
       {
         path: "/usuarios",
-        element: Usuarios,
-      },
+        element: Usuarios
+      }
+
     ],
   },
   {

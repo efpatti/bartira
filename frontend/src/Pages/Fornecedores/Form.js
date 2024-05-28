@@ -9,11 +9,13 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import { color } from "framer-motion";
 
 const Form = ({
   pegarFornecedores,
   aoEditarFornecedor,
   setAoEditarFornecedor,
+  
 }) => {
   const ref = useRef();
 
@@ -36,6 +38,7 @@ const Form = ({
     {
       name: "Sala de Jantar",
     },
+
   ];
 
   useEffect(() => {
@@ -106,8 +109,8 @@ const Form = ({
   };
 
   return (
-    <form ref={ref} onSubmit={handleSubmit}>
-      <FormControl>
+    <form ref={ref} onSubmit={handleSubmit} style={{ border: '1px solid black', borderRadius: '8px', padding: '8px' }} >
+      <FormControl >
         <FormLabel>Nome</FormLabel>
         <Input name="nome_fornecedor" />
       </FormControl>
