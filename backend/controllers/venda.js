@@ -9,12 +9,21 @@ exports.pegarVendas = (_, res) => {
 };
 exports.adicionarVenda = (req, res) => {
   const q =
-    "INSERT INTO vendas (`nome_produto_venda`, `quantidade_produto_venda`) VALUES(?, ?)";
+    "INSERT INTO vendas (`nome_cliente_venda`, `nome_produto_venda`, `quantidade_produto_venda`, `status_venda`) VALUES(?, ?, ?, ?)";
 
-  const nomeProdutoVenda = req.body.nome_produto_venda;
-  const quantidadeProdutoVenda = req.body.quantidade_produto_venda;
+  const r = req.body;
 
-  const values = [nomeProdutoVenda, quantidadeProdutoVenda];
+  const nomeClienteVenda = r.nome_cliente_venda;
+  const nomeProdutoVenda = r.nome_produto_venda;
+  const quantidadeProdutoVenda = r.quantidade_produto_venda;
+  const statusVenda = r.status_venda;
+
+  const values = [
+    nomeClienteVenda,
+    nomeProdutoVenda,
+    quantidadeProdutoVenda,
+    statusVenda,
+  ];
 
   // Realiza a operação de venda dentro de uma transação
   db.beginTransaction((err) => {
@@ -77,11 +86,15 @@ exports.adicionarVenda = (req, res) => {
 
 exports.atualizarVenda = (req, res) => {
   const q =
-    "UPDATE vendas SET `nome_produto_venda` = ?, `quantidade_produto_venda` = ? WHERE `idVenda` = ?";
+    "UPDATE vendas SET `nome_cliente_venda` = ?, `nome_produto_venda` = ?, `quantidade_produto_venda` = ?, `status_venda` = ? WHERE `idVenda` = ?";
+
+  const r = req.body;
 
   const values = [
-    req.body.nome_produto_venda,
-    req.body.quantidade_produto_venda,
+    r.nome_cliente_venda,
+    r.nome_produto_venda,
+    r.quantidade_produto_venda,
+    r.status_venda,
   ];
 
   db.query(q, [...values, req.params.idVenda], (err) => {

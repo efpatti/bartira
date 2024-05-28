@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
   const [produtos, setProdutos] = useState([]);
-  const [clientes] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [vendas, setVendas] = useState([]);
   const [aoEditarVenda, setAoEditarVenda] = useState(null);
 
@@ -22,6 +22,22 @@ const Index = () => {
       toast.error("Erro ao carregar produtos!");
     }
   };
+
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/usuarios");
+        const clientesFiltrados = res.data.filter(
+          (usuario) => usuario.tipo === "Cliente"
+        );
+        setClientes(clientesFiltrados);
+      } catch (error) {
+        toast.error("Erro ao carregar clientes!");
+      }
+    };
+
+    fetchClientes();
+  }, []);
 
   const pegarVendas = async () => {
     try {
