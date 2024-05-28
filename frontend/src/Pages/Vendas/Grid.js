@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
-const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
+const Grid = ({ vendas, setVendas, setAoEditarVenda }) => {
   const toast = useToast();
 
   const handleEdit = (item) => {
@@ -25,7 +25,8 @@ const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
   const handleDelete = async (idVenda) => {
     try {
       await axios.delete(`http://localhost:8080/vendas/${idVenda}`);
-      pegarVendas();
+      const newArray = vendas.filter((venda) => venda.idVenda !== idVenda);
+      setVendas(newArray);
       toast({
         title: "Venda excluída com sucesso!",
         status: "success",
@@ -48,8 +49,10 @@ const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
         <Table variant="simple" size="md">
           <Thead>
             <Tr>
-              <Th>Nome</Th>
+              <Th>Nome do Cliente</Th>
+              <Th>Produto</Th>
               <Th>Quantidade</Th>
+              <Th>Status</Th>
               <Th></Th>
               <Th></Th>
             </Tr>
@@ -57,8 +60,10 @@ const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
           <Tbody>
             {vendas.map((item) => (
               <Tr key={item.idVenda}>
+                <Td>{item.nome_cliente_venda}</Td>
                 <Td>{item.nome_produto_venda}</Td>
                 <Td>{item.quantidade_produto_venda}</Td>
+                <Td>{item.status_venda}</Td>
                 <Td>
                   <Icon as={FaEdit} onClick={() => handleEdit(item)} />
                 </Td>
@@ -79,7 +84,7 @@ const Grid = ({ vendas, pegarVendas, setAoEditarVenda }) => {
 
 Grid.propTypes = {
   vendas: PropTypes.array.isRequired,
-  pegarVendas: PropTypes.func.isRequired,
+  setVendas: PropTypes.func.isRequired,
   setAoEditarVenda: PropTypes.func.isRequired,
 };
 
