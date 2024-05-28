@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Stack
       marginInline="auto"
-      mt={150}
+      position="fixed"
       p={8}
       bgColor={colorMode === "light" ? "darkblue" : "blue.700"}
       alignItems="center"

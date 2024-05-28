@@ -8,8 +8,11 @@ import {
   TabPanels,
   TabPanel,
   Heading,
+  Box,
+  Icon,
 } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
+import { FaRegHandshake } from "react-icons/fa6";
 
 function Logado() {
   const { logout, isAuthenticated, user } = useAuth(); // Alteração aqui
@@ -34,7 +37,14 @@ function Logado() {
       flexDirection="column"
       justifyContent="center"
     >
-      <Text>{user.email}</Text>
+      <Text mt={50} mb={5}>Conectado como:</Text>
+      <Heading fontSize={30} >{user.email}</Heading>
+
+      <Box textAlign="center" mt={12}>
+        <Icon as={FaRegHandshake} boxSize="100px" color="darkblue" />
+      </Box>
+
+
     </Container>
   );
 }
