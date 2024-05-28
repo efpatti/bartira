@@ -32,6 +32,7 @@ const Dashboard = () => {
   return (
     <>
       <Container
+        mt={50}
         maxW="800px"
         minH="50vh"
         textAlign="center"
@@ -40,6 +41,7 @@ const Dashboard = () => {
         flexDirection="column"
         justifyContent="center"
       >
+      <Heading as="h2">Usuário</Heading>
         <Stack direction="column" gap="2rem">
           <Form
             aoEditUsuario={aoEditarUsuario}

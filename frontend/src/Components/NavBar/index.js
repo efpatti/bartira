@@ -268,7 +268,7 @@ const NavBar = () => {
           <IconButton
             variant="none"
             sx={iconsBtn}
-            mt={["250%", "130%"]}
+            mt={["160%", "40%"]}
             aria-label="Alternar modo de cor"
             icon={colorMode === "light" ? <MdDarkMode /> : <MdLightMode />}
             onClick={toggleColorMode}
