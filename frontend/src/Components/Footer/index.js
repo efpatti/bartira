@@ -9,9 +9,16 @@ const Footer = () => {
       bgColor={colorMode === "light" ? "darkblue" : "blue.700"}
       alignItems="center"
       color={colorMode === "light" ? "gray.200" : "gray.800"}
+      position="fixed"
+      width="100%"
+      bottom="0"
     >
-      <Stack d={{ base: "flex", md: "none" }} alignItems="center" color={colorMode === "light" ? "white" : "white"}>
-        <p >
+      <Stack
+        d={{ base: "flex", md: "none" }}
+        alignItems="center"
+        color={colorMode === "light" ? "white" : "white"}
+      >
+        <p>
           © {new Date().getFullYear()} INDÚSTRIA DE MÓVEIS BARTIRA LTDA. Todos
           os direitos reservados.
         </p>
