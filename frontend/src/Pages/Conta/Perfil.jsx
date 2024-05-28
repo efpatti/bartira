@@ -31,7 +31,7 @@ function Profile() {
   const optionClicked = {
     fontSize: "sm",
     fontWeight: "normal",
-    bg: colorMode === "light" ? "blue.600" : "darkblue",
+    bg: colorMode === "light" ? "darkblue" : "blue.700",
     color: colorMode === "light" ? "white" : "black",
     borderRadius: "15px",
     p: "5",

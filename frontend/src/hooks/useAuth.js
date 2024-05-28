@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [userType, setUserType] = useState(null);
   const [loading, setLoading] = useState(true); // Adicionando estado de carregamento
   const [isActive, setIsActive] = useState(false);
-  const [visionUser, setVisionUser] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,11 +32,12 @@ export const AuthProvider = ({ children }) => {
   const getUserType = (decodedToken) => {
     if (decodedToken.tipo === "Administrador") {
       return "Administrador";
-    }
-    if (decodedToken.tipo === "Funcionário") {
+    } else if (decodedToken.tipo === "Funcionário") {
       return "Funcionário";
-    } else {
+    } else if (decodedToken.tipo === "Cliente") {
       return "Cliente";
+    } else {
+      return null; // Retorna null se o tipo não for reconhecido
     }
   };
 
@@ -77,7 +77,6 @@ export const AuthProvider = ({ children }) => {
         logout,
         isActive,
         setIsActive,
-        setVisionUser,
       }}
     >
       {!loading && children}{" "}

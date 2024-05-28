@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import {
+  Container,
   Flex,
   Button,
   Input,
@@ -59,14 +60,22 @@ function Login() {
     return <Navigate to="/logado" />;
   }
   return (
-    <Flex
-      minH="120vh"
-      d="flex"
-      justify="center"
-      align="center"
-      color={colorMode === "light" ? "gray.800" : "gray.200"}
+    <Container
+      minH="50vh"
+      textAlign="center"
+      paddingY="7rem"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center" // Adicione esta linha para alinhar verticalmente
     >
-      <Flex boxSize="lg" borderRadius="25px" flexDirection="column" p="10px">
+      <Flex
+        boxSize="lg"
+        borderRadius="25px"
+        flexDirection="column"
+        m="10px"
+        p="10px"
+      >
         <Flex w="90%" align="center" justify="space-around">
           <Flex
             w="100%"
@@ -172,7 +181,7 @@ function Login() {
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </Container>
   );
 }
 

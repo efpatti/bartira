@@ -22,10 +22,12 @@ import {
   MdCloseFullscreen,
   MdSettings,
   MdMenu,
+  MdSell,
 } from "react-icons/md";
 import { useAuth } from "../../hooks/useAuth";
 import { FaFileContract, FaSearch, FaUsers } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
+import { IoIosBusiness } from "react-icons/io";
 
 const NavBar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -74,7 +76,6 @@ const NavBar = () => {
         <a href="/">
           <Image
             src="https://www.moveisbartira.com.br/images/logos/bartira-branco-vermelho.svg?256&q=75"
-            fluid
             boxSize={20}
           />
         </a>
@@ -83,7 +84,6 @@ const NavBar = () => {
             w={[150, 400, 500]}
             borderRadius={500}
             align="center"
-            fluid
             justify="center"
             border={0}
             color={colorMode === "light" ? "black" : "white"}
@@ -140,21 +140,50 @@ const NavBar = () => {
 
         <Flex flexDir="column" align="flex-end" justify="flex-end">
           {isAuthenticated &&
-            (userType === "Administrador" || "Funcionário" ? (
+            (userType === "Administrador" || userType === "Funcionário" ? (
               <>
                 <Flex align="center">
-                  <Button sx={iconBtn} as={Link} href="/perfil">
+                  <Button sx={iconBtn} as={Link} href="/usuarios">
                     <Text>Usuários</Text>
                     <Box ml="3">
                       <FaUsers />
                     </Box>
                   </Button>
                 </Flex>
+                {userType === "Administrador" && (
+                  <Flex align="center">
+                    <Button sx={iconBtn} as={Link} href="/financeiro">
+                      <Text>Financeiro</Text>
+                      <Box ml="3">
+                        <IoIosBusiness />
+                      </Box>
+                    </Button>
+                  </Flex>
+                )}
                 <Flex align="center">
-                  <Button sx={iconBtn} as={Link} href="/perfil">
+                  <Button sx={iconBtn} as={Link} href="/produtos">
                     <Text>Produtos</Text>
                     <Box ml="3">
                       <FaBagShopping />
+                    </Box>
+                  </Button>
+                </Flex>
+                <Flex align="center">
+                  <Button sx={iconBtn} as={Link} href="/vendas">
+                    <Text>Vendas</Text>
+                    <Box ml="3">
+                      <MdSell />
+                    </Box>
+                  </Button>
+                </Flex>
+                <Flex align="center">
+                  <Button sx={iconBtn} as={Link} href="/fornecedores">
+                    <Text>Fornecedores</Text>
+                    <Box
+                      ml="3"
+                      color={colorMode === "light" ? "white" : "black"}
+                    >
+                      <IoIosBusiness />
                     </Box>
                   </Button>
                 </Flex>
@@ -162,7 +191,7 @@ const NavBar = () => {
             ) : (
               <>
                 <Flex align="center">
-                  <Button sx={iconBtn} as={Link} href="/perfil">
+                  <Button sx={iconBtn} as={Link} href="/orcamento">
                     <Text>Orçamento</Text>
                     <Box ml="3">
                       <FaFileContract />
@@ -196,12 +225,15 @@ const NavBar = () => {
               </MenuButton>
               <MenuList paddingBottom="0" m="1">
                 {isAuthenticated ? (
-                  <MenuGroup title={user.nome}>
+                  <MenuGroup
+                    title={user.nome}
+                    color={colorMode === "light" ? "gray.800" : "gray.200"}
+                  >
                     <MenuItem>
                       <Button
                         onClick={logout}
                         variant="none"
-                        color={colorMode === "light" ? "black" : "white"}
+                        color={colorMode === "light" ? "gray.800" : "gray.200"}
                       >
                         Sair
                       </Button>
