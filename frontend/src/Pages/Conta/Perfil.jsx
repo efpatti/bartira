@@ -49,14 +49,14 @@ function Profile() {
         <Stack
           direction="column"
           gap="2"
-          bg={"gray.300"} 
-          h="95%"
+          h="100%"
           w="155%"
+          bg={colorMode === "light" ? "gray.200" : "gray.600"}
         >
-          <Text fontSize="xl" mb={5} mt="25%" ml={8} color="gray.900">Bem vindo (a),</Text>
+          <Text fontSize="lg" mb={5} mt="25%" ml={8} color={colorMode === "light" ? "black" : "white"}>Bem vindo (a),</Text>
           <Avatar size="lg" ml={99} name={user.nome} src={user.avatarUrl} mb="6" />
           <Text fontSize="xl" ml="25%" fontWeight="bold">{user.nome}</Text>
-          <Text fontSize="md" ml="15%" color="gray.700">{user.email}</Text>
+          <Text color={colorMode === "light" ? "gray.900" : "white"} fontSize="md" ml="15%">{user.email}</Text>
         </Stack>
       </Box>
       <Flex
@@ -93,7 +93,7 @@ function ProfileOption() {
   return (
     <Flex justify="center" align="center" w="100%" minH="100vh" color={colorMode === "light" ? "black" : "white"}>
       <Stack direction="column" gap="2" w={{ base: "90%", md: "50%" }}>
-      <Heading as="h3" mt={5}>Meu perfil</Heading>
+      <Heading as="h3" mt={10}>Meu perfil</Heading>
         <Box sx={itemProfile}>
           <Flex
             direction="column"
