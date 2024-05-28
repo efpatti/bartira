@@ -242,7 +242,7 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
           )}
         </Stack>
       </Flex>
-      {!view ? (
+      {view ? (
         <Stack direction="column" gap="3">
           <Button onClick={handleColaborador}>Colaborador</Button>
           <Button onClick={handleCliente}>Cliente</Button>
@@ -363,6 +363,7 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
                     ) : (
                       <Select name="tipo" defaultValue="Cliente">
                         <option value="Cliente">Cliente</option>
+                        <option value="Funcionário">Funcionário</option>
                       </Select>
                     )}
                   </FormControl>

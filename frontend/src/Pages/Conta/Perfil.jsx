@@ -7,6 +7,8 @@ import {
   Flex,
   useColorMode,
   IconButton,
+  Avatar,
+  Heading,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
@@ -15,11 +17,12 @@ import { FaEdit } from "react-icons/fa";
 
 function Profile() {
   useEffect(() => {
-    optionClick(1);
-  });
+    optionClick();
+  }, []);
+
   const [option, setOption] = useState(false);
   const { colorMode } = useColorMode();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
@@ -36,32 +39,32 @@ function Profile() {
     borderRadius: "15px",
     p: "5",
     _hover: {
-      bg: "",
+      bg: colorMode === "light" ? "blue.700" : "blue.900",
     },
   };
 
   return (
-    <Flex w="100%">
-      <Box width="15%" mt="5rem">
+    <Flex direction={{ base: "column", md: "row" }} w="100%">
+      <Box width={{ lg: "15%" }} mt="5rem" mb={-10}>
         <Stack
           direction="column"
           gap="2"
-          justify="center"
-          align="center"
-          mt="10"
+          bg={"gray.300"} 
+          h="95%"
+          w="155%"
         >
-          <Button onClick={() => optionClick()} sx={optionClicked}>
-            Meu Perfil
-          </Button>
+          <Text fontSize="xl" mb={5} mt="25%" ml={8} color="gray.900">Bem vindo (a),</Text>
+          <Avatar size="lg" ml={99} name={user.nome} src={user.avatarUrl} mb="6" />
+          <Text fontSize="xl" ml="25%" fontWeight="bold">{user.nome}</Text>
+          <Text fontSize="md" ml="15%" color="gray.700">{user.email}</Text>
         </Stack>
       </Box>
       <Flex
         minH="50vh"
         textAlign="center"
-        paddingY="7rem"
-        display="flex"
+        py="7rem"
         justifyContent="center"
-        width="80%"
+        width={{ base: "100%", md: "80%" }}
         height="100%"
         color="gray.800"
         alignItems="center"
@@ -69,6 +72,7 @@ function Profile() {
         {option && <ProfileOption />}
       </Flex>
     </Flex>
+
   );
 }
 
@@ -84,10 +88,20 @@ function ProfileOption() {
     fontWeight: "bold",
   };
   const { user } = useAuth();
+  const { colorMode } = useColorMode();
+
   return (
-    <Flex justify="center" align="center" w="100%" minH="100vh">
-      <Stack direction="column" gap="2" w="50%">
+    <Flex justify="center" align="center" w="100%" minH="100vh" color={colorMode === "light" ? "black" : "white"}>
+      <Stack direction="column" gap="2" w={{ base: "90%", md: "50%" }}>
+      <Heading as="h3" mt={5}>Meu perfil</Heading>
         <Box sx={itemProfile}>
+          <Flex
+            direction="column"
+            align="center"
+            justify="center"
+            mb="5"
+          >
+          </Flex>
           <Flex
             borderBottom="1px"
             w="100%"
@@ -103,11 +117,11 @@ function ProfileOption() {
               border="1px"
               borderColor="gray.300"
               variant="none"
-              right="0"
               icon={<FaEdit />}
+              color={colorMode === "light" ? "black" : "white"}
             />
           </Flex>
-          <Grid templateColumns="repeat(2, 1fr)" gap="2" p="2" m="3">
+          <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="2" p="2" m="3">
             <Box>
               <Stack direction="column">
                 <Text sx={labelInfo}>Nome</Text>
@@ -156,11 +170,11 @@ function ProfileOption() {
               border="1px"
               borderColor="gray.300"
               variant="none"
-              right="0"
               icon={<FaEdit />}
+              color={colorMode === "light" ? "black" : "white"}
             />
           </Flex>
-          <Grid templateColumns="repeat(2, 1fr)" gap="2" p="2" m="3">
+          <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="2" p="2" m="3">
             <Box>
               <Stack direction="column">
                 <Text sx={labelInfo}>Rua</Text>
