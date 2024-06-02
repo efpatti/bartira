@@ -1,19 +1,17 @@
+import React, { useState, useEffect } from "react";
+import { useColorMode } from "@chakra-ui/react";
+import { useAuth } from "../../hooks/useAuth";
+import { FaEdit } from "react-icons/fa";
 import {
-  Stack,
-  Button,
-  Box,
-  Grid,
-  Text,
   Flex,
-  useColorMode,
+  Stack,
+  Box,
+  Text,
   IconButton,
   Avatar,
   Heading,
+  Grid,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { Navigate } from "react-router-dom";
-import { FaEdit } from "react-icons/fa";
 
 function Profile() {
   useEffect(() => {
@@ -22,65 +20,56 @@ function Profile() {
 
   const [option, setOption] = useState(false);
   const { colorMode } = useColorMode();
-  const { isAuthenticated, user } = useAuth();
-  if (!isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  const { user } = useAuth();
 
   const optionClick = () => {
     setOption(true);
   };
 
-  const optionClicked = {
-    fontSize: "sm",
-    fontWeight: "normal",
-    bg: colorMode === "light" ? "darkblue" : "blue.700",
-    color: colorMode === "light" ? "white" : "black",
-    borderRadius: "15px",
-    p: "5",
-    _hover: {
-      bg: colorMode === "light" ? "blue.700" : "blue.900",
-    },
-  };
-
   return (
     <Flex direction={{ base: "column", md: "row" }} w="100%">
-      <Box width={{ lg: "15%" }} mt="5rem" mb={-10}>
-        <Stack
-          direction="column"
-          gap="2"
-          h="100%"
-          w="155%"
+      <Box w={{ base: "100%", md: "25%" }} h="100%" position="static">
+        <Box
+          position="fixed"
           bg={colorMode === "light" ? "gray.200" : "gray.600"}
+          h="100%"
+          w="25%"
+          p="5"
         >
-          <Text fontSize="lg"
-            mb={5}
-            mt="25%"
-            ml={8} color={colorMode === "light" ? "black" : "white"}>Bem vindo (a),</Text>
-          <Avatar size="lg"
-            ml={117}
-            name={user.nome}
-            src={user.avatarUrl} mb="6" />
-          <Text fontSize="xl"
-            align="center"
-            fontWeight="bold">{user.nome}</Text>
-          <Text color={colorMode === "light" ? "gray.900" : "white"} fontSize="md" align="center">{user.email}</Text>
-        </Stack>
+          <Stack direction="column" gap="2" m="3" p="5">
+            <Avatar
+              size="lg"
+              ml={{ base: "auto", md: "117" }}
+              name={user.nome}
+              src={user.avatarUrl}
+              mb="6"
+            />
+            <Box>
+              <Stack direction="row" gap="1">
+                <Text
+                  fontSize="lg"
+                  color={colorMode === "light" ? "black" : "white"}
+                >
+                  Bem vindo (a),
+                </Text>
+                <Text fontSize="xl" align="center" fontWeight="bold">
+                  {user.nome}
+                </Text>
+              </Stack>
+            </Box>
+            <Text
+              fontSize="md"
+              align="center"
+              as="em"
+              color={colorMode === "light" ? "gray.600" : "gray.400"}
+            >
+              {user.email}
+            </Text>
+          </Stack>
+        </Box>
       </Box>
-      <Flex
-        minH="50vh"
-        textAlign="center"
-        py="7rem"
-        justifyContent="center"
-        width={{ base: "100%", md: "80%" }}
-        height="100%"
-        color="gray.800"
-        alignItems="center"
-      >
-        {option && <ProfileOption />}
-      </Flex>
+      <Box w={{ base: "100%", md: "75%" }}>{option && <ProfileOption />}</Box>
     </Flex>
-
   );
 }
 
@@ -91,6 +80,7 @@ function ProfileOption() {
     borderRadius: "15px",
     p: "5",
     m: "3",
+    boxShadow: "lg",
   };
   const labelInfo = {
     fontWeight: "bold",
@@ -99,17 +89,24 @@ function ProfileOption() {
   const { colorMode } = useColorMode();
 
   return (
-    <Flex justify="center" align="center" w="100%" minH="100vh" color={colorMode === "light" ? "black" : "white"}>
-      <Stack direction="column" gap="2" w={{ base: "90%", md: "50%" }}>
-        <Heading as="h3" mt={10}>Meu perfil</Heading>
+    <Flex
+      justify="center"
+      align="center"
+      w="100%"
+      minH="100vh"
+      color={colorMode === "light" ? "black" : "white"}
+    >
+      <Stack direction="column" gap="2" w={{ base: "90%", md: "50%" }} m="8">
+        <Heading as="h3" mt={10} align="center">
+          Meu perfil
+        </Heading>
         <Box sx={itemProfile}>
           <Flex
             direction="column"
             align="center"
             justify="center"
             mb="5"
-          >
-          </Flex>
+          ></Flex>
           <Flex
             borderBottom="1px"
             w="100%"
@@ -129,7 +126,12 @@ function ProfileOption() {
               color={colorMode === "light" ? "black" : "white"}
             />
           </Flex>
-          <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="2" p="2" m="3">
+          <Grid
+            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+            gap="2"
+            p="2"
+            m="3"
+          >
             <Box>
               <Stack direction="column">
                 <Text sx={labelInfo}>Nome</Text>
@@ -182,7 +184,12 @@ function ProfileOption() {
               color={colorMode === "light" ? "black" : "white"}
             />
           </Flex>
-          <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="2" p="2" m="3">
+          <Grid
+            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+            gap="2"
+            p="2"
+            m="3"
+          >
             <Box>
               <Stack direction="column">
                 <Text sx={labelInfo}>Rua</Text>

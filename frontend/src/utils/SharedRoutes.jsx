@@ -1,9 +1,10 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const SharedRoutes = () => {
-  const token = localStorage.getItem("token");
+  const { isAuthenticated } = useAuth()
 
-  return token ? <Outlet /> : <Navigate to="/" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default SharedRoutes;

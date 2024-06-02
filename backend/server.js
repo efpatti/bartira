@@ -11,7 +11,11 @@ const app = express();
 const PORT = process.env.PORT || 8080; // Adicionando suporte a variáveis de ambiente para a porta
 
 // Middleware para lidar com a política de mesma origem (CORS)
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Especifique a URL do seu frontend React
+  credentials: true // Se você estiver usando cookies ou cabeçalhos personalizados, defina isso como true
+}));
+
 
 // Middleware para lidar com dados JSON
 app.use(express.json());

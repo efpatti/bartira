@@ -14,7 +14,7 @@ import {
   Stack,
   Link,
 } from "@chakra-ui/react";
-import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
+import { useAuth } from "../../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -67,7 +67,7 @@ function Login() {
       display="flex"
       flexDirection="column"
       justifyContent="center"
-      alignItems="center" // Adicione esta linha para alinhar verticalmente
+      alignItems="center"
     >
       <Flex
         boxSize="lg"
@@ -79,7 +79,6 @@ function Login() {
         <Flex w="90%" align="center" justify="space-around">
           <Flex
             w="100%"
-            h="350px"
             borderRadius={25}
             p={5}
             align="center"
@@ -110,7 +109,7 @@ function Login() {
               <Input
                 color={colorMode === "light" ? "black" : "white"}
                 borderRadius={15}
-                placeholder="Email"
+                placeholder={emailFocused ? "" : "Email"}
                 bg={colorMode === "light" ? "gray.200" : "gray.800"}
                 type="text"
                 id="email"
@@ -141,7 +140,7 @@ function Login() {
               <Input
                 borderRadius={15}
                 mb="3"
-                placeholder="Senha"
+                placeholder={passwordFocused ? "" : "Senha"}
                 bg={colorMode === "light" ? "gray.200" : "gray.800"}
                 color={colorMode === "light" ? "black" : "white"}
                 id="password"

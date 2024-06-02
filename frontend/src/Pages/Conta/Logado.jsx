@@ -2,11 +2,6 @@ import { useAuth } from "../../hooks/useAuth"; // Alteração aqui
 import {
   Container,
   Text,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   Heading,
   Box,
   Icon,
@@ -15,27 +10,18 @@ import {
 import { Navigate } from "react-router-dom";
 import { FaRegHandshake } from "react-icons/fa6";
 
+// Move animation keyframes definition outside the component
+const shakeKeyframes = keyframes`
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+  75% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+`;
+
 function Logado() {
+  const { user } = useAuth();
 
-  const shakeKeyframes = keyframes`
-    0% { transform: translateY(0); }
-    25% { transform: translateY(-2px); }
-    50% { transform: translateY(3px); }
-    75% { transform: translateY(-3px); }
-    100% { transform: translateY(0); }
-  `;
-  const { logout, isAuthenticated, user } = useAuth(); // Alteração aqui
-
-  const handleLogout = () => {
-    logout();
-  };
-
-  const { userType } = useAuth();
-  console.log(userType);
-
-  if (!isAuthenticated) {
-    return <Navigate to="/" />;
-  }
   return (
     <Container
       maxW="800px"
@@ -47,7 +33,7 @@ function Logado() {
       justifyContent="center"
     >
       <Text mt={50} mb={5}>Conectado como:</Text>
-      <Heading fontSize={30} >{user.email}</Heading>
+      <Heading fontSize={30}>{user.email}</Heading>
 
       <Box textAlign="center" mt={12}>
         <Icon
@@ -57,9 +43,8 @@ function Logado() {
           animation={`${shakeKeyframes} 1.5s infinite`} 
         />
       </Box>
-
-
     </Container>
   );
 }
+
 export default Logado;

@@ -4,14 +4,13 @@ const Footer = () => {
   const { colorMode } = useColorMode();
   return (
     <Stack
-      marginInline="auto"
-      position="fixed"
+      position="absolute"
       p={8}
       bgColor={colorMode === "light" ? "darkblue" : "blue.700"}
       alignItems="center"
       color={colorMode === "light" ? "gray.200" : "gray.800"}
       width="100%"
-      bottom="0"
+      zIndex="1000"
     >
       <Stack
         d={{ base: "flex", md: "none" }}

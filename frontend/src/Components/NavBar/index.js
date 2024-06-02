@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -32,12 +32,14 @@ import { IoIosBusiness } from "react-icons/io";
 const NavBar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
   const { isAuthenticated, userType, logout, user } = useAuth();
-  const [display, changeDisplay] = useState("none");
-  useEffect(() => {
-    // Este useEffect vai ser chamado sempre que isAuthenticated, userType ou display mudarem
-    // Você pode adicionar qualquer lógica que precisa ser executada quando esses valores mudarem
-    // Por exemplo, atualizar o estado localmente ou fazer chamadas de API
-  }, [isAuthenticated, userType, display]); // Adicionando o display como uma dependência
+  const [display, changeDisplay] = useState(false); // Changed to a boolean value for toggle
+  const [buttonIcon, setButtonIcon] = useState(<MdMenu />); // State to manage button icon
+
+  const toggleSidebar = () => {
+    changeDisplay(!display); // Toggle the state
+    setButtonIcon(display ? <MdMenu /> : <MdCloseFullscreen />); // Change button icon based on display state
+  };
+
   const iconsBtn = {
     _hover: {
       opacity: "50%",
@@ -57,6 +59,7 @@ const NavBar = () => {
     transition: "all 200ms",
     color: colorMode === "light" ? "white" : "black",
   };
+
   return (
     <Box
       zIndex={10}
@@ -66,7 +69,6 @@ const NavBar = () => {
       color="whitesmoke"
       p={4}
       w="100%"
-      mb={3}
     >
       <Flex
         alignItems="center"
@@ -101,30 +103,28 @@ const NavBar = () => {
           <IconButton
             variant="none"
             sx={iconsBtn}
-            aria-label="Abrir Menu"
+            aria-label="Alternar Menu"
             size="lg"
             mr={2}
-            icon={<MdMenu />}
+            icon={buttonIcon} // Use the button icon state
             display={["flex"]}
-            onClick={() => changeDisplay("flex")}
+            onClick={toggleSidebar} // Toggle sidebar on button click
           />
         </Flex>
       </Flex>
 
       {/* Menu lateral */}
       <Flex
-        ml={["40%", "50%", "81%"]}
+        right={0} // Position sidebar to the right
         bg={colorMode === "light" ? "darkblue" : "blue.700"}
         w={250}
         pr={8}
         h="100%"
         pos="fixed"
-        placement="right"
         top={0}
-        left={0}
         overflow="auto"
         flexDir="column"
-        display={display}
+        display={display ? "flex" : "none"} // Show or hide sidebar based on display state
       >
         <Flex justify="flex-end">
           <IconButton
@@ -134,10 +134,11 @@ const NavBar = () => {
             aria-label="Fechar Menu"
             size="lg"
             icon={<MdCloseFullscreen />}
-            onClick={() => changeDisplay("none")}
+            onClick={toggleSidebar} // Toggle sidebar on button click
           />
         </Flex>
 
+        {/* Sidebar content */}
         <Flex flexDir="column" align="flex-end" justify="flex-end">
           {isAuthenticated &&
             (userType === "Administrador" || userType === "Funcionário" ? (
@@ -202,14 +203,6 @@ const NavBar = () => {
             ))}
 
           <Flex align="center">
-            <Button sx={iconBtn} as={Link} href="/perfil">
-              <Text>Configurações</Text>
-              <Box ml="3">
-                <MdSettings />
-              </Box>
-            </Button>
-          </Flex>
-          <Flex align="center">
             <Menu>
               <MenuButton
                 as={Button}
@@ -255,7 +248,16 @@ const NavBar = () => {
               </MenuList>
             </Menu>
           </Flex>
-
+          {isAuthenticated && (
+            <Flex align="center">
+              <Button sx={iconBtn} as={Link} href="/perfil">
+                <Text>Configurações</Text>
+                <Box ml="3">
+                  <MdSettings />
+                </Box>
+              </Button>
+            </Flex>
+          )}
           <Flex align="center">
             <Button sx={iconBtn}>
               <Text>Pesquisar</Text>
@@ -266,9 +268,10 @@ const NavBar = () => {
           </Flex>
 
           <IconButton
+            position="absolute"
             variant="none"
             sx={iconsBtn}
-            mt={["160%", "40%"]}
+            bottom="0"
             aria-label="Alternar modo de cor"
             icon={colorMode === "light" ? <MdDarkMode /> : <MdLightMode />}
             onClick={toggleColorMode}

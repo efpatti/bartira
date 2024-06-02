@@ -1,13 +1,22 @@
-import { Outlet, Navigate } from "react-router-dom";
+import React from "react";
+import { Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-const SharedRoutes = () => {
-  const { userType } = useAuth();
-  const token =
-    localStorage.getItem("token") &&
-    (userType === "Administrador" || userType === "Funcionário");
+const SharedRoutesFuncAdm = () => {
+  const { userType, isAuthenticated } = useAuth();
 
-  return token ? <Outlet /> : <Navigate to="/" />;
+  const isColaborator = () => {
+    if (isAuthenticated) {
+      if (userType === "Administrador" || userType === "Funcionário") {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  if (isColaborator()) {
+    return <Outlet />;
+  } 
 };
 
-export default SharedRoutes;
+export default SharedRoutesFuncAdm;
