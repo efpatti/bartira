@@ -35,7 +35,6 @@ const routes = [
         path: "/usuarios",
         element: Usuarios
       }
-
     ],
   },
   {
@@ -88,7 +87,6 @@ export function Router() {
           </Route>
         ))}
         <Route path="/" element={<Login />} exact />
-        <Route path="/usuarios" element={<Usuarios />} />
       </Routes>
       <Footer />
     </>

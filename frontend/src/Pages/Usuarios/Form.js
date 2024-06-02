@@ -21,6 +21,7 @@ import { FaCheck } from "react-icons/fa";
 import { useAuth } from "../../hooks/useAuth";
 
 const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
+  const { userType } = useAuth();
   const ref = useRef();
   const [view, setView] = useState(false);
   const [cliente, setCliente] = useState(false);
@@ -47,6 +48,9 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
   useEffect(() => {
     if (userType === "Funcionário") {
       handleCliente();
+    }
+    if (userType === "Administrador") {
+      setView(true)
     }
     if (aoEditarUsuario) {
       const usuario = ref.current;
@@ -153,7 +157,8 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
     setResetAppear(false);
     setCpfValido(false);
     setCheckedCep(false);
-    setView(false);
+    if (userType === "Administrador")
+    setView(true);
     if (userType === "Funcionário") {
       handleCliente();
     }
@@ -210,17 +215,15 @@ const Form = ({ pegarUsuarios, aoEditarUsuario, setAoEditarUsuario }) => {
     if (!colaborador) {
       setColaborador(true);
       setCliente(false);
-      setView(true);
+      setView(false);
     }
   };
 
   const handleCliente = () => {
     setCliente(true);
     setColaborador(false);
-    setView(true);
+    setView(false);
   };
-
-  const { userType } = useAuth();
 
   return (
     <Box>
