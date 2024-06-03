@@ -31,13 +31,21 @@ import { IoIosBusiness } from "react-icons/io";
 
 const NavBar = () => {
   const { toggleColorMode, colorMode } = useColorMode();
-  const { isAuthenticated, userType, logout, user } = useAuth();
+  const {
+    isAuthenticated,
+    userType,
+    logout,
+    user,
+    setSideBarClicada,
+    sideBarClicada,
+  } = useAuth();
   const [display, changeDisplay] = useState(false); // Changed to a boolean value for toggle
   const [buttonIcon, setButtonIcon] = useState(<MdMenu />); // State to manage button icon
 
   const toggleSidebar = () => {
     changeDisplay(!display); // Toggle the state
     setButtonIcon(display ? <MdMenu /> : <MdCloseFullscreen />); // Change button icon based on display state
+    setSideBarClicada(!sideBarClicada);
   };
 
   const iconsBtn = {
@@ -139,7 +147,12 @@ const NavBar = () => {
         </Flex>
 
         {/* Sidebar content */}
-        <Flex flexDir="column" align="flex-end" justify="flex-end">
+        <Flex
+          flexDir="column"
+          align="flex-end"
+          justify="flex-end"
+          opacity="100%"
+        >
           {isAuthenticated &&
             (userType === "Administrador" || userType === "Funcionário" ? (
               <>

@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [userType, setUserType] = useState(null);
   const [loading, setLoading] = useState(true); // Adicionando estado de carregamento
   const [isActive, setIsActive] = useState(false);
+  const [sideBarClicada, setSideBarClicada] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -77,6 +78,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         isActive,
         setIsActive,
+        sideBarClicada,
+        setSideBarClicada,
       }}
     >
       {!loading && children}{" "}

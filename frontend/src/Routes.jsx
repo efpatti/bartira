@@ -23,7 +23,8 @@ import SharedRoutesFuncAdm from "./utils/SharedRoutesFuncAdm";
 import SharedRoutes from "./utils/SharedRoutes";
 import RoutesClient from "./utils/RoutesClient";
 
-import { Box } from "@chakra-ui/react";
+import { Box, useColorMode } from "@chakra-ui/react";
+import { useAuth } from "./hooks/useAuth";
 
 const routes = [
   {
@@ -53,10 +54,22 @@ const routes = [
 ];
 
 export function Router() {
+  const bgA = {
+    backgroundRepeat: "no-repeat",
+    background: "black",
+  };
+  const { sideBarClicada } = useAuth();
+  const { colorMode } = useColorMode();
   return (
     <>
       <NavBar />
-      <Box mt="64px" id="espaco-nav" mb="64px">
+      <Box
+        mt="64px"
+        id="espaco-nav"
+        filter="auto"
+        blur={sideBarClicada ? "2px" : ""}
+        transition="all 0.3s"
+      >
         <Routes>
           {routes.map((route, i) => (
             <Route key={i} element={<route.routeType />}>
